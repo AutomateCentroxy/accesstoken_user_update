@@ -1222,8 +1222,8 @@
 			"id": "assignmentNode-f7264599-8d2c-4563-8d80-a4f5a511675c",
 			"type": "assignmentNode",
 			"position": {
-				"x": 1638.371404686032,
-				"y": 877.9111644202861
+				"x": 1584.679114065259,
+				"y": 862.4405044109109
 			},
 			"data": {
 				"id": "assignmentNode-f7264599-8d2c-4563-8d80-a4f5a511675c",
@@ -1238,8 +1238,8 @@
 					"assignments": [
 						{
 							"variableTypeCheck": true,
-							"assignmentExpression": "{ success:false, error: authCheck.error }",
-							"assignedVariableName": "authErrorResponse"
+							"assignmentExpression": "authCheck.error",
+							"assignedVariableName": "errorMessage"
 						}
 					],
 					"nodeIcon": "material-symbols:equal",
@@ -1255,7 +1255,8 @@
 				"width": 170,
 				"height": 123
 			},
-			"selected": false
+			"selected": false,
+			"dragging": false
 		},
 		{
 			"id": "logNode-417116f1-e7ed-4c69-bd16-223f91aa8584",
@@ -1331,24 +1332,29 @@
 			"selected": false
 		},
 		{
-			"id": "logNode-84e2aa46-a202-4c02-9efe-00dfd9a6fc4f",
-			"type": "logNode",
+			"id": "assignmentNode-a76940c9-eeaa-45d0-8078-2ea30063aa11",
+			"type": "assignmentNode",
 			"position": {
-				"x": 1888.371404686032,
-				"y": 877.9111644202861
+				"x": 1834.679114065259,
+				"y": 862.4405044109109
 			},
 			"data": {
-				"id": "logNode-84e2aa46-a202-4c02-9efe-00dfd9a6fc4f",
-				"type": "logNode",
+				"id": "assignmentNode-a76940c9-eeaa-45d0-8078-2ea30063aa11",
+				"type": "assignmentNode",
 				"position": {
-					"x": 1888.371404686032,
-					"y": 877.9111644202861
+					"x": 1834.679114065259,
+					"y": 862.4405044109109
 				},
 				"previousNodeId": "assignmentNode-f7264599-8d2c-4563-8d80-a4f5a511675c",
 				"agamaData": {
-					"logMessage": "\"Invalid access token \" authErrorResponse",
-					"logLevel": "info",
-					"nodeIcon": "octicon:log-16",
+					"assignments": [
+						{
+							"variableTypeCheck": true,
+							"assignmentExpression": "errorMessage",
+							"assignedVariableName": "uiFeedback.errorMessage"
+						}
+					],
+					"nodeIcon": "material-symbols:equal",
 					"nodeColor": "",
 					"titleColor": "",
 					"descColor": "",
@@ -1990,10 +1996,10 @@
 			"id": "xy-edge__assignmentNode-07f865b4-2ab1-470c-a0be-340479924c47source_assignmentNode-07f865b4-2ab1-470c-a0be-340479924c47-callNode-c6b83a3b-2427-450b-b529-567f0c7179detarget_callNode-c6b83a3b-2427-450b-b529-567f0c7179de"
 		},
 		{
-			"id": "assignmentNode-f7264599-8d2c-4563-8d80-a4f5a511675c-logNode-84e2aa46-a202-4c02-9efe-00dfd9a6fc4f",
+			"id": "assignmentNode-f7264599-8d2c-4563-8d80-a4f5a511675c-assignmentNode-a76940c9-eeaa-45d0-8078-2ea30063aa11",
 			"type": "default",
 			"source": "assignmentNode-f7264599-8d2c-4563-8d80-a4f5a511675c",
-			"target": "logNode-84e2aa46-a202-4c02-9efe-00dfd9a6fc4f",
+			"target": "assignmentNode-a76940c9-eeaa-45d0-8078-2ea30063aa11",
 			"labelBgPadding": [
 				8,
 				4
@@ -2010,8 +2016,8 @@
 		}
 	],
 	"viewport": {
-		"x": -983.7443680014076,
-		"y": -555.7614078838944,
+		"x": -1516.7443680014076,
+		"y": -543.7614078838944,
 		"zoom": 1.0988542175768798
 	}
 }
