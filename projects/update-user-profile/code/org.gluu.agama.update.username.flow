@@ -11,7 +11,8 @@ Repeat 6 times max
      // accessToken
      Log "@info Validating access token: %" access_token
      authCheck = Call org.gluu.agama.user.JansUsernameUpdate#validateBearerToken access_token
-     When 
+     // Token validation true
+     When authCheck.valid is true
           //  Retrieve user profile  from UI
           searchUserInput = RRF "searchUser.ftlh" uiFeedback
           // Create an Instance of Update Service
@@ -57,8 +58,8 @@ Repeat 6 times max
                               //  Finish the flow successfully
                               Log "@info Finish the flow successfully"
                               //  Finish the flow successfully
-                              it_eutxm = {success:true, data:  { userId: updatedUser.uid } }
-                              Finish it_eutxm
+                              it_dijtt = {success:true, data:  { userId: updatedUser.uid } }
+                              Finish it_dijtt
                          Otherwise
                               //  User update failed log
                               Log "@info User update failed. Error : %" E
@@ -68,5 +69,5 @@ Repeat 6 times max
 //  Maximum attempt reached
 Log "@info Maximum attempt reached"
 //  User Registration flow failed
-it_rgmwm = {success:false, error: "User update flow reached max attempts try later"}
-Finish it_rgmwm
+it_jcfbr = {success:false, error: "User update flow reached max attempts try later"}
+Finish it_jcfbr
