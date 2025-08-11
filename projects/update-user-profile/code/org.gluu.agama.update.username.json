@@ -1030,7 +1030,7 @@
 				},
 				"previousNodeId": "assignmentNode-6aa1d96f-73fa-4e88-bf19-5d61f66cba58",
 				"agamaData": {
-					"logMessage": "\"Validating access token: %\" access_token",
+					"logMessage": "\"Validating access token: %\" accessToken",
 					"logLevel": "info",
 					"nodeIcon": "octicon:log-16",
 					"nodeColor": "",
@@ -1045,7 +1045,7 @@
 				"width": 170,
 				"height": 124
 			},
-			"selected": false,
+			"selected": true,
 			"dragging": false
 		},
 		{
@@ -1317,7 +1317,7 @@
 				"width": 170,
 				"height": 124
 			},
-			"selected": true,
+			"selected": false,
 			"dragging": false
 		},
 		{
@@ -2005,8 +2005,8 @@
 		}
 	],
 	"viewport": {
-		"x": -684.6997575191542,
-		"y": -305.43413223400273,
-		"zoom": 0.7536674547791898
+		"x": -271.4614597557295,
+		"y": -331.32766711882994,
+		"zoom": 0.9862327044933579
 	}
 }
