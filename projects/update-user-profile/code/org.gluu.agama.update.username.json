@@ -1059,8 +1059,8 @@
 			"id": "callNode-6432093f-e887-4284-87dd-658a727ce11b",
 			"type": "callNode",
 			"position": {
-				"x": 602.7086169627469,
-				"y": 409.26038667481606
+				"x": 325.2900658142845,
+				"y": 389.6317156029909
 			},
 			"data": {
 				"id": "callNode-6432093f-e887-4284-87dd-658a727ce11b",
@@ -1071,32 +1071,37 @@
 				},
 				"previousNodeId": "logNode-3391a9d1-d5fd-4b19-8d0b-13c4243f9ae8",
 				"agamaData": {
-					"javaClassName": "",
-					"javaMethodName": "",
+					"javaClassName": "org.gluu.agama.user.JansUsernameUpdate",
+					"javaMethodName": "validateBearerToken",
 					"javaVariableName": "",
 					"exceptionVariableField": "",
 					"callType": "Call static method",
-					"arguments": [],
+					"arguments": [
+						"access_token"
+					],
 					"nodeIcon": "material-symbols:code",
 					"nodeColor": "",
 					"titleColor": "",
 					"descColor": "",
-					"displayName": "",
+					"displayName": "Call validateBearerToken",
 					"hasComment": true,
-					"comment": ""
+					"comment": "",
+					"asssignedVariableName": "authCheck"
 				}
 			},
 			"measured": {
 				"width": 170,
 				"height": 124
-			}
+			},
+			"selected": true,
+			"dragging": false
 		},
 		{
 			"id": "whenNode-e467d92e-9e13-460f-9df8-abba4e8f1583",
 			"type": "whenNode",
 			"position": {
-				"x": 871.028709963117,
-				"y": 408.3743734593405
+				"x": 625.016032529575,
+				"y": 421.46015417389066
 			},
 			"data": {
 				"id": "whenNode-e467d92e-9e13-460f-9df8-abba4e8f1583",
@@ -1266,7 +1271,7 @@
 				"width": 170,
 				"height": 124
 			},
-			"selected": true
+			"selected": false
 		},
 		{
 			"id": "quitNode-241c8254-ff71-4995-82f5-96896ff6aa83",
@@ -1932,8 +1937,8 @@
 		}
 	],
 	"viewport": {
-		"x": 300.8943595062642,
-		"y": 11.200559061932609,
+		"x": 219.8943595062642,
+		"y": 21.20055906193261,
 		"zoom": 0.7641882603825829
 	}
 }
