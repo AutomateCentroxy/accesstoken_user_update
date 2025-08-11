@@ -805,6 +805,11 @@
 							"variableTypeCheck": true,
 							"assignmentExpression": "updatedUser.lang",
 							"assignedVariableName": "lang"
+						},
+						{
+							"variableTypeCheck": true,
+							"assignmentExpression": "updatedUser.givenName",
+							"assignedVariableName": "givenName"
 						}
 					],
 					"nodeIcon": "material-symbols:equal",
@@ -847,6 +852,7 @@
 					"arguments": [
 						"email",
 						"newUsername",
+						"givenName",
 						"lang"
 					],
 					"nodeIcon": "material-symbols:code",
@@ -2005,8 +2011,8 @@
 		}
 	],
 	"viewport": {
-		"x": -6610.765905896819,
-		"y": -278.6548608429688,
-		"zoom": 1.5669943738986813
+		"x": -6108.6609543961995,
+		"y": -211.94700490259584,
+		"zoom": 1.4824670098028352
 	}
 }
