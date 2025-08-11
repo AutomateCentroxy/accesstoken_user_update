@@ -1146,14 +1146,15 @@
 				"agamaData": {
 					"assignments": [],
 					"nodeIcon": "ph:globe-simple",
-					"templatePath": "",
-					"asssignedVariableName": "",
+					"templatePath": "searchUser.ftlh",
+					"asssignedVariableName": "searchUserInput",
 					"nodeColor": "",
 					"titleColor": "",
 					"descColor": "",
-					"displayName": "",
+					"displayName": "RRF",
 					"hasComment": true,
-					"comment": ""
+					"comment": " Retrieve user profile  from UI",
+					"arguments": "uiFeedback"
 				}
 			},
 			"measured": {
@@ -1198,7 +1199,7 @@
 				"width": 170,
 				"height": 124
 			},
-			"selected": false,
+			"selected": true,
 			"dragging": false
 		},
 		{
@@ -1264,7 +1265,8 @@
 			"measured": {
 				"width": 170,
 				"height": 124
-			}
+			},
+			"selected": false
 		}
 	],
 	"edges": [
@@ -1877,8 +1879,8 @@
 		}
 	],
 	"viewport": {
-		"x": -249.3626713392389,
-		"y": 66.73103695948299,
-		"zoom": 0.7641882603825829
+		"x": -175.85212051331916,
+		"y": 44.62076732758766,
+		"zoom": 0.6634225702985805
 	}
 }
