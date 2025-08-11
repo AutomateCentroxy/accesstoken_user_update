@@ -304,7 +304,7 @@
 				"width": 110,
 				"height": 60
 			},
-			"selected": true,
+			"selected": false,
 			"dragging": false
 		},
 		{
@@ -1202,6 +1202,39 @@
 				"width": 110,
 				"height": 60
 			}
+		},
+		{
+			"id": "assignmentNode-24760717-9056-442c-b659-16cbc14485d8",
+			"type": "assignmentNode",
+			"position": {
+				"x": 962.4886878382315,
+				"y": 51.63455588935477
+			},
+			"data": {
+				"id": "assignmentNode-24760717-9056-442c-b659-16cbc14485d8",
+				"type": "assignmentNode",
+				"position": {
+					"x": 962.4886878382315,
+					"y": 51.63455588935477
+				},
+				"previousNodeId": "whenNode-22f7f4c5-84df-4eb8-b8f4-bdfa48560232",
+				"branching": "otherwise",
+				"agamaData": {
+					"assignments": [],
+					"nodeIcon": "material-symbols:equal",
+					"nodeColor": "",
+					"titleColor": "",
+					"descColor": "",
+					"displayName": "",
+					"hasComment": true,
+					"comment": ""
+				}
+			},
+			"measured": {
+				"width": 170,
+				"height": 124
+			},
+			"selected": false
 		}
 	],
 	"edges": [
@@ -1773,11 +1806,30 @@
 				"fillOpacity": 0.7
 			},
 			"id": "xy-edge__whenNode-22f7f4c5-84df-4eb8-b8f4-bdfa48560232source_whenNode-22f7f4c5-84df-4eb8-b8f4-bdfa48560232_success-rrfNode-35a3c933-e8f4-4de3-80ad-129fd8a15453target_rrfNode-35a3c933-e8f4-4de3-80ad-129fd8a15453"
+		},
+		{
+			"id": "whenNode-22f7f4c5-84df-4eb8-b8f4-bdfa48560232-assignmentNode-24760717-9056-442c-b659-16cbc14485d8",
+			"type": "default",
+			"source": "whenNode-22f7f4c5-84df-4eb8-b8f4-bdfa48560232",
+			"target": "assignmentNode-24760717-9056-442c-b659-16cbc14485d8",
+			"labelBgPadding": [
+				8,
+				4
+			],
+			"labelBgBorderRadius": 4,
+			"label": "otherwise",
+			"labelBgStyle": {
+				"fill": "#009688",
+				"color": "#ffffff",
+				"fillOpacity": 0.7
+			},
+			"labelShowBg": true,
+			"sourceHandle": "source_whenNode-22f7f4c5-84df-4eb8-b8f4-bdfa48560232_otherwise"
 		}
 	],
 	"viewport": {
-		"x": -157.71687065403273,
-		"y": 112.85165632703999,
+		"x": -156.71687065403285,
+		"y": 116.85165632704002,
 		"zoom": 0.7641882603825831
 	}
 }
