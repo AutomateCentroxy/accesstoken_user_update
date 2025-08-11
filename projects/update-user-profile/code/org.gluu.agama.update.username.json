@@ -1251,7 +1251,7 @@
 				},
 				"previousNodeId": "rrfNode-9bcc5eee-ea1b-416a-92d5-965ba06610da",
 				"agamaData": {
-					"logMessage": "\"Validating access token: %\" accessToken",
+					"logMessage": "\"Validating access token: %\" access_token",
 					"logLevel": "info",
 					"nodeIcon": "octicon:log-16",
 					"nodeColor": "",
