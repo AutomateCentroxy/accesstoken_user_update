@@ -267,7 +267,8 @@
 				"width": 110,
 				"height": 60
 			},
-			"selected": false
+			"selected": true,
+			"dragging": false
 		},
 		{
 			"id": "rrfNode-82f7ec86-4ecf-4e76-b9dc-ffb28d306341",
@@ -1126,7 +1127,7 @@
 				"width": 170,
 				"height": 124
 			},
-			"selected": true
+			"selected": false
 		},
 		{
 			"id": "assignmentNode-6aa1d96f-73fa-4e88-bf19-5d61f66cba58",
@@ -1346,9 +1347,9 @@
 					"nodeColor": "",
 					"titleColor": "",
 					"descColor": "",
-					"displayName": "",
+					"displayName": "ASSIGNMENT",
 					"hasComment": true,
-					"comment": ""
+					"comment": "Assign username to a variable"
 				}
 			},
 			"measured": {
@@ -2004,8 +2005,8 @@
 		}
 	],
 	"viewport": {
-		"x": -449.69975751915445,
-		"y": -274.43413223400273,
+		"x": -684.6997575191542,
+		"y": -305.43413223400273,
 		"zoom": 0.7536674547791898
 	}
 }
