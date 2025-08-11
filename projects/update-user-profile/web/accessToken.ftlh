@@ -1,24 +1,22 @@
 [#ftl output_format="HTML"]
 <!DOCTYPE html>
 <html lang="en">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Access Token Input
-	</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"></head>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Access Token Input</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"></head>
 <body>
 
-  
+
 	
 	
 	
 	
-  
-  
+
+
 	<div class="container">
 	  <div class="header">
-		<i class="fas fa-key">
-		</i> Enter Access Token
+		<i class="fas fa-key"></i> Enter Access Token
 	  </div>
 	  <div class="content">
-		<form method="post" id="tokenForm">
+		<form id="tokenForm">
 		  <div class="form-group">
 			<label class="form-label">Access Token:</label>
 			<input type="text" id="accessToken" name="accessToken" required="" placeholder="Paste your access token here" class="form-control">
@@ -26,14 +24,15 @@
 		  <div class="buttons">
 			<button type="submit" class="btn btn-primary">Submit</button>
 		  </div>
-		  <div id="errorMessage" class="error">
-		  </div>
+		  <div id="errorMessage" class="error"></div>
 		</form>
 	  </div>
 	</div>
-  
-  
-  
+
+
+
+
+
 </body>
 <style>
 	body {
@@ -106,20 +105,48 @@
 	  font-weight: bold;
 	  margin-top: 5px;
 	}
-  </style>
+</style>
 <script>
-	document.getElementById('tokenForm').addEventListener('submit', function(e) {
+	document.getElementById('tokenForm').addEventListener('submit', async function(e) {
 	  e.preventDefault();
+
 	  const token = document.getElementById('accessToken').value.trim();
 	  const errorMsg = document.getElementById('errorMessage');
+
 	  if (!token) {
 		errorMsg.textContent = "Access token is required!";
 		return;
 	  }
 	  errorMsg.textContent = "";
-	  alert("Access Token Submitted:\n" + token);
-	  // You can send it to your backend here using fetch()
-	}
-														 );
-  </script>
+
+	  try {
+		// Send token to your Agama flow
+		const flowName = "org.gluu.agama.user.JansUsernameUpdate"; // change to your flow name
+		const response = await fetch("https://YOUR-JANSSEN-HOST/jans-auth/restv1/authorize-challenge", {
+		  method: "POST",
+		  headers: {
+			"Content-Type": "application/x-www-form-urlencoded"
+		  },
+		  body: new URLSearchParams({
+			acr_values: flowName,
+			use_auth_session: "true",
+			data: JSON.stringify({ access_token: token })
+		  })
+		});
+
+		if (!response.ok) {
+		  throw new Error("Flow start failed: " + response.status);
+		}
+
+		// Janssen will return HTML for the next UI (searchUser.ftlh)
+		const html = await response.text();
+		document.open();
+		document.write(html);
+		document.close();
+
+	  } catch (err) {
+		errorMsg.textContent = err.message;
+	  }
+	});
+</script>
 </html>
