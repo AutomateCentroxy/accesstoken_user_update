@@ -267,7 +267,7 @@
 				"width": 110,
 				"height": 60
 			},
-			"selected": true,
+			"selected": false,
 			"dragging": false
 		},
 		{
@@ -1310,14 +1310,14 @@
 					"descColor": "",
 					"displayName": "Token validation successful",
 					"hasComment": true,
-					"comment": ""
+					"comment": "Token is valid, proceed with user search"
 				}
 			},
 			"measured": {
 				"width": 170,
 				"height": 124
 			},
-			"selected": false,
+			"selected": true,
 			"dragging": false
 		},
 		{
