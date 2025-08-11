@@ -1106,7 +1106,7 @@
 				},
 				"previousNodeId": "logNode-3391a9d1-d5fd-4b19-8d0b-13c4243f9ae8",
 				"agamaData": {
-					"javaClassName": "Call org.gluu.agama.user.UsernameUpdate",
+					"javaClassName": "org.gluu.agama.user.UsernameUpdate",
 					"javaMethodName": "getInstance",
 					"javaVariableName": "",
 					"exceptionVariableField": "",
@@ -1126,7 +1126,7 @@
 				"width": 170,
 				"height": 124
 			},
-			"selected": false
+			"selected": true
 		},
 		{
 			"id": "assignmentNode-6aa1d96f-73fa-4e88-bf19-5d61f66cba58",
@@ -1355,7 +1355,7 @@
 				"width": 170,
 				"height": 124
 			},
-			"selected": true
+			"selected": false
 		}
 	],
 	"edges": [
@@ -2004,8 +2004,8 @@
 		}
 	],
 	"viewport": {
-		"x": -892.6997575191544,
-		"y": -301.43413223400273,
+		"x": -449.69975751915445,
+		"y": -274.43413223400273,
 		"zoom": 0.7536674547791898
 	}
 }
