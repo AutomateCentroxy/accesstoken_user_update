@@ -319,6 +319,12 @@ public class JansUsernameUpdate extends UsernameUpdate {
                 LogUtils.log("SMTP configuration is missing.");
                 return false;
             }
+            
+            // Build context data
+            ContextData context = new ContextData();
+            context.setDevice("Unknown");
+            context.setLocation("Unknown");
+            context.setTimeZone("UTC");
 
             // Use preferred lang from Agama directly
             String preferredLang = (lang != null && !lang.isEmpty())
@@ -326,7 +332,7 @@ public class JansUsernameUpdate extends UsernameUpdate {
                     : "en"; // fallback to English
 
             // Load HTML body from Groovy template
-            String htmlBody = SendEmailTemplate.get("sendmail", newUsername, givenName, preferredLang);
+            String htmlBody = SendEmailTemplate.get("sendmail", newUsername, givenName, preferredLang, context);
 
             // Load subject from Groovy template
             String subject = SendEmailTemplate.getSubject("sendmail", preferredLang);
@@ -334,11 +340,7 @@ public class JansUsernameUpdate extends UsernameUpdate {
             // Plain text version (optional, could strip HTML)
             String textBody = subject + ": " + newUsername;
 
-            // Build context data
-            ContextData context = new ContextData();
-            context.setDevice("Unknown");
-            context.setLocation("Unknown");
-            context.setTimeZone("UTC");
+            
 
             // Send signed email
             MailService mailService = CdiUtil.bean(MailService.class);
