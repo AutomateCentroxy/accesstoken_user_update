@@ -190,8 +190,8 @@
 			"id": "rrfNode-35a3c933-e8f4-4de3-80ad-129fd8a15453",
 			"type": "rrfNode",
 			"position": {
-				"x": 1190.4728637951885,
-				"y": 633.3897451456259
+				"x": 1352.7365446556098,
+				"y": 587.5895126447006
 			},
 			"data": {
 				"id": "rrfNode-35a3c933-e8f4-4de3-80ad-129fd8a15453",
@@ -229,8 +229,8 @@
 			"id": "whenNode-d694df01-717b-4251-9a80-243bc682f20f",
 			"type": "whenNode",
 			"position": {
-				"x": 1442.305313785849,
-				"y": 681.3416738949255
+				"x": 1628.1233999324604,
+				"y": 626.3813948938151
 			},
 			"data": {
 				"id": "whenNode-d694df01-717b-4251-9a80-243bc682f20f",
@@ -272,8 +272,8 @@
 			"id": "assignmentNode-82a19340-493e-4716-a3db-7f9c287abdd2",
 			"type": "assignmentNode",
 			"position": {
-				"x": 1650.7480222686188,
-				"y": 756.935033994753
+				"x": 1781.6058294141199,
+				"y": 715.0605357081926
 			},
 			"data": {
 				"id": "assignmentNode-82a19340-493e-4716-a3db-7f9c287abdd2",
@@ -312,8 +312,8 @@
 			"id": "callNode-c6b83a3b-2427-450b-b529-567f0c7179de",
 			"type": "callNode",
 			"position": {
-				"x": 1914,
-				"y": 825
+				"x": 2022.6119799307658,
+				"y": 683.6735682828587
 			},
 			"data": {
 				"id": "callNode-c6b83a3b-2427-450b-b529-567f0c7179de",
@@ -1056,7 +1056,7 @@
 				"width": 170,
 				"height": 124
 			},
-			"selected": true,
+			"selected": false,
 			"dragging": false
 		},
 		{
@@ -1137,8 +1137,8 @@
 			"id": "whenNode-22f7f4c5-84df-4eb8-b8f4-bdfa48560232",
 			"type": "whenNode",
 			"position": {
-				"x": 899.6062451221424,
-				"y": 457.4043467493174
+				"x": 1124.6816734124043,
+				"y": 423.38131689148713
 			},
 			"data": {
 				"id": "whenNode-22f7f4c5-84df-4eb8-b8f4-bdfa48560232",
@@ -1186,10 +1186,10 @@
 				"previousNodeId": "callNode-2751e2e3-5e3e-4efc-80c8-58c8f2da5bc4",
 				"agamaData": {
 					"javaClassName": "",
-					"javaMethodName": "",
+					"javaMethodName": "validateBearerToken",
 					"javaVariableName": "",
 					"exceptionVariableField": "",
-					"callType": "Call static method",
+					"callType": "Call method on instance",
 					"arguments": [],
 					"nodeIcon": "material-symbols:code",
 					"nodeColor": "",
@@ -1204,15 +1204,15 @@
 				"width": 170,
 				"height": 124
 			},
-			"selected": false,
+			"selected": true,
 			"dragging": false
 		},
 		{
 			"id": "assignmentNode-24760717-9056-442c-b659-16cbc14485d8",
 			"type": "assignmentNode",
 			"position": {
-				"x": 1152.1643890366468,
-				"y": 246.3231716522062
+				"x": 1404.719956827464,
+				"y": 171.7342215792706
 			},
 			"data": {
 				"id": "assignmentNode-24760717-9056-442c-b659-16cbc14485d8",
@@ -1832,8 +1832,8 @@
 		}
 	],
 	"viewport": {
-		"x": 19.01213843680921,
-		"y": -90.62737509459237,
+		"x": -89.98786156319079,
+		"y": -14.627375094592253,
 		"zoom": 0.7641882603825827
 	}
 }
