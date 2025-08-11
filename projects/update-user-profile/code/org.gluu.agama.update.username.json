@@ -852,8 +852,8 @@
 					"arguments": [
 						"email",
 						"newUsername",
-						"lang",
-						"givenName"
+						"givenName",
+						"lang"
 					],
 					"nodeIcon": "material-symbols:code",
 					"nodeColor": "",
@@ -869,7 +869,7 @@
 				"width": 170,
 				"height": 122
 			},
-			"selected": false
+			"selected": true
 		},
 		{
 			"id": "logNode-6259a2a7-7cc8-476e-88f5-0f2334a880ab",
@@ -2011,8 +2011,8 @@
 		}
 	],
 	"viewport": {
-		"x": -3736.55462363465,
-		"y": 227.66914429203376,
+		"x": -3434.55462363465,
+		"y": 45.669144292033764,
 		"zoom": 0.9017452138665948
 	}
 }
