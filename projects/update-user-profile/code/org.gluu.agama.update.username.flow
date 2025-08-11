@@ -10,7 +10,7 @@ Repeat 6 times max
      access_token = RRF "accessToken.ftlh" uiFeedback
      // accessToken
      Log "@info Validating access token: %" access_token
-     Call __________#__________ 
+     authCheck = Call org.gluu.agama.user.JansUsernameUpdate#validateBearerToken access_token
      When 
           //  Retrieve user profile  from UI
           searchUserInput = RRF "searchUser.ftlh" uiFeedback
@@ -57,8 +57,8 @@ Repeat 6 times max
                               //  Finish the flow successfully
                               Log "@info Finish the flow successfully"
                               //  Finish the flow successfully
-                              it_mauxn = {success:true, data:  { userId: updatedUser.uid } }
-                              Finish it_mauxn
+                              it_eutxm = {success:true, data:  { userId: updatedUser.uid } }
+                              Finish it_eutxm
                          Otherwise
                               //  User update failed log
                               Log "@info User update failed. Error : %" E
@@ -68,5 +68,5 @@ Repeat 6 times max
 //  Maximum attempt reached
 Log "@info Maximum attempt reached"
 //  User Registration flow failed
-it_xwdzx = {success:false, error: "User update flow reached max attempts try later"}
-Finish it_xwdzx
+it_rgmwm = {success:false, error: "User update flow reached max attempts try later"}
+Finish it_rgmwm
