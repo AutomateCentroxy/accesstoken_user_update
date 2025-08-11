@@ -8,11 +8,10 @@ uiFeedback.errorMessage = ""
 Repeat 6 times max
      //  Retrieve Access token from UI
      access_token = RRF "accessToken.ftlh" uiFeedback
-     usernameUpdateService = Call org.gluu.agama.user.UsernameUpdate#getInstance 
-     Call __________ validateBearerToken 
+     Call __________#__________ 
      When 
-          //  Retrieve user profile  from UI
-          searchUserInput = RRF "searchUser.ftlh" uiFeedback
+          RRF "__________" 
+          Call __________#__________ 
           // when searchUserForm is submitted
           When searchUserInput.formType is "searchUserForm"
                // assign username to a variable
@@ -54,15 +53,16 @@ Repeat 6 times max
                               //  Finish the flow successfully
                               Log "@info Finish the flow successfully"
                               //  Finish the flow successfully
-                              it_waqjc = {success:true, data:  { userId: updatedUser.uid } }
-                              Finish it_waqjc
+                              it_yzhun = {success:true, data:  { userId: updatedUser.uid } }
+                              Finish it_yzhun
                          Otherwise
                               //  User update failed log
                               Log "@info User update failed. Error : %" E
                               uiFeedback.errorMessage = "User update failed"
      Otherwise
+          Finish __________
 //  Maximum attempt reached
 Log "@info Maximum attempt reached"
 //  User Registration flow failed
-it_ixjxj = {success:false, error: "User update flow reached max attempts try later"}
-Finish it_ixjxj
+it_owjgs = {success:false, error: "User update flow reached max attempts try later"}
+Finish it_owjgs
