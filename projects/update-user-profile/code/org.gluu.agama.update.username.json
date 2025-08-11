@@ -1238,7 +1238,7 @@
 					"assignments": [
 						{
 							"variableTypeCheck": true,
-							"assignmentExpression": "{\n  type: \"engine_error\",\n  status: 500,\n  message: authCheck.error\n}",
+							"assignmentExpression": "{type: \"engine_error\",status: 500,message: authCheck.error}",
 							"assignedVariableName": "authErrorResponse"
 						}
 					],
@@ -1255,7 +1255,7 @@
 				"width": 170,
 				"height": 123
 			},
-			"selected": false,
+			"selected": true,
 			"dragging": false
 		},
 		{
@@ -1363,7 +1363,7 @@
 				"width": 170,
 				"height": 123
 			},
-			"selected": true
+			"selected": false
 		}
 	],
 	"edges": [
