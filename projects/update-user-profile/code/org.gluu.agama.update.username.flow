@@ -10,7 +10,8 @@ Repeat 6 times max
      access_token = RRF "accessToken.ftlh" uiFeedback
      Call __________#__________ 
      When 
-          RRF "__________" 
+          //  Retrieve user profile  from UI
+          searchUserInput = RRF "searchUser.ftlh" uiFeedback
           Call __________#__________ 
           // when searchUserForm is submitted
           When searchUserInput.formType is "searchUserForm"
@@ -53,8 +54,8 @@ Repeat 6 times max
                               //  Finish the flow successfully
                               Log "@info Finish the flow successfully"
                               //  Finish the flow successfully
-                              it_mtusv = {success:true, data:  { userId: updatedUser.uid } }
-                              Finish it_mtusv
+                              it_ckouo = {success:true, data:  { userId: updatedUser.uid } }
+                              Finish it_ckouo
                          Otherwise
                               //  User update failed log
                               Log "@info User update failed. Error : %" E
@@ -64,5 +65,5 @@ Repeat 6 times max
 //  Maximum attempt reached
 Log "@info Maximum attempt reached"
 //  User Registration flow failed
-it_zpkbx = {success:false, error: "User update flow reached max attempts try later"}
-Finish it_zpkbx
+it_mkdnw = {success:false, error: "User update flow reached max attempts try later"}
+Finish it_mkdnw
