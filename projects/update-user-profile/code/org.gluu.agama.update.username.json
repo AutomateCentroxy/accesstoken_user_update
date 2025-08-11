@@ -1238,7 +1238,7 @@
 					"assignments": [
 						{
 							"variableTypeCheck": true,
-							"assignmentExpression": "{success: false, type: \"engine_error\",status: 500,error: authCheck.error}",
+							"assignmentExpression": "{success: false, error: authCheck.error}",
 							"assignedVariableName": "authErrorResponse"
 						}
 					],
@@ -2012,8 +2012,8 @@
 		}
 	],
 	"viewport": {
-		"x": -1288.744368001407,
-		"y": -451.76140788389444,
-		"zoom": 1.0988542175768798
+		"x": -1457.150281386319,
+		"y": -679.7448111760036,
+		"zoom": 1.3491025343396987
 	}
 }
