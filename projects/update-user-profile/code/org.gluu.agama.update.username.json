@@ -1093,15 +1093,15 @@
 				"width": 170,
 				"height": 124
 			},
-			"selected": true,
+			"selected": false,
 			"dragging": false
 		},
 		{
 			"id": "whenNode-e467d92e-9e13-460f-9df8-abba4e8f1583",
 			"type": "whenNode",
 			"position": {
-				"x": 625.016032529575,
-				"y": 421.46015417389066
+				"x": 602.7702053148398,
+				"y": 433.2373568169857
 			},
 			"data": {
 				"id": "whenNode-e467d92e-9e13-460f-9df8-abba4e8f1583",
@@ -1115,21 +1115,28 @@
 					"variableField": "",
 					"valueField": "",
 					"conditionInputField": "",
-					"conditions": [],
+					"conditions": [
+						{
+							"variable": "authCheck.valid",
+							"operator": "is",
+							"dataValue": "true",
+							"combinator": "none"
+						}
+					],
 					"nodeIcon": "ph:swap",
 					"nodeColor": "",
 					"titleColor": "",
 					"descColor": "",
 					"displayName": "",
 					"hasComment": true,
-					"comment": ""
+					"comment": "Token validation true"
 				}
 			},
 			"measured": {
 				"width": 110,
 				"height": 60
 			},
-			"selected": false,
+			"selected": true,
 			"dragging": false
 		},
 		{
@@ -1937,8 +1944,8 @@
 		}
 	],
 	"viewport": {
-		"x": 219.8943595062642,
-		"y": 21.20055906193261,
+		"x": 136.89435950626432,
+		"y": 30.20055906193261,
 		"zoom": 0.7641882603825829
 	}
 }
