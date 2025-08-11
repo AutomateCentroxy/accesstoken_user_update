@@ -30,7 +30,7 @@ class SendEmailTemplate {
 
         def binding = new Binding([
             username : username,
-            givenName: givenName
+            givenName: givenName,
             timeZone  : context?.timeZone ?: "UTC"
         ])
 
