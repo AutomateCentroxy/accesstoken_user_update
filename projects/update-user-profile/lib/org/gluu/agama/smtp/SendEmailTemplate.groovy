@@ -7,33 +7,34 @@ import org.gluu.agama.smtp.jans.model.ContextData;
 
 class SendEmailTemplate {
 
-    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM dd, YYYY, hh:mma (O)");
+    private static final DateTimeFormatter FORMATTER =
+            DateTimeFormatter.ofPattern("MMMM dd, yyyy, hh:mma (O)");
 
     static String get(String username, ContextData context, Map<String, String> bundle) {
-        return """
-<div style="width: 640px; font-size: 18px; font-family: 'Roboto', sans-serif; font-weight: 300; color: #333;">
+        String body = bundle.getOrDefault("body", "");
+        String footer = bundle.getOrDefault("footer", "");
+        String dateLabel = bundle.getOrDefault("dateLabel", "When this happened:");
 
+        return String.format("""
+<div style="width: 640px; font-size: 18px; font-family: 'Roboto', sans-serif; font-weight: 300; color: #333;">
 
     <!-- Main Content -->
     <div style="padding: 20px; border-bottom: 1px solid #ccc;">
-        <p><b>Hi,</b><br><br>
-        """ + bundle.get("body") + """</p>
+        <p><b>Hi,</b><br><br>%s</p>
 
         <div style="display: flex; justify-content: center; margin: 20px 0;">
             <div style="background-color: #B29163; color: white; font-size: 30px; font-weight: 500; padding: 10px 20px; border-radius: 8px;" align="center">
-                """ + username + """
+                %s
             </div>
         </div>
 
-        <p style="font-size: 14px;">
-            """ + bundle.get("footer") + """
-        </p>
+        <p style="font-size: 14px;">%s</p>
     </div>
 
     <!-- Date Section -->
     <div style="padding: 12px; background-color: #ecf0f5; font-size: 16px;">
-        <p style="color: #48596b; font-weight: 500;">""" + bundle.getOrDefault("dateLabel", "When this happened:") + """</p>
-        <p><span style="color: #48596b; font-weight: 500;">Date:</span><br>""" + computeDateTime(context.getTimeZone()) + """</p>
+        <p style="color: #48596b; font-weight: 500;">%s</p>
+        <p><span style="color: #48596b; font-weight: 500;">Date:</span><br>%s</p>
     </div>
 
     <!-- Contact Us Section -->
@@ -43,15 +44,15 @@ class SendEmailTemplate {
         </div>
     </div>
 </div>
-        """;
+""", body, username, footer, dateLabel, computeDateTime(context.getTimeZone()));
     }
 
     private static String computeDateTime(String zone) {
         Instant now = Instant.now();
         try {
-            return now.atZone(ZoneId.of(zone)).format(formatter);
+            return now.atZone(ZoneId.of(zone)).format(FORMATTER);
         } catch (Exception e) {
-            return now.atOffset(ZoneOffset.UTC).format(formatter);
+            return now.atOffset(ZoneOffset.UTC).format(FORMATTER);
         }
     }
 }
