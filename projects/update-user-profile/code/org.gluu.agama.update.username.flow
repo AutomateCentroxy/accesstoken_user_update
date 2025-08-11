@@ -8,11 +8,23 @@ uiFeedback.errorMessage = ""
 Repeat 6 times max
      //  Retrieve user profile  from UI
      searchUserInput = RRF "searchUser.ftlh" uiFeedback
-     //  create an instance of Update service
-     usernameUpdateService = Call org.gluu.agama.user.UsernameUpdate#getInstance 
-     // when searchUserForm is submitted
+     // When searchUserForm is submitted
      When searchUserInput.formType is "searchUserForm"
-          // assign username to a variable
+          // Validate access token first
+          accessToken = searchUserInput.access_token
+          // accessToken
+          Log "@info Validating access token: %" accessToken
+          // Create an instance of Update service
+          usernameUpdateService = Call org.gluu.agama.user.UsernameUpdate#getInstance 
+          // Validate the bearer token
+          authCheck = Call org.gluu.agama.update.JansUsernameUpdate#validateBearerToken accessToken
+          // Check if token validation failed
+          When authCheck.valid is false
+               authErrorResponse = { success:false, error: authCheck.error }
+               Finish authErrorResponse
+          // Token is valid, proceed with user search
+          Log "@info Token validation successful for user: %" authCheck.username
+          // Assign username to a variable
           userName = searchUserInput.uid
           // get user by username
           userWithUid = Call usernameUpdateService getUserEntityByUsername userName
@@ -51,8 +63,8 @@ Repeat 6 times max
                          //  Finish the flow successfully
                          Log "@info Finish the flow successfully"
                          //  Finish the flow successfully
-                         it_kohcj = {success:true, data:  { userId: updatedUser.uid } }
-                         Finish it_kohcj
+                         it_pmzxh = {success:true, data:  { userId: updatedUser.uid } }
+                         Finish it_pmzxh
                     Otherwise
                          //  User update failed log
                          Log "@info User update failed. Error : %" E
@@ -60,5 +72,5 @@ Repeat 6 times max
 //  Maximum attempt reached
 Log "@info Maximum attempt reached"
 //  User Registration flow failed
-it_bxmgi = {success:false, error: "User update flow reached max attempts try later"}
-Finish it_bxmgi
+it_qkwvl = {success:false, error: "User update flow reached max attempts try later"}
+Finish it_qkwvl

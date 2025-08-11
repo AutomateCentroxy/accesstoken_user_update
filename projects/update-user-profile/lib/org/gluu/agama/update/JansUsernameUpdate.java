@@ -20,6 +20,20 @@ import org.gluu.agama.smtp.SendEmailTemplate;
 import org.gluu.agama.smtp.jans.model.ContextData;
 import io.jans.model.SmtpConfiguration;
 import io.jans.service.MailService;
+import java.util.HashMap;
+import java.util.Map;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.net.URI;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import io.jans.as.server.service.token.TokenService;
+import io.jans.as.server.model.common.AuthorizationGrant;
+import io.jans.as.server.model.common.AuthorizationGrantList;
+import io.jans.as.server.model.common.AbstractToken;
 
 public class JansUsernameUpdate extends UsernameUpdate {
 
@@ -47,6 +61,57 @@ public class JansUsernameUpdate extends UsernameUpdate {
 
         return INSTANCE;
     }
+//validate token starts here
+    public static Map<String, Object> validateBearerToken(String access_token) {
+        Map<String, Object> result = new HashMap<>();
+        
+        try {
+            if (access_token == null || access_token.trim().isEmpty()) {
+                result.put("valid", false);
+                result.put("error", "Access token is missing");
+                return result;
+            }
+            
+            // Get AuthorizationGrantList service
+            AuthorizationGrantList authorizationGrantList = CdiUtil.bean(AuthorizationGrantList.class);
+            if (authorizationGrantList == null) {
+                result.put("valid", false);
+                result.put("error", "Service not available");
+                return result;
+            }
+            
+            // Get the grant for this token
+            AuthorizationGrant grant = authorizationGrantList.getAuthorizationGrantByAccessToken(access_token.trim());
+            
+            if (grant == null) {
+                // Token not found
+                result.put("valid", false);
+                result.put("error", "Access token is invalid or expired");
+                return result;
+            }
+            
+            // Get the actual token object to check if it's valid (not expired)
+            AbstractToken tokenObject = grant.getAccessToken(access_token.trim());
+            
+            // Check if token is active (exists and is valid)
+            boolean isActive = tokenObject != null && tokenObject.isValid();
+            
+            if (isActive) {
+                result.put("valid", true);
+            } else {
+                result.put("valid", false);
+                result.put("error", "Access token is invalid or expired");
+            }
+            
+        } catch (Exception e) {
+            result.put("valid", false);
+            result.put("error", "Access token is invalid or expired");
+        }
+        
+        return result;
+    }
+
+//validate token ends here
 
     public boolean passwordPolicyMatch(String userPassword) {
         String regex = '''^(?=.*[!@#$^&*])[A-Za-z0-9!@#$^&*]{6,}$'''
