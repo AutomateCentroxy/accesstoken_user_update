@@ -1180,8 +1180,8 @@
 				},
 				"previousNodeId": "rrfNode-e806012e-c972-4aa2-9273-98d0377a3cb2",
 				"agamaData": {
-					"javaClassName": "",
-					"javaMethodName": "",
+					"javaClassName": "org.gluu.agama.user.UsernameUpdate",
+					"javaMethodName": "getInstance",
 					"javaVariableName": "",
 					"exceptionVariableField": "",
 					"callType": "Call static method",
@@ -1190,9 +1190,10 @@
 					"nodeColor": "",
 					"titleColor": "",
 					"descColor": "",
-					"displayName": "",
+					"displayName": "CALL",
 					"hasComment": true,
-					"comment": ""
+					"comment": "Create an Instance of Update Service",
+					"asssignedVariableName": "usernameUpdateService"
 				}
 			},
 			"measured": {
