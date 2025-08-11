@@ -23,6 +23,7 @@ Repeat 6 times max
                authErrorResponse = { success:false, error: authCheck.error }
                Finish authErrorResponse
           Log "@info Token validation successful for user: %" authCheck.username
+          userName = searchUserInput.uid
           // get user by username
           userWithUid = Call usernameUpdateService getUserEntityByUsername userName
           // when user with provided username not found
@@ -60,8 +61,8 @@ Repeat 6 times max
                          //  Finish the flow successfully
                          Log "@info Finish the flow successfully"
                          //  Finish the flow successfully
-                         it_evnfi = {success:true, data:  { userId: updatedUser.uid } }
-                         Finish it_evnfi
+                         it_qyhqx = {success:true, data:  { userId: updatedUser.uid } }
+                         Finish it_qyhqx
                     Otherwise
                          //  User update failed log
                          Log "@info User update failed. Error : %" E
@@ -69,5 +70,5 @@ Repeat 6 times max
 //  Maximum attempt reached
 Log "@info Maximum attempt reached"
 //  User Registration flow failed
-it_xemng = {success:false, error: "User update flow reached max attempts try later"}
-Finish it_xemng
+it_uaxct = {success:false, error: "User update flow reached max attempts try later"}
+Finish it_uaxct
