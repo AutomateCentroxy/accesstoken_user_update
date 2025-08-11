@@ -7,7 +7,7 @@ uiFeedback.errorMessage = ""
 //  Iterate x times max
 Repeat 6 times max
      //  Retrieve Access token from UI
-     validToken = RRF "accessToken.ftlh" uiFeedback
+     access_token = RRF "accessToken.ftlh" uiFeedback
      usernameUpdateService = Call org.gluu.agama.user.UsernameUpdate#getInstance 
      Call __________#__________ 
      When 
@@ -54,8 +54,8 @@ Repeat 6 times max
                               //  Finish the flow successfully
                               Log "@info Finish the flow successfully"
                               //  Finish the flow successfully
-                              it_enezn = {success:true, data:  { userId: updatedUser.uid } }
-                              Finish it_enezn
+                              it_gnrhs = {success:true, data:  { userId: updatedUser.uid } }
+                              Finish it_gnrhs
                          Otherwise
                               //  User update failed log
                               Log "@info User update failed. Error : %" E
@@ -64,5 +64,5 @@ Repeat 6 times max
 //  Maximum attempt reached
 Log "@info Maximum attempt reached"
 //  User Registration flow failed
-it_gdlsh = {success:false, error: "User update flow reached max attempts try later"}
-Finish it_gdlsh
+it_qkotk = {success:false, error: "User update flow reached max attempts try later"}
+Finish it_qkotk
