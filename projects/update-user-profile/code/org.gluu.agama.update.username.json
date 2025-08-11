@@ -825,7 +825,7 @@
 				"width": 170,
 				"height": 122
 			},
-			"selected": true,
+			"selected": false,
 			"dragging": false
 		},
 		{
@@ -852,7 +852,8 @@
 					"arguments": [
 						"email",
 						"newUsername",
-						"lang"
+						"lang",
+						"givenName"
 					],
 					"nodeIcon": "material-symbols:code",
 					"nodeColor": "",
@@ -868,7 +869,7 @@
 				"width": 170,
 				"height": 122
 			},
-			"selected": false
+			"selected": true
 		},
 		{
 			"id": "logNode-6259a2a7-7cc8-476e-88f5-0f2334a880ab",
