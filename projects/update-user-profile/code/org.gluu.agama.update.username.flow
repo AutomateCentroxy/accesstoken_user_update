@@ -8,12 +8,11 @@ uiFeedback.errorMessage = ""
 Repeat 6 times max
      //  Retrieve Access token from UI
      validToken = RRF "accessToken.ftlh" uiFeedback
+     usernameUpdateService = Call org.gluu.agama.user.UsernameUpdate#getInstance 
      Call __________#__________ 
      When 
           //  Retrieve user profile  from UI
           searchUserInput = RRF "searchUser.ftlh" uiFeedback
-          //  create an instance of Update service
-          usernameUpdateService = Call org.gluu.agama.user.UsernameUpdate#getInstance 
           // when searchUserForm is submitted
           When searchUserInput.formType is "searchUserForm"
                // assign username to a variable
@@ -55,8 +54,8 @@ Repeat 6 times max
                               //  Finish the flow successfully
                               Log "@info Finish the flow successfully"
                               //  Finish the flow successfully
-                              it_icjnl = {success:true, data:  { userId: updatedUser.uid } }
-                              Finish it_icjnl
+                              it_enezn = {success:true, data:  { userId: updatedUser.uid } }
+                              Finish it_enezn
                          Otherwise
                               //  User update failed log
                               Log "@info User update failed. Error : %" E
@@ -65,5 +64,5 @@ Repeat 6 times max
 //  Maximum attempt reached
 Log "@info Maximum attempt reached"
 //  User Registration flow failed
-it_zjndn = {success:false, error: "User update flow reached max attempts try later"}
-Finish it_zjndn
+it_gdlsh = {success:false, error: "User update flow reached max attempts try later"}
+Finish it_gdlsh
