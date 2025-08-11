@@ -1040,7 +1040,7 @@
 					"assignments": [],
 					"nodeIcon": "ph:globe-simple",
 					"templatePath": "accessToken.ftlh",
-					"asssignedVariableName": "validToken",
+					"asssignedVariableName": "access_token",
 					"nodeColor": "",
 					"titleColor": "",
 					"descColor": "",
@@ -1056,14 +1056,14 @@
 				"width": 170,
 				"height": 124
 			},
-			"selected": false,
+			"selected": true,
 			"dragging": false
 		},
 		{
 			"id": "callNode-2751e2e3-5e3e-4efc-80c8-58c8f2da5bc4",
 			"type": "callNode",
 			"position": {
-				"x": 396.7594364828028,
+				"x": 398.06801455425784,
 				"y": 398.8300182085636
 			},
 			"data": {
@@ -1137,8 +1137,8 @@
 			"id": "whenNode-22f7f4c5-84df-4eb8-b8f4-bdfa48560232",
 			"type": "whenNode",
 			"position": {
-				"x": 980.7380855523529,
-				"y": 470.49012746386757
+				"x": 899.6062451221424,
+				"y": 457.4043467493174
 			},
 			"data": {
 				"id": "whenNode-22f7f4c5-84df-4eb8-b8f4-bdfa48560232",
@@ -1166,14 +1166,14 @@
 				"width": 110,
 				"height": 60
 			},
-			"selected": true,
+			"selected": false,
 			"dragging": false
 		},
 		{
 			"id": "callNode-59e436dc-59ec-474e-bb03-9b6cc81899ad",
 			"type": "callNode",
 			"position": {
-				"x": 663.7709514117179,
+				"x": 669.0052636975379,
 				"y": 413.22437699456873
 			},
 			"data": {
@@ -1832,8 +1832,8 @@
 		}
 	],
 	"viewport": {
-		"x": -155.9878615631908,
-		"y": -65.62737509459237,
+		"x": 19.01213843680921,
+		"y": -90.62737509459237,
 		"zoom": 0.7641882603825827
 	}
 }
