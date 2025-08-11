@@ -53,16 +53,16 @@ Repeat 6 times max
                               //  Finish the flow successfully
                               Log "@info Finish the flow successfully"
                               //  Finish the flow successfully
-                              it_yzhun = {success:true, data:  { userId: updatedUser.uid } }
-                              Finish it_yzhun
+                              it_mtusv = {success:true, data:  { userId: updatedUser.uid } }
+                              Finish it_mtusv
                          Otherwise
                               //  User update failed log
                               Log "@info User update failed. Error : %" E
                               uiFeedback.errorMessage = "User update failed"
      Otherwise
-          Finish __________
+          Quit When __________ __________ __________
 //  Maximum attempt reached
 Log "@info Maximum attempt reached"
 //  User Registration flow failed
-it_owjgs = {success:false, error: "User update flow reached max attempts try later"}
-Finish it_owjgs
+it_zpkbx = {success:false, error: "User update flow reached max attempts try later"}
+Finish it_zpkbx
