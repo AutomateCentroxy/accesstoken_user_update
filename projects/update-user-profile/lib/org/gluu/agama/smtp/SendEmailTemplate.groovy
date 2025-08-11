@@ -1,50 +1,57 @@
-package org.gluu.agama.smtp
+package org.gluu.agama.smtp;
 
-import groovy.lang.Binding
-import groovy.lang.GroovyShell
-import org.gluu.agama.smtp.jans.model.ContextData
+import java.time.*;
+import java.time.format.DateTimeFormatter;
+import java.util.Map;
+import org.gluu.agama.smtp.jans.model.ContextData;
 
 class SendEmailTemplate {
 
-    private static String getTemplateContent(String templateName, String lang) {
-        String fileLang = lang?.toLowerCase() ?: "en"
-        String fileName = "${templateName}_${fileLang}.groovy"
-        InputStream is = SendEmailTemplate.class.getResourceAsStream("/org/gluu/agama/smtp/" + fileName)
-        if (is == null) {
-            is = SendEmailTemplate.class.getResourceAsStream("/org/gluu/agama/smtp/${templateName}_en.groovy")
-        }
-        if (is == null) {
-            throw new FileNotFoundException("Template file not found in classpath")
-        }
-        return is.text
-    }
+    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM dd, YYYY, hh:mma (O)");
 
-    static String get(String templateName, String username, String givenName, String lang, ContextData context) {
-        File templateFile = getTemplateFile(templateName, lang)
-
-        def binding = new Binding([
-            username  : username,
-            givenName : givenName,
-            timeZone  : context?.timeZone
-        ])
-
-        def shell = new GroovyShell(binding)
-        def templateMap = shell.evaluate(templateFile)
-
+    static String get(String username, ContextData context, Map<String, String> bundle) {
         return """
-        <html>
-            <head><meta charset="UTF-8"></head>
-            <body ${lang?.toLowerCase() == "ar" ? 'dir="rtl"' : ''}>
-                ${templateMap.body}
-            </body>
-        </html>
-        """
+<div style="width: 640px; font-size: 18px; font-family: 'Roboto', sans-serif; font-weight: 300; color: #333;">
+
+
+    <!-- Main Content -->
+    <div style="padding: 20px; border-bottom: 1px solid #ccc;">
+        <p><b>Hi,</b><br><br>
+        """ + bundle.get("body") + """</p>
+
+        <div style="display: flex; justify-content: center; margin: 20px 0;">
+            <div style="background-color: #B29163; color: white; font-size: 30px; font-weight: 500; padding: 10px 20px; border-radius: 8px;" align="center">
+                """ + username + """
+            </div>
+        </div>
+
+        <p style="font-size: 14px;">
+            """ + bundle.get("footer") + """
+        </p>
+    </div>
+
+    <!-- Date Section -->
+    <div style="padding: 12px; background-color: #ecf0f5; font-size: 16px;">
+        <p style="color: #48596b; font-weight: 500;">""" + bundle.getOrDefault("dateLabel", "When this happened:") + """</p>
+        <p><span style="color: #48596b; font-weight: 500;">Date:</span><br>""" + computeDateTime(context.getTimeZone()) + """</p>
+    </div>
+
+    <!-- Contact Us Section -->
+    <div style="background-color: #f9f9f9; padding: 20px; font-size: 14px; display: flex; justify-content: space-between; align-items: flex-start;">
+        <div style="flex: 1;">
+            <img src="https://phiwallet.com/components/images/logo.png" alt="Phi Logo" style="height: 40px;">
+        </div>
+    </div>
+</div>
+        """;
     }
 
-    static String getSubject(String templateName, String lang) {
-        File templateFile = getTemplateFile(templateName, lang)
-        def shell = new GroovyShell()
-        def templateMap = shell.evaluate(templateFile)
-        return templateMap.subject
+    private static String computeDateTime(String zone) {
+        Instant now = Instant.now();
+        try {
+            return now.atZone(ZoneId.of(zone)).format(formatter);
+        } catch (Exception e) {
+            return now.atOffset(ZoneOffset.UTC).format(formatter);
+        }
     }
 }
