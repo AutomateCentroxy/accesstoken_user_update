@@ -13,8 +13,8 @@ class SendEmailTemplateEs {
 
         String bodyContent = """
 <p style="margin: 0; padding: 0;">Hola,</p>
-<p style="margin: 0; padding: 0;">Estimado/a %s,</p>
-<p style="margin: 0; padding: 0;">¡Felicidades! Tu nombre de usuario ha sido creado con éxito 🔒</p>
+<p style="margin: 0; padding: 0;">Estimado/a User,</p>
+<p style="margin: 0; padding: 0;">¡Felicidades! Tu nombre de usuario ha sido creado con éxito </p>
 <p style="margin: 0; padding: 0;">Nombre de usuario: <b>%s</b></p>
 <p style="margin: 0; padding: 0;">
     Ahora puedes usar tu nombre de usuario en lugar de tu correo electrónico para iniciar sesión, haciendo que tu experiencia sea más fluida y segura.
@@ -37,15 +37,6 @@ class SendEmailTemplateEs {
         String html = """
 <div dir="ltr" lang="es" style="width: 640px; font-size: 18px; font-family: Arial, 'Segoe UI', Tahoma, sans-serif; font-weight: 300; color: #333; text-align: left;">
 
-    <!-- Main Content -->
-    <div style="padding: 20px; border-bottom: 1px solid #ccc;">
-        %s
-        <div style="display: flex; justify-content: center; margin: 20px 0;">
-            <div style="background-color: #B29163; color: white; font-size: 30px; font-weight: 500; padding: 10px 20px; border-radius: 8px;" align="center">
-                %s
-            </div>
-        </div>
-    </div>
 
     <!-- Date Section -->
     <div style="padding: 12px; background-color: #ecf0f5; font-size: 16px;">
@@ -62,7 +53,6 @@ class SendEmailTemplateEs {
 </div>
 """.formatted(
     bodyContent,
-    username,
     computeDateTime(context.getTimeZone())
 );
 
