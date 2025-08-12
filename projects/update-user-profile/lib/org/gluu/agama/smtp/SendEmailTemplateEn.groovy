@@ -4,62 +4,37 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import org.gluu.agama.smtp.jans.model.ContextData;
 
-class SendEmailTemplateEn {
+class UsernameCreatedTemplate {
 
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy, hh:mma (O)");
 
-    static Map<String, String> get(String username, String givenName, ContextData context) {
+    static String get(String username, ContextData context) {
 
-        String bodyContent = """
-<p style="margin: 0; padding: 0;">Hi,</p>
-<p style="margin: 0; padding: 0;">Dear User,</p>
-<p style="margin: 0; padding: 0;">Congratulations! Your username has been successfully created.</p>
-<p style="margin: 0; padding: 0;">Username: <b>%s</b></p>
-<p style="margin: 0; padding: 0;">
-    You can now use your username instead of your email address to sign in, making your login experience smoother and more secure.
-</p>
-<p style="margin: 0; padding: 0;"><b>But that's not all!</b></p>
-<p style="margin: 0; padding: 0;">
-    We're not just upgrading how you log in, we're setting the stage for something exciting.
-    Powerful new features are on the way, designed to help boost your journey toward a more prosperous financial future.
-</p>
-<p style="margin: 0; padding: 0;">Stay tuned, the best is yet to come!</p>
-<p style="margin: 0; padding: 0;">
-    In the meantime, if you have any questions or need support, we're just a click away.
-</p>
-<p style="margin: 0; padding: 0;">Kind regards,<br>Phi Wallet Team</p>
-""".formatted(
-    (givenName != null ? givenName : "user"),
-    username
-);
+        return """
+<div style="width: 640px; font-size: 18px; font-family: Arial, 'Segoe UI', Tahoma, sans-serif; font-weight: 300; color: #333;">
+    <div style="padding: 12px; border-bottom: 1px solid #ccc;">
+        <p>Dear User,</p>
+        <p>Congratulations! Your username has been successfully created.</p>
+        <p>Username: <b>""" + username + """</b></p>
+        <p>You can now use your username instead of your email address to sign in, making your login experience smoother and more secure.</p>
+        <p><b>But that's not all!</b></p>
+        <p>We're not just upgrading how you log in, we're setting the stage for something exciting.
+           Powerful new features are on the way, designed to help boost your journey toward a more prosperous financial future.</p>
+        <p>Stay tuned, the best is yet to come!</p>
+        <p>In the meantime, if you have any questions or need support, we're just a click away.</p>
+        <p>Kind regards,<br>Phi Wallet Team</p>
+    </div>
 
-        String html = """
-<div dir="ltr" lang="en" style="width: 640px; font-size: 18px; font-family: Arial, 'Segoe UI', Tahoma, sans-serif; font-weight: 300; color: #333; text-align: left;">
-
-    
-
-    <!-- Date Section -->
     <div style="padding: 12px; background-color: #ecf0f5; font-size: 16px;">
         <p style="color: #48596b; font-weight: 500;">When this happened:</p>
-        <p><span style="color: #48596b; font-weight: 500;">Date:</span><br>%s</p>
-    </div>
-
-    <!-- Contact Us Section -->
-    <div style="background-color: #f9f9f9; padding: 20px; font-size: 14px; display: flex; justify-content: space-between; align-items: flex-start;">
-        <div style="flex: 1;">
-            <img src="https://phiwallet.com/components/images/logo.png" alt="Phi Logo" style="height: 40px;">
-        </div>
+        <p><span style="color: #48596b; font-weight: 500;">Date:</span><br>""" + computeDateTime(context.getTimeZone()) + """</p>
+        <p><span style="color: #48596b; font-weight: 500;">""" + 
+            ((context.getDevice() == null || context.getDevice().isEmpty()) ? "" : ("Device:</span><br>" + context.getDevice())) + """</p>
+        <p><span style="color: #48596b; font-weight: 500;">""" +
+            ((context.getLocation() == null || context.getLocation().isEmpty()) ? "" : ("Approximate Location:</span><br>" + context.getLocation())) + """</p>
     </div>
 </div>
-""".formatted(
-    bodyContent,
-    computeDateTime(context.getTimeZone())
-);
-
-        return Map.of(
-            "subject", "Your username has been successfully created",
-            "body", html
-        );
+        """;
     }
 
     private static String computeDateTime(String zone) {
