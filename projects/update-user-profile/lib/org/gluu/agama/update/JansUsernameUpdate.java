@@ -342,38 +342,32 @@ public class JansUsernameUpdate extends UsernameUpdate {
             String textBody;
             String htmlBody;
 
+            Map<String, String> templateData;
+
             switch (preferredLang) {
                 case "ar":
-                    subject = SendEmailTemplateAr.getSubject(newUsername, givenName);
-                    textBody = SendEmailTemplateAr.getTextBody(newUsername, givenName);
-                    htmlBody = SendEmailTemplateAr.get(newUsername, context, givenName);
+                    templateData = SendEmailTemplateAr.get(newUsername, givenName, context);
                     break;
                 case "es":
-                    subject = SendEmailTemplateEs.getSubject(newUsername, givenName);
-                    textBody = SendEmailTemplateEs.getTextBody(newUsername, givenName);
-                    htmlBody = SendEmailTemplateEs.get(newUsername, context, givenName);
+                    templateData = SendEmailTemplateEs.get(newUsername, givenName, context);
                     break;
                 case "fr":
-                    subject = SendEmailTemplateFr.getSubject(newUsername, givenName);
-                    textBody = SendEmailTemplateFr.getTextBody(newUsername, givenName);
-                    htmlBody = SendEmailTemplateFr.get(newUsername, context, givenName);
+                    templateData = SendEmailTemplateFr.get(newUsername, givenName, context);
                     break;
                 case "id":
-                    subject = SendEmailTemplateId.getSubject(newUsername, givenName);
-                    textBody = SendEmailTemplateId.getTextBody(newUsername, givenName);
-                    htmlBody = SendEmailTemplateId.get(newUsername, context, givenName);
+                    templateData = SendEmailTemplateId.get(newUsername, givenName, context);
                     break;
                 case "pt":
-                    subject = SendEmailTemplatePt.getSubject(newUsername, givenName);
-                    textBody = SendEmailTemplatePt.getTextBody(newUsername, givenName);
-                    htmlBody = SendEmailTemplatePt.get(newUsername, context, givenName);
+                    templateData = SendEmailTemplatePt.get(newUsername, givenName, context);
                     break;
                 default:
-                    subject = SendEmailTemplateEn.getSubject(newUsername, givenName);
-                    textBody = SendEmailTemplateEn.getTextBody(newUsername, givenName);
-                    htmlBody = SendEmailTemplateEn.get(newUsername, context, givenName);
+                    templateData = SendEmailTemplateEn.get(newUsername, givenName, context);
                     break;
             }
+
+            subject = templateData.get("subject");
+            htmlBody = templateData.get("body");
+            textBody = htmlBody.replaceAll("\\<.*?\\>", ""); // crude HTML to text
 
             // Send email
             MailService mailService = CdiUtil.bean(MailService.class);
@@ -386,7 +380,12 @@ public class JansUsernameUpdate extends UsernameUpdate {
                     textBody,
                     htmlBody);
 
-            LogUtils.log("Localized username update email sent successfully to %", to);
+            if (sent) {
+                LogUtils.log("Localized username update email sent successfully to %", to);
+            } else {
+                LogUtils.log("Failed to send localized username update email to %", to);
+            }
+
             return sent;
 
         } catch (Exception e) {
@@ -401,4 +400,3 @@ public class JansUsernameUpdate extends UsernameUpdate {
         return configurationService.getConfiguration().getSmtpConfiguration();
     }
 }
-
