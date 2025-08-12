@@ -16,12 +16,17 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.regex.Pattern;
-import org.gluu.agama.smtp.SendEmailTemplate;
+import org.gluu.agama.smtp.SendEmailTemplateEn;
+import org.gluu.agama.smtp.SendEmailTemplateAr;
+import org.gluu.agama.smtp.SendEmailTemplateEs;
+import org.gluu.agama.smtp.SendEmailTemplateFr;
+import org.gluu.agama.smtp.SendEmailTemplateId;
+import org.gluu.agama.smtp.SendEmailTemplatePt;
+
 import org.gluu.agama.smtp.jans.model.ContextData;
 import io.jans.model.SmtpConfiguration;
 import io.jans.service.MailService;
-import java.util.HashMap;
-import java.util.Map;
+
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -61,57 +66,58 @@ public class JansUsernameUpdate extends UsernameUpdate {
 
         return INSTANCE;
     }
-//validate token starts here
+
+    // validate token starts here
     public static Map<String, Object> validateBearerToken(String access_token) {
         Map<String, Object> result = new HashMap<>();
-        
+
         try {
             if (access_token == null || access_token.trim().isEmpty()) {
                 result.put("valid", false);
-                result.put("error", "Access token is missing");
+                result.put("errorMessage", "Access token is missing");
                 return result;
             }
-            
+
             // Get AuthorizationGrantList service
             AuthorizationGrantList authorizationGrantList = CdiUtil.bean(AuthorizationGrantList.class);
             if (authorizationGrantList == null) {
                 result.put("valid", false);
-                result.put("error", "Service not available");
+                result.put("errorMessage", "Service not available");
                 return result;
             }
-            
+
             // Get the grant for this token
             AuthorizationGrant grant = authorizationGrantList.getAuthorizationGrantByAccessToken(access_token.trim());
-            
+
             if (grant == null) {
                 // Token not found
                 result.put("valid", false);
-                result.put("error", "Access token is invalid or expired");
+                result.put("errorMessage", "Access token is invalid or expired");
                 return result;
             }
-            
+
             // Get the actual token object to check if it's valid (not expired)
             AbstractToken tokenObject = grant.getAccessToken(access_token.trim());
-            
+
             // Check if token is active (exists and is valid)
             boolean isActive = tokenObject != null && tokenObject.isValid();
-            
+
             if (isActive) {
                 result.put("valid", true);
             } else {
                 result.put("valid", false);
-                result.put("error", "Access token is invalid or expired");
+                result.put("errorMessage", "Access token is invalid or expired");
             }
-            
+
         } catch (Exception e) {
             result.put("valid", false);
-            result.put("error", "Access token is invalid or expired");
+            result.put("errorMessage", "Access token is invalid or expired");
         }
-        
+
         return result;
     }
 
-//validate token ends here
+    // validate token ends here
 
     public boolean passwordPolicyMatch(String userPassword) {
         String regex = '''^(?=.*[!@#$^&*])[A-Za-z0-9!@#$^&*]{6,}$'''
@@ -310,80 +316,80 @@ public class JansUsernameUpdate extends UsernameUpdate {
     }
 
     public boolean sendUsernameUpdateEmail(String to, String newUsername, String lang) {
-        try {
-            // Fetch SMTP configuration
-            ConfigurationService configService = CdiUtil.bean(ConfigurationService.class);
-            SmtpConfiguration smtpConfig = configService.getConfiguration().getSmtpConfiguration();
+    try {
+        // Fetch SMTP configuration
+        ConfigurationService configService = CdiUtil.bean(ConfigurationService.class);
+        SmtpConfiguration smtpConfig = configService.getConfiguration().getSmtpConfiguration();
 
-            if (smtpConfig == null) {
-                LogUtils.log("SMTP configuration is missing.");
-                return false;
-            }
-
-            // Use preferred lang from Agama directly
-            String preferredLang = (lang != null && !lang.isEmpty())
-                    ? lang.toLowerCase()
-                    : "en"; // fallback to English
-
-            // ✅ Inline translations
-            Map<String, Map<String, String>> translations = new HashMap<>();
-            translations.put("en", Map.of(
-                    "subject", "Your username has been updated successfully",
-                    "body", "Your username has been updated to",
-                    "footer", "Thanks for keeping your account secure."));
-            translations.put("es", Map.of(
-                    "subject", "Su nombre de usuario se ha actualizado correctamente",
-                    "body", "Su nombre de usuario se ha actualizado a",
-                    "footer", "Gracias por mantener su cuenta segura."));
-            translations.put("fr", Map.of(
-                    "subject", "Votre nom d'utilisateur a été mis à jour avec succès",
-                    "body", "Votre nom d'utilisateur a été mis à jour en",
-                    "footer", "Merci de garder votre compte sécurisé."));
-            translations.put("pt", Map.of(
-                    "subject", "Seu nome de usuário foi atualizado com sucesso",
-                    "body", "Seu nome de usuário foi atualizado para",
-                    "footer", "Obrigado por manter sua conta segura."));
-            translations.put("ar", Map.of(
-                    "subject", "تم تحديث اسم المستخدم الخاص بك بنجاح",
-                    "body", "تم تحديث اسم المستخدم الخاص بك إلى",
-                    "footer", "شكرًا للحفاظ على أمان حسابك."));
-            translations.put("id", Map.of(
-                    "subject", "Nama pengguna Anda berhasil diperbarui",
-                    "body", "Nama pengguna Anda telah diperbarui menjadi",
-                    "footer", "Terima kasih telah menjaga keamanan akun Anda."));
-
-            // ✅ Pick the right lang (fallback to English if missing)
-            Map<String, String> bundle = translations.getOrDefault(preferredLang, translations.get("en"));
-
-            // Build context data
-            ContextData context = new ContextData();
-            context.setDevice("Unknown");
-            context.setLocation("Unknown");
-            context.setTimeZone("UTC");
-
-            // Prepare localized email content
-            String htmlBody = SendEmailTemplate.get(newUsername, context, bundle);
-            String subject = bundle.get("subject");
-            String textBody = bundle.get("body") + ": " + newUsername;
-
-            // Send signed email
-            MailService mailService = CdiUtil.bean(MailService.class);
-            boolean sent = mailService.sendMailSigned(
-                    smtpConfig.getFromEmailAddress(),
-                    smtpConfig.getFromName(),
-                    to,
-                    null,
-                    subject,
-                    textBody,
-                    htmlBody);
-
-            LogUtils.log("Localized username update email sent successfully to %", to);
-            return sent;
-        } catch (Exception e) {
-            LogUtils.log("Failed to send username update email: %", e.getMessage());
+        if (smtpConfig == null) {
+            LogUtils.log("SMTP configuration is missing.");
             return false;
         }
+
+        // Preferred language from user profile or fallback to English
+        String preferredLang = (lang != null && !lang.isEmpty())
+                ? lang.toLowerCase()
+                : "en";
+
+        // Build context data
+        ContextData context = new ContextData();
+        context.setDevice("Unknown");
+        context.setLocation("Unknown");
+        context.setTimeZone("UTC");
+
+        // Select correct template
+        Map<String, String> templateData;
+        switch (preferredLang) {
+            case "ar":
+                templateData = SendEmailTemplateAr.get(newUsername, context);
+                break;
+            case "es":
+                templateData = SendEmailTemplateEs.get(newUsername, context);
+                break;
+            case "fr":
+                templateData = SendEmailTemplateFr.get(newUsername, context);
+                break;
+            case "id":
+                templateData = SendEmailTemplateId.get(newUsername, context);
+                break;
+            case "pt":
+                templateData = SendEmailTemplatePt.get(newUsername, context);
+                break;
+            default:
+                templateData = SendEmailTemplateEn.get(newUsername, context);
+                break;
+        }
+
+        String subject = templateData.get("subject");
+        String htmlBody = templateData.get("body");
+        String textBody = htmlBody.replaceAll("\\<.*?\\>", ""); // crude HTML → text
+
+        // Send signed email
+        MailService mailService = CdiUtil.bean(MailService.class);
+        boolean sent = mailService.sendMailSigned(
+                smtpConfig.getFromEmailAddress(),
+                smtpConfig.getFromName(),
+                to,
+                null,
+                subject,
+                textBody,
+                htmlBody
+        );
+
+        if (sent) {
+            LogUtils.log("Localized username update email sent successfully to %", to);
+        } else {
+            LogUtils.log("Failed to send localized username update email to %", to);
+        }
+
+        return sent;
+
+    } catch (Exception e) {
+        LogUtils.log("Failed to send username update email: %", e.getMessage());
+        return false;
     }
+}
+
 
     // Helper method to fetch SMTP configuration
     private SmtpConfiguration getSmtpConfiguration() {
