@@ -9,52 +9,38 @@ class SendEmailTemplateEs {
 
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy, hh:mma (O)");
 
-    static Map<String, String> get(String username, String givenName, ContextData context) {
-
-        String bodyContent = """
-<p style="margin: 0; padding: 0;">Hola,</p>
-<p style="margin: 0; padding: 0;">Estimado/a User,</p>
-<p style="margin: 0; padding: 0;">¡Felicidades! Tu nombre de usuario ha sido creado con éxito </p>
-<p style="margin: 0; padding: 0;">Nombre de usuario: <b>%s</b></p>
-<p style="margin: 0; padding: 0;">
-    Ahora puedes usar tu nombre de usuario en lugar de tu correo electrónico para iniciar sesión, haciendo que tu experiencia sea más fluida y segura.
-</p>
-<p style="margin: 0; padding: 0;"><b>¡Pero eso no es todo!</b></p>
-<p style="margin: 0; padding: 0;">
-    No solo estamos mejorando tu forma de iniciar sesión, sino que estamos preparando tu cuenta para algo emocionante.
-    Nuevas funciones están en camino, diseñadas para impulsar tu camino hacia un futuro financiero más próspero.
-</p>
-<p style="margin: 0; padding: 0;">¡Lo mejor está por venir!</p>
-<p style="margin: 0; padding: 0;">
-    Mientras tanto, si tienes alguna pregunta o necesitas asistencia, estamos a un clic de distancia.
-</p>
-<p style="margin: 0; padding: 0;">Un saludo cordial,<br>Equipo de Phi Wallet</p>
-""".formatted(
-    (givenName != null ? givenName : "usuario"),
-    username
-);
+    static Map<String, String> get(String username, ContextData context) {
 
         String html = """
 <div dir="ltr" lang="es" style="width: 640px; font-size: 18px; font-family: Arial, 'Segoe UI', Tahoma, sans-serif; font-weight: 300; color: #333; text-align: left;">
-
-
-    <!-- Date Section -->
-    <div style="padding: 12px; background-color: #ecf0f5; font-size: 16px;">
-        <p style="color: #48596b; font-weight: 500;">Fecha del evento:</p>
-        <p><span style="color: #48596b; font-weight: 500;">Fecha:</span><br>%s</p>
+    <div style="padding: 12px; border-bottom: 1px solid #ccc;">
+        <p>Hola,</p>
+        <p>¡Felicidades! Tu nombre de usuario ha sido creado con éxito.</p>
+        <p>Nombre de usuario: <b>""" + username + """</b></p>
+        <p>Ahora puedes usar tu nombre de usuario en lugar de tu correo electrónico para iniciar sesión, haciendo que tu experiencia sea más fluida y segura.</p>
+        <p><b>¡Pero eso no es todo!</b></p>
+        <p>No solo estamos mejorando tu forma de iniciar sesión, sino que estamos preparando tu cuenta para nuevas funciones diseñadas para impulsar tu camino hacia un futuro financiero más próspero.</p>
+        <p>¡Lo mejor está por venir!</p>
+        <p>Mientras tanto, si tienes alguna pregunta o necesitas asistencia, estamos a un clic de distancia.</p>
+        <p>Un saludo cordial,<br>Equipo de Phi Wallet</p>
     </div>
 
-    <!-- Contact Us Section -->
-    <div style="background-color: #f9f9f9; padding: 20px; font-size: 14px; display: flex; justify-content: space-between; align-items: flex-start;">
-        <div style="flex: 1;">
+    <div style="padding: 12px; background-color: #ecf0f5; font-size: 16px;">
+        <p style="color: #48596b; font-weight: 500;">Fecha del evento:</p>
+        <p><span style="color: #48596b; font-weight: 500;">Fecha:</span><br>""" + computeDateTime(context.getTimeZone()) + """</p>
+        <p><span style="color: #48596b; font-weight: 500;">""" +
+            ((context.getDevice() == null || context.getDevice().isEmpty()) ? "" : ("Dispositivo:</span><br>" + context.getDevice())) + """</p>
+        <p><span style="color: #48596b; font-weight: 500;">""" +
+            ((context.getLocation() == null || context.getLocation().isEmpty()) ? "" : ("Ubicación aproximada:</span><br>" + context.getLocation())) + """</p>
+    </div>
+
+    <div style="background-color: #f9f9f9; padding: 20px; font-size: 14px; display: flex; justify-content: flex-start;">
+        <div>
             <img src="https://phiwallet.com/components/images/logo.png" alt="Phi Logo" style="height: 40px;">
         </div>
     </div>
 </div>
-""".formatted(
-    bodyContent,
-    computeDateTime(context.getTimeZone())
-);
+        """;
 
         return Map.of(
             "subject", "Tu nombre de usuario ha sido creado correctamente",
