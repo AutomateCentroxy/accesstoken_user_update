@@ -23,7 +23,6 @@ import org.gluu.agama.smtp.SendEmailTemplateFr;
 import org.gluu.agama.smtp.SendEmailTemplateId;
 import org.gluu.agama.smtp.SendEmailTemplatePt;
 
-import org.gluu.agama.smtp.jans.model.ContextData;
 import io.jans.model.SmtpConfiguration;
 import io.jans.service.MailService;
 
@@ -331,32 +330,27 @@ public class JansUsernameUpdate extends UsernameUpdate {
                 ? lang.toLowerCase()
                 : "en";
 
-        // Build context data
-        ContextData context = new ContextData();
-        context.setDevice("Unknown");
-        context.setLocation("Unknown");
-        context.setTimeZone("UTC");
 
         // Select correct template
         Map<String, String> templateData;
         switch (preferredLang) {
             case "ar":
-                templateData = SendEmailTemplateAr.get(newUsername, context);
+                templateData = SendEmailTemplateAr.get(newUsername);
                 break;
             case "es":
-                templateData = SendEmailTemplateEs.get(newUsername, context);
+                templateData = SendEmailTemplateEs.get(newUsername);
                 break;
             case "fr":
-                templateData = SendEmailTemplateFr.get(newUsername, context);
+                templateData = SendEmailTemplateFr.get(newUsername);
                 break;
             case "id":
-                templateData = SendEmailTemplateId.get(newUsername, context);
+                templateData = SendEmailTemplateId.get(newUsername);
                 break;
             case "pt":
-                templateData = SendEmailTemplatePt.get(newUsername, context);
+                templateData = SendEmailTemplatePt.get(newUsername);
                 break;
             default:
-                templateData = SendEmailTemplateEn.get(newUsername, context);
+                templateData = SendEmailTemplateEn.get(newUsername);
                 break;
         }
 
