@@ -27,10 +27,7 @@ class SendEmailTemplateAr {
     <div style="padding: 12px; background-color: #ecf0f5; font-size: 16px;">
         <p style="color: #48596b; font-weight: 500;">وقت حدوث ذلك:</p>
         <p><span style="color: #48596b; font-weight: 500;">التاريخ:</span><br>""" + computeDateTime(context.getTimeZone()) + """</p>
-        <p><span style="color: #48596b; font-weight: 500;">""" + 
-            ((context.getDevice() == null || context.getDevice().isEmpty()) ? "" : ("الجهاز:</span><br>" + context.getDevice())) + """</p>
-        <p><span style="color: #48596b; font-weight: 500;">""" +
-            ((context.getLocation() == null || context.getLocation().isEmpty()) ? "" : ("الموقع التقريبي:</span><br>" + context.getLocation())) + """</p>
+        
     </div>
 
     <div style="background-color: #f9f9f9; padding: 20px; font-size: 14px; display: flex; justify-content: flex-end;">
