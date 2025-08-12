@@ -27,7 +27,7 @@ class SendEmailTemplatePt {
 
         <p>Agora já podes usar o teu nome de utilizador em vez do e-mail para iniciares sessão, tornando a tua experiência mais simples e segura.</p>
 
-        <p><span style="font-weight: bold;>Mas isso não é tudo!</span></p>
+        <p><span style="font-weight: bold;">Mas isso não é tudo!</span></p>
 
         <p>Não estamos apenas a melhorar a forma como inicias sessão, estamos a preparar o terreno para algo entusiasmante. Novas funcionalidades estão a caminho, desenhadas para impulsionar o teu percurso rumo a um futuro financeiro mais próspero.</p>
         <p>O melhor ainda está para vir!</p>
