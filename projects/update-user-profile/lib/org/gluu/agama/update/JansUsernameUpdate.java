@@ -315,84 +315,81 @@ public class JansUsernameUpdate extends UsernameUpdate {
         return userService.getUserByAttribute(attributeName, value, true);
     }
 
-    public boolean sendUsernameUpdateEmail(String to, String newUsername, String lang, String givenName) {
-        try {
-            // Fetch SMTP configuration
-            ConfigurationService configService = CdiUtil.bean(ConfigurationService.class);
-            SmtpConfiguration smtpConfig = configService.getConfiguration().getSmtpConfiguration();
+    public boolean sendUsernameUpdateEmail(String to, String newUsername, String lang) {
+    try {
+        // Fetch SMTP configuration
+        ConfigurationService configService = CdiUtil.bean(ConfigurationService.class);
+        SmtpConfiguration smtpConfig = configService.getConfiguration().getSmtpConfiguration();
 
-            if (smtpConfig == null) {
-                LogUtils.log("SMTP configuration is missing.");
-                return false;
-            }
-
-            // Use preferred language from profile, fallback to English
-            String preferredLang = (lang != null && !lang.isEmpty())
-                    ? lang.toLowerCase()
-                    : "en";
-
-            // Build context data
-            ContextData context = new ContextData();
-            context.setDevice("Unknown");
-            context.setLocation("Unknown");
-            context.setTimeZone("UTC");
-
-            // Prepare variables for template
-            String subject;
-            String textBody;
-            String htmlBody;
-
-            Map<String, String> templateData;
-
-            switch (preferredLang) {
-                case "ar":
-                    templateData = SendEmailTemplateAr.get(newUsername, givenName, context);
-                    break;
-                case "es":
-                    templateData = SendEmailTemplateEs.get(newUsername, givenName, context);
-                    break;
-                case "fr":
-                    templateData = SendEmailTemplateFr.get(newUsername, givenName, context);
-                    break;
-                case "id":
-                    templateData = SendEmailTemplateId.get(newUsername, givenName, context);
-                    break;
-                case "pt":
-                    templateData = SendEmailTemplatePt.get(newUsername, givenName, context);
-                    break;
-                default:
-                    templateData = SendEmailTemplateEn.get(newUsername, givenName, context);
-                    break;
-            }
-
-            subject = templateData.get("subject");
-            htmlBody = templateData.get("body");
-            textBody = htmlBody.replaceAll("\\<.*?\\>", ""); // crude HTML to text
-
-            // Send email
-            MailService mailService = CdiUtil.bean(MailService.class);
-            boolean sent = mailService.sendMailSigned(
-                    smtpConfig.getFromEmailAddress(),
-                    smtpConfig.getFromName(),
-                    to,
-                    null,
-                    subject,
-                    textBody,
-                    htmlBody);
-
-            if (sent) {
-                LogUtils.log("Localized username update email sent successfully to %", to);
-            } else {
-                LogUtils.log("Failed to send localized username update email to %", to);
-            }
-
-            return sent;
-
-        } catch (Exception e) {
-            LogUtils.log("Failed to send username update email: %", e.getMessage());
+        if (smtpConfig == null) {
+            LogUtils.log("SMTP configuration is missing.");
             return false;
         }
+
+        // Preferred language from user profile or fallback to English
+        String preferredLang = (lang != null && !lang.isEmpty())
+                ? lang.toLowerCase()
+                : "en";
+
+        // Build context data
+        ContextData context = new ContextData();
+        context.setDevice("Unknown");
+        context.setLocation("Unknown");
+        context.setTimeZone("UTC");
+
+        // Select correct template
+        Map<String, String> templateData;
+        switch (preferredLang) {
+            case "ar":
+                templateData = SendEmailTemplateAr.get(newUsername, context);
+                break;
+            case "es":
+                templateData = SendEmailTemplateEs.get(newUsername, context);
+                break;
+            case "fr":
+                templateData = SendEmailTemplateFr.get(newUsername, context);
+                break;
+            case "id":
+                templateData = SendEmailTemplateId.get(newUsername, context);
+                break;
+            case "pt":
+                templateData = SendEmailTemplatePt.get(newUsername, context);
+                break;
+            default:
+                templateData = SendEmailTemplateEn.get(newUsername, context);
+                break;
+        }
+
+        String subject = templateData.get("subject");
+        String htmlBody = templateData.get("body");
+        String textBody = htmlBody.replaceAll("\\<.*?\\>", ""); // crude HTML → text
+
+        // Send signed email
+        MailService mailService = CdiUtil.bean(MailService.class);
+        boolean sent = mailService.sendMailSigned(
+                smtpConfig.getFromEmailAddress(),
+                smtpConfig.getFromName(),
+                to,
+                null,
+                subject,
+                textBody,
+                htmlBody
+        );
+
+        if (sent) {
+            LogUtils.log("Localized username update email sent successfully to %", to);
+        } else {
+            LogUtils.log("Failed to send localized username update email to %", to);
+        }
+
+        return sent;
+
+    } catch (Exception e) {
+        LogUtils.log("Failed to send username update email: %", e.getMessage());
+        return false;
     }
+}
+
 
     // Helper method to fetch SMTP configuration
     private SmtpConfiguration getSmtpConfiguration() {
