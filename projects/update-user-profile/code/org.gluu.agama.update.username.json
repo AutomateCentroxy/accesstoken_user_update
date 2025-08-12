@@ -1238,7 +1238,7 @@
 					"assignments": [
 						{
 							"variableTypeCheck": true,
-							"assignmentExpression": "authCheck.error",
+							"assignmentExpression": "authCheck.errorMessage",
 							"assignedVariableName": "uiFeedback.errorMessage"
 						}
 					],
@@ -1959,8 +1959,8 @@
 		}
 	],
 	"viewport": {
-		"x": -414.4769324881786,
-		"y": -120.20802620079178,
-		"zoom": 0.7412335049014176
+		"x": -521,
+		"y": -342,
+		"zoom": 1
 	}
 }
