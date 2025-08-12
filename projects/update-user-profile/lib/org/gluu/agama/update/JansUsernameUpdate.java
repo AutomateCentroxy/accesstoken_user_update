@@ -16,7 +16,13 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.regex.Pattern;
-import org.gluu.agama.smtp.SendEmailTemplate;
+import org.gluu.agama.smtp.SendEmailTemplateEn;
+import org.gluu.agama.smtp.SendEmailTemplateAr;
+import org.gluu.agama.smtp.SendEmailTemplateEs;
+import org.gluu.agama.smtp.SendEmailTemplateFr;
+import org.gluu.agama.smtp.SendEmailTemplateId;
+import org.gluu.agama.smtp.SendEmailTemplatePt;
+
 import org.gluu.agama.smtp.jans.model.ContextData;
 import io.jans.model.SmtpConfiguration;
 import io.jans.service.MailService;
@@ -320,124 +326,10 @@ public class JansUsernameUpdate extends UsernameUpdate {
                 return false;
             }
 
-            // Use preferred lang from Agama directly
+            // Use preferred language from profile, fallback to English
             String preferredLang = (lang != null && !lang.isEmpty())
                     ? lang.toLowerCase()
-                    : "en"; // fallback to English
-
-            // Hardcoded translations with detailed multi-line body, no footer
-            Map<String, Map<String, String>> translations = new HashMap<>();
-
-            translations.put("en", Map.of(
-                    "subject", "Your username has been successfully created",
-                    "body", String.format(
-                            "Dear %s,\n" +
-                                    "Congratulations! Your username has been successfully created 🔒\n" +
-                                    "Username: %s\n" +
-                                    "You can now use your username instead of your email address to sign in, making your login experience smoother and more secure.\n"
-                                    +
-                                    "But that’s not all!\n" +
-                                    "We’re not just upgrading how you log in, we’re setting the stage for something exciting. Powerful new features are on the way, designed to help boost your journey toward a more prosperous financial future.\n"
-                                    +
-                                    "Stay tuned, the best is yet to come!\n" +
-                                    "In the meantime, if you have any questions or need support, we’re just a click away.\n"
-                                    +
-                                    "Kind regards,\n" +
-                                    "Phi Wallet Team",
-                            (givenName != null && !givenName.isEmpty()) ? givenName : "user", newUsername)));
-
-            translations.put("ar", Map.of(
-                    "subject", "تم إنشاء اسم المستخدم الخاص بك بنجاح",
-                    "body", String.format(
-                            "<div dir=\"rtl\" lang=\"ar\" style=\"text-align: right; font-family: Arial, 'Segoe UI', Tahoma, sans-serif;\">"
-                                    +
-                                    "مرحباً %s,<br>" +
-                                    "🔒 خبر رائع! تم إنشاء اسم المستخدم الخاص بك بنجاح<br>" +
-                                    "اسم المستخدم: %s<br>" +
-                                    "يمكنك الآن استخدام اسم المستخدم بدلاً من بريدك الإلكتروني لتسجيل الدخول، مما يجعل تجربتك أكثر سلاسة وأمانًا.<br>"
-                                    +
-                                    "لكن هذا ليس كل شيء!<br>" +
-                                    "نحن لا نقوم فقط بتحسين طريقة تسجيل الدخول لديك، بل نُعِد حسابك لميزات جديدة في الطريق، مصممة لدعم رحلتك نحو مستقبل مالي أكثر ازدهارًا.<br>"
-                                    +
-                                    "إذا كانت لديك أي أسئلة، لا تتردد في التواصل معنا.<br>" +
-                                    "مع أطيب التحيات،<br>" +
-                                    "فريق Phi Wallet" +
-                                    "</div>",
-                            (givenName != null) ? givenName : "", newUsername)));
-
-            translations.put("es", Map.of(
-                    "subject", "Tu nombre de usuario ha sido creado correctamente",
-                    "body", String.format(
-                            "Hola %s,\n" +
-                                    "¡Felicidades! Tu nombre de usuario ha sido creado con éxito. 🔒\n" +
-                                    "Nombre de usuario: %s\n" +
-                                    "Ahora puedes usar tu nombre de usuario en lugar de tu correo electrónico para iniciar sesión, haciendo que tu experiencia sea más fluida y segura.\n"
-                                    +
-                                    "¡Pero eso no es todo!\n" +
-                                    "No solo estamos mejorando tu forma de iniciar sesión, sino que estamos preparando tu cuenta para algo emocionante. Nuevas funciones diseñadas para impulsar tu camino hacia un futuro financiero más próspero.\n"
-                                    +
-                                    "¡Lo mejor está por venir!\n" +
-                                    "Mientras tanto, si tienes alguna pregunta o necesitas asistencia, estamos a un clic de distancia.\n"
-                                    +
-                                    "Un saludo cordial,\n" +
-                                    "Equipo de Phi Wallet",
-                            (givenName != null && !givenName.isEmpty()) ? givenName : "usuario", newUsername)));
-
-            translations.put("fr", Map.of(
-                    "subject", "Votre nom d’utilisateur a été créé avec succès",
-                    "body", String.format(
-                            "Bonjour %s,\n" +
-                                    "Félicitation! Votre nom d’utilisateur a été créé avec succès 🔒\n" +
-                                    "Nom d’utilisateur : %s\n" +
-                                    "Vous pouvez désormais utiliser votre nom d’utilisateur au lieu de votre adresse e-mail pour vous connecter, offrant ainsi une expérience plus fluide et sécurisée.\n"
-                                    +
-                                    "Mais ce n’est pas tout !\n" +
-                                    "Nous ne faisons pas que simplifier votre connexion, nous préparons aussi quelque chose d’excitant. De nouvelles fonctionnalités arriveront bientôt, conçues pour booster votre parcours vers un avenir financier plus prospère.\n"
-                                    +
-                                    "Restez à l’écoute, le meilleur est à venir !\n" +
-                                    "Entre-temps, si vous avez des questions ou besoin d’assistance, nous sommes à un clic de distance.\n"
-                                    +
-                                    "Cordialement,\n" +
-                                    "L’équipe Phi Wallet",
-                            (givenName != null && !givenName.isEmpty()) ? givenName : "utilisateur", newUsername)));
-
-            translations.put("id", Map.of(
-                    "subject", "Fitur baru! Klaim nama pengguna Anda hari ini",
-                    "body", String.format(
-                            "Halo %s,\n" +
-                                    "Kami sedang meningkatkan pengalaman login Anda. Semuanya dimulai dengan membuat nama pengguna Anda.\n"
-                                    +
-                                    "Dengan mengatur nama pengguna, Anda akan mendapatkan akses masuk yang lebih cepat dan lebih aman. Ini juga akan mempersiapkan akun Anda untuk fitur-fitur baru yang akan segera hadir.\n"
-                                    +
-                                    "Anda hanya perlu melakukannya satu kali, dan prosesnya sangat cepat.\n" +
-                                    "Tips: Lakukan sekarang untuk mengamankan nama pengguna favorit Anda sebelum digunakan oleh orang lain.\n"
-                                    +
-                                    "[CTA: Buka Aplikasi]\n" +
-                                    "Butuh bantuan? Tim dukungan kami siap membantu Anda.\n" +
-                                    "Salam hangat,\n" +
-                                    "Tim Phi Wallet",
-                            (givenName != null && !givenName.isEmpty()) ? givenName : "pengguna")));
-
-            translations.put("pt", Map.of(
-                    "subject", "O teu nome de utilizador foi criado com sucesso",
-                    "body", String.format(
-                            "Olá %s,\n" +
-                                    "Parabéns! O teu nome de utilizador foi criado com sucesso. 🔒\n" +
-                                    "Nome de utilizador: %s\n" +
-                                    "Agora já podes usar o teu nome de utilizador em vez do e-mail para iniciares sessão, tornando a tua experiência mais simples e segura.\n"
-                                    +
-                                    "Mas isso não é tudo!\n" +
-                                    "Não estamos apenas a melhorar a forma como inicias sessão, estamos a preparar o terreno para algo entusiasmante. Novas funcionalidades estão a caminho, desenhadas para impulsionar o teu percurso rumo a um futuro financeiro mais próspero.\n"
-                                    +
-                                    "O melhor ainda está para vir!\n" +
-                                    "Entretanto, se tiveres alguma dúvida ou precisares de ajuda, estamos apenas a um clique de distância.\n"
-                                    +
-                                    "Com os melhores cumprimentos,\n" +
-                                    "Equipa Phi Wallet",
-                            (givenName != null && !givenName.isEmpty()) ? givenName : "utilizador", newUsername)));
-
-            // Pick the right lang (fallback to English if missing)
-            Map<String, String> bundle = translations.getOrDefault(preferredLang, translations.get("en"));
+                    : "en";
 
             // Build context data
             ContextData context = new ContextData();
@@ -445,12 +337,45 @@ public class JansUsernameUpdate extends UsernameUpdate {
             context.setLocation("Unknown");
             context.setTimeZone("UTC");
 
-            // Prepare localized email content
-            String htmlBody = SendEmailTemplate.get(newUsername, context, bundle);
-            String subject = bundle.get("subject");
-            String textBody = bundle.get("body");
+            // Prepare variables for template
+            String subject;
+            String textBody;
+            String htmlBody;
 
-            // Send signed email
+            switch (preferredLang) {
+                case "ar":
+                    subject = SendEmailTemplateAr.getSubject(newUsername, givenName);
+                    textBody = SendEmailTemplateAr.getTextBody(newUsername, givenName);
+                    htmlBody = SendEmailTemplateAr.get(newUsername, context, givenName);
+                    break;
+                case "es":
+                    subject = SendEmailTemplateEs.getSubject(newUsername, givenName);
+                    textBody = SendEmailTemplateEs.getTextBody(newUsername, givenName);
+                    htmlBody = SendEmailTemplateEs.get(newUsername, context, givenName);
+                    break;
+                case "fr":
+                    subject = SendEmailTemplateFr.getSubject(newUsername, givenName);
+                    textBody = SendEmailTemplateFr.getTextBody(newUsername, givenName);
+                    htmlBody = SendEmailTemplateFr.get(newUsername, context, givenName);
+                    break;
+                case "id":
+                    subject = SendEmailTemplateId.getSubject(newUsername, givenName);
+                    textBody = SendEmailTemplateId.getTextBody(newUsername, givenName);
+                    htmlBody = SendEmailTemplateId.get(newUsername, context, givenName);
+                    break;
+                case "pt":
+                    subject = SendEmailTemplatePt.getSubject(newUsername, givenName);
+                    textBody = SendEmailTemplatePt.getTextBody(newUsername, givenName);
+                    htmlBody = SendEmailTemplatePt.get(newUsername, context, givenName);
+                    break;
+                default:
+                    subject = SendEmailTemplateEn.getSubject(newUsername, givenName);
+                    textBody = SendEmailTemplateEn.getTextBody(newUsername, givenName);
+                    htmlBody = SendEmailTemplateEn.get(newUsername, context, givenName);
+                    break;
+            }
+
+            // Send email
             MailService mailService = CdiUtil.bean(MailService.class);
             boolean sent = mailService.sendMailSigned(
                     smtpConfig.getFromEmailAddress(),
@@ -463,6 +388,7 @@ public class JansUsernameUpdate extends UsernameUpdate {
 
             LogUtils.log("Localized username update email sent successfully to %", to);
             return sent;
+
         } catch (Exception e) {
             LogUtils.log("Failed to send username update email: %", e.getMessage());
             return false;
