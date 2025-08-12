@@ -2,14 +2,13 @@ package org.gluu.agama.smtp;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-import org.gluu.agama.smtp.jans.model.ContextData;
 import java.util.Map;
 
 class SendEmailTemplateAr {
 
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy, hh:mma (O)");
 
-    static Map<String, String> get(String username, ContextData context) {
+    static Map<String, String> get(String username) {
 
         String html = """
 <div dir="rtl" lang="ar" style="width: 640px; font-size: 18px; font-family: Arial, 'Segoe UI', Tahoma, sans-serif; font-weight: 300; color: #333; text-align: right;">
@@ -24,12 +23,6 @@ class SendEmailTemplateAr {
         <p>مع أطيب التحيات،<br>فريق Phi Wallet</p>
     </div>
 
-    <div style="padding: 12px; background-color: #ecf0f5; font-size: 16px;">
-        <p style="color: #48596b; font-weight: 500;">وقت حدوث ذلك:</p>
-        <p><span style="color: #48596b; font-weight: 500;">التاريخ:</span><br>""" + computeDateTime(context.getTimeZone()) + """</p>
-        
-    </div>
-
     <div style="background-color: #f9f9f9; padding: 20px; font-size: 14px; display: flex; justify-content: flex-end;">
         <div>
             <img src="https://phiwallet.com/components/images/logo.png" alt="Phi Logo" style="height: 40px;">
@@ -42,14 +35,5 @@ class SendEmailTemplateAr {
             "subject", "تم إنشاء اسم المستخدم الخاص بك بنجاح",
             "body", html
         );
-    }
-
-    private static String computeDateTime(String zone) {
-        Instant now = Instant.now();
-        try {
-            return now.atZone(ZoneId.of(zone)).format(formatter);
-        } catch (Exception e) {
-            return now.atOffset(ZoneOffset.UTC).format(formatter);
-        }
     }
 }
