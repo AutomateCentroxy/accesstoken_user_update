@@ -1238,8 +1238,8 @@
 					"assignments": [
 						{
 							"variableTypeCheck": true,
-							"assignmentExpression": "{success: false, error: authCheck.error}",
-							"assignedVariableName": "authErrorResponse"
+							"assignmentExpression": "authCheck.error",
+							"assignedVariableName": "uiFeedback.errorMessage"
 						}
 					],
 					"nodeIcon": "material-symbols:equal",
@@ -1323,40 +1323,6 @@
 					"displayName": "ASSIGNMENT",
 					"hasComment": true,
 					"comment": "Assign username to a variable"
-				}
-			},
-			"measured": {
-				"width": 170,
-				"height": 123
-			},
-			"selected": false
-		},
-		{
-			"id": "finishNode-24c0af37-6aa9-4660-8f53-312dacb74da7",
-			"type": "finishNode",
-			"position": {
-				"x": 1834.679114065259,
-				"y": 862.4405044109109
-			},
-			"data": {
-				"id": "finishNode-24c0af37-6aa9-4660-8f53-312dacb74da7",
-				"type": "finishNode",
-				"position": {
-					"x": 1834.679114065259,
-					"y": 862.4405044109109
-				},
-				"previousNodeId": "assignmentNode-f7264599-8d2c-4563-8d80-a4f5a511675c",
-				"agamaData": {
-					"nodeColor": "",
-					"titleColor": "",
-					"descColor": "",
-					"displayName": "",
-					"hasComment": true,
-					"comment": "",
-					"flowfilename": "",
-					"returnVariable": "authErrorResponse",
-					"finishMode": "withVariable",
-					"nodeIcon": "material-symbols:line-end-square-rounded"
 				}
 			},
 			"measured": {
@@ -1990,30 +1956,11 @@
 				"fillOpacity": 0.7
 			},
 			"id": "xy-edge__assignmentNode-07f865b4-2ab1-470c-a0be-340479924c47source_assignmentNode-07f865b4-2ab1-470c-a0be-340479924c47-callNode-c6b83a3b-2427-450b-b529-567f0c7179detarget_callNode-c6b83a3b-2427-450b-b529-567f0c7179de"
-		},
-		{
-			"id": "assignmentNode-f7264599-8d2c-4563-8d80-a4f5a511675c-finishNode-24c0af37-6aa9-4660-8f53-312dacb74da7",
-			"type": "default",
-			"source": "assignmentNode-f7264599-8d2c-4563-8d80-a4f5a511675c",
-			"target": "finishNode-24c0af37-6aa9-4660-8f53-312dacb74da7",
-			"labelBgPadding": [
-				8,
-				4
-			],
-			"labelBgBorderRadius": 4,
-			"label": "",
-			"labelBgStyle": {
-				"fill": "#009688",
-				"color": "#ffffff",
-				"fillOpacity": 0.7
-			},
-			"labelShowBg": true,
-			"sourceHandle": "source_assignmentNode-f7264599-8d2c-4563-8d80-a4f5a511675c"
 		}
 	],
 	"viewport": {
-		"x": -1457.150281386319,
-		"y": -679.7448111760036,
-		"zoom": 1.3491025343396987
+		"x": -414.4769324881786,
+		"y": -120.20802620079178,
+		"zoom": 0.7412335049014176
 	}
 }
