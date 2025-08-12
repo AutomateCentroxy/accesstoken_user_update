@@ -12,22 +12,22 @@ class SendEmailTemplatePt {
     static Map<String, String> get(String username, String givenName, ContextData context) {
 
         String bodyContent = """
-<p style="margin: 0; padding: 0;">OlÃ¡,</p>
-<p style="margin: 0; padding: 0;">%s,</p>
-<p style="margin: 0; padding: 0;">ParabÃ©ns! O teu nome de utilizador foi criado com sucesso. ð</p>
+<p style="margin: 0; padding: 0;">Olá,</p>
+<p style="margin: 0; padding: 0;">User,</p>
+<p style="margin: 0; padding: 0;">Parabéns! O teu nome de utilizador foi criado com sucesso.</p>
 <p style="margin: 0; padding: 0;">Nome de utilizador: <b>%s</b></p>
 <p style="margin: 0; padding: 0;">
-    Agora jÃ¡ podes usar o teu nome de utilizador em vez do e-mail para iniciares sessÃ£o, 
-    tornando a tua experiÃªncia mais simples e segura.
+    Agora já podes usar o teu nome de utilizador em vez do e-mail para iniciares sessão, 
+    tornando a tua experiência mais simples e segura.
 </p>
-<p style="margin: 0; padding: 0;"><b>Mas isso nÃ£o Ã© tudo!</b></p>
+<p style="margin: 0; padding: 0;"><b>Mas isso não é tudo!</b></p>
 <p style="margin: 0; padding: 0;">
-    NÃ£o estamos apenas a melhorar a forma como inicias sessÃ£o, estamos a preparar o terreno para algo entusiasmante. 
-    Novas funcionalidades estÃ£o a caminho, desenhadas para impulsionar o teu percurso rumo a um futuro financeiro mais prÃ³spero.
+    Não estamos apenas a melhorar a forma como inicias sessão, estamos a preparar o terreno para algo entusiasmante. 
+    Novas funcionalidades estão a caminho, desenhadas para impulsionar o teu percurso rumo a um futuro financeiro mais próspero.
 </p>
-<p style="margin: 0; padding: 0;">O melhor ainda estÃ¡ para vir!</p>
+<p style="margin: 0; padding: 0;">O melhor ainda está para vir!</p>
 <p style="margin: 0; padding: 0;">
-    Entretanto, se tiveres alguma dÃºvida ou precisares de ajuda, estamos apenas a um clique de distÃ¢ncia.
+    Entretanto, se tiveres alguma dúvida ou precisares de ajuda, estamos apenas a um clique de distância.
 </p>
 <p style="margin: 0; padding: 0;">Com os melhores cumprimentos,<br>Equipa Phi Wallet</p>
 """.formatted(
@@ -38,15 +38,7 @@ class SendEmailTemplatePt {
         String html = """
 <div dir="ltr" lang="pt" style="width: 640px; font-size: 18px; font-family: Arial, 'Segoe UI', Tahoma, sans-serif; font-weight: 300; color: #333; text-align: left;">
 
-    <!-- Main Content -->
-    <div style="padding: 20px; border-bottom: 1px solid #ccc;">
-        %s
-        <div style="display: flex; justify-content: center; margin: 20px 0;">
-            <div style="background-color: #B29163; color: white; font-size: 30px; font-weight: 500; padding: 10px 20px; border-radius: 8px;" align="center">
-                %s
-            </div>
-        </div>
-    </div>
+    
 
     <!-- Date Section -->
     <div style="padding: 12px; background-color: #ecf0f5; font-size: 16px;">
@@ -63,7 +55,6 @@ class SendEmailTemplatePt {
 </div>
 """.formatted(
     bodyContent,
-    username,
     computeDateTime(context.getTimeZone())
 );
 
