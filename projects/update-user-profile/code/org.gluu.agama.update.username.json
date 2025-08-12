@@ -265,7 +265,7 @@
 			},
 			"measured": {
 				"width": 109,
-				"height": 59
+				"height": 58
 			},
 			"selected": false,
 			"dragging": false
@@ -385,7 +385,7 @@
 			},
 			"measured": {
 				"width": 109,
-				"height": 59
+				"height": 58
 			},
 			"selected": false
 		},
@@ -553,7 +553,7 @@
 			},
 			"measured": {
 				"width": 109,
-				"height": 59
+				"height": 58
 			},
 			"selected": false,
 			"dragging": false
@@ -887,7 +887,7 @@
 				},
 				"previousNodeId": "callNode-4e073ff4-8490-4f7c-bbd7-c85ea6760ccb",
 				"agamaData": {
-					"logMessage": "\"Email send to to the user\" lang email newUsername",
+					"logMessage": "\"Email send to to the user\" lang email newUsername givenName",
 					"logLevel": "info",
 					"nodeIcon": "octicon:log-16",
 					"nodeColor": "",
@@ -902,7 +902,7 @@
 				"width": 170,
 				"height": 122
 			},
-			"selected": false,
+			"selected": true,
 			"dragging": false
 		},
 		{
@@ -1092,7 +1092,7 @@
 			},
 			"measured": {
 				"width": 109,
-				"height": 59
+				"height": 58
 			},
 			"selected": false,
 			"dragging": false
@@ -1212,7 +1212,7 @@
 				"width": 170,
 				"height": 122
 			},
-			"selected": true,
+			"selected": false,
 			"dragging": false
 		},
 		{
@@ -1327,7 +1327,7 @@
 			},
 			"measured": {
 				"width": 109,
-				"height": 59
+				"height": 58
 			},
 			"selected": false
 		}
@@ -1957,8 +1957,8 @@
 		}
 	],
 	"viewport": {
-		"x": -937.7385412028548,
-		"y": -277.2903872289828,
-		"zoom": 0.8681402276010427
+		"x": -5243.382847747678,
+		"y": -201.83588079617437,
+		"zoom": 1.2277356839150602
 	}
 }
