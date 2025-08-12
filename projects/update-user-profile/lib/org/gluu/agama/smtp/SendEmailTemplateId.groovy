@@ -13,7 +13,7 @@ class SendEmailTemplateId {
 
         String bodyContent = """
 <p style="margin: 0; padding: 0;">Halo,</p>
-<p style="margin: 0; padding: 0;">%s,</p>
+<p style="margin: 0; padding: 0;">User,</p>
 <p style="margin: 0; padding: 0;">
     Kami sedang meningkatkan pengalaman login Anda. Semuanya dimulai dengan membuat nama pengguna Anda.
 </p>
@@ -42,16 +42,6 @@ class SendEmailTemplateId {
         String html = """
 <div dir="ltr" lang="id" style="width: 640px; font-size: 18px; font-family: Arial, 'Segoe UI', Tahoma, sans-serif; font-weight: 300; color: #333; text-align: left;">
 
-    <!-- Main Content -->
-    <div style="padding: 20px; border-bottom: 1px solid #ccc;">
-        %s
-        <div style="display: flex; justify-content: center; margin: 20px 0;">
-            <div style="background-color: #B29163; color: white; font-size: 30px; font-weight: 500; padding: 10px 20px; border-radius: 8px;" align="center">
-                %s
-            </div>
-        </div>
-    </div>
-
     <!-- Date Section -->
     <div style="padding: 12px; background-color: #ecf0f5; font-size: 16px;">
         <p style="color: #48596b; font-weight: 500;">Waktu kejadian:</p>
@@ -67,7 +57,6 @@ class SendEmailTemplateId {
 </div>
 """.formatted(
     bodyContent,
-    username,
     computeDateTime(context.getTimeZone())
 );
 
