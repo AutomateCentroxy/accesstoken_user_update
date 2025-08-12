@@ -55,18 +55,17 @@ Repeat 6 times max
                               email = updatedUser.email
                               newUsername = updatedUser.uid
                               lang = updatedUser.lang
-                              givenName = updatedUser.givenName
                               // Send confirmation email
-                              emailStatus = Call usernameUpdateService sendUsernameUpdateEmail email newUsername givenName lang
+                              emailStatus = Call usernameUpdateService sendUsernameUpdateEmail email newUsername lang
                               // Email send to to the user
-                              Log "@info Email send to to the user" lang email newUsername givenName
+                              Log "@info Email send to to the user" lang email newUsername
                               //  Show acknowledgement UI page for successful Update 
                               acknowledgementInput = RRF "acknowledgementUsername.ftlh" 
                               //  Finish the flow successfully
                               Log "@info Finish the flow successfully"
                               //  Finish the flow successfully
-                              it_hadyo = {success:true, data:  { userId: updatedUser.uid } }
-                              Finish it_hadyo
+                              it_imjba = {success:true, data:  { userId: updatedUser.uid } }
+                              Finish it_imjba
                          Otherwise
                               //  User update failed log
                               Log "@info User update failed. Error : %" E
@@ -74,5 +73,5 @@ Repeat 6 times max
 //  Maximum attempt reached
 Log "@info Maximum attempt reached"
 //  User Registration flow failed
-it_twaho = {success:false, error: "User update flow reached max attempts try later"}
-Finish it_twaho
+it_ysrga = {success:false, error: "User update flow reached max attempts try later"}
+Finish it_ysrga
