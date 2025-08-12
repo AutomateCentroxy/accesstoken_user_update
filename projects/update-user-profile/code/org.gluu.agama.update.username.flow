@@ -18,7 +18,8 @@ Repeat 6 times max
           usernameUpdateService = Call org.gluu.agama.user.UsernameUpdate#getInstance 
           // Validate the bearer token
           authCheck = Call org.gluu.agama.update.JansUsernameUpdate#validateBearerToken accessToken
-          When 
+          // Check if token validation failed
+          When authCheck.valid is false
                uiFeedback.errorMessage = authCheck.errorMessage
           Otherwise
                // Token is valid, proceed with user search
@@ -63,8 +64,8 @@ Repeat 6 times max
                               //  Finish the flow successfully
                               Log "@info Finish the flow successfully"
                               //  Finish the flow successfully
-                              it_nfvjd = {success:true, data:  { userId: updatedUser.uid } }
-                              Finish it_nfvjd
+                              it_wkrea = {success:true, data:  { userId: updatedUser.uid } }
+                              Finish it_wkrea
                          Otherwise
                               //  User update failed log
                               Log "@info User update failed. Error : %" E
@@ -72,5 +73,5 @@ Repeat 6 times max
 //  Maximum attempt reached
 Log "@info Maximum attempt reached"
 //  User Registration flow failed
-it_nhzcx = {success:false, error: "User update flow reached max attempts try later"}
-Finish it_nhzcx
+it_qaqjb = {success:false, error: "User update flow reached max attempts try later"}
+Finish it_qaqjb
