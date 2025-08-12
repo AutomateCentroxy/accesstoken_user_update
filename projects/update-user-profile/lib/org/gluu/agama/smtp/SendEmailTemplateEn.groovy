@@ -12,20 +12,20 @@ class SendEmailTemplateEn {
 
         String bodyContent = """
 <p style="margin: 0; padding: 0;">Hi,</p>
-<p style="margin: 0; padding: 0;">Dear %s,</p>
-<p style="margin: 0; padding: 0;">Congratulations! Your username has been successfully created ð</p>
+<p style="margin: 0; padding: 0;">Dear User,</p>
+<p style="margin: 0; padding: 0;">Congratulations! Your username has been successfully created.</p>
 <p style="margin: 0; padding: 0;">Username: <b>%s</b></p>
 <p style="margin: 0; padding: 0;">
     You can now use your username instead of your email address to sign in, making your login experience smoother and more secure.
 </p>
-<p style="margin: 0; padding: 0;"><b>But thatâs not all!</b></p>
+<p style="margin: 0; padding: 0;"><b>But that's not all!</b></p>
 <p style="margin: 0; padding: 0;">
-    Weâre not just upgrading how you log in, weâre setting the stage for something exciting.
+    We're not just upgrading how you log in, we're setting the stage for something exciting.
     Powerful new features are on the way, designed to help boost your journey toward a more prosperous financial future.
 </p>
 <p style="margin: 0; padding: 0;">Stay tuned, the best is yet to come!</p>
 <p style="margin: 0; padding: 0;">
-    In the meantime, if you have any questions or need support, weâre just a click away.
+    In the meantime, if you have any questions or need support, we're just a click away.
 </p>
 <p style="margin: 0; padding: 0;">Kind regards,<br>Phi Wallet Team</p>
 """.formatted(
@@ -36,15 +36,7 @@ class SendEmailTemplateEn {
         String html = """
 <div dir="ltr" lang="en" style="width: 640px; font-size: 18px; font-family: Arial, 'Segoe UI', Tahoma, sans-serif; font-weight: 300; color: #333; text-align: left;">
 
-    <!-- Main Content -->
-    <div style="padding: 20px; border-bottom: 1px solid #ccc;">
-        %s
-        <div style="display: flex; justify-content: center; margin: 20px 0;">
-            <div style="background-color: #B29163; color: white; font-size: 30px; font-weight: 500; padding: 10px 20px; border-radius: 8px;" align="center">
-                %s
-            </div>
-        </div>
-    </div>
+    
 
     <!-- Date Section -->
     <div style="padding: 12px; background-color: #ecf0f5; font-size: 16px;">
@@ -61,7 +53,6 @@ class SendEmailTemplateEn {
 </div>
 """.formatted(
     bodyContent,
-    username,
     computeDateTime(context.getTimeZone())
 );
 
