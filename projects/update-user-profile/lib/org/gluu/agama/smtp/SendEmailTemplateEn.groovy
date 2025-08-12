@@ -3,49 +3,38 @@ package org.gluu.agama.smtp;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import org.gluu.agama.smtp.jans.model.ContextData;
-import java.util.Map;
 
-class SendEmailTemplateEs {
+class UsernameCreatedTemplate {
 
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy, hh:mma (O)");
 
-    static Map<String, String> get(String username, ContextData context) {
+    static String get(String username, ContextData context) {
 
-        String html = """
-<div dir="ltr" lang="es" style="width: 640px; font-size: 18px; font-family: Arial, 'Segoe UI', Tahoma, sans-serif; font-weight: 300; color: #333; text-align: left;">
+        return """
+<div style="width: 640px; font-size: 18px; font-family: Arial, 'Segoe UI', Tahoma, sans-serif; font-weight: 300; color: #333;">
     <div style="padding: 12px; border-bottom: 1px solid #ccc;">
-        <p>Hola,</p>
-        <p>¡Felicidades! Tu nombre de usuario ha sido creado con éxito.</p>
-        <p>Nombre de usuario: <b>""" + username + """</b></p>
-        <p>Ahora puedes usar tu nombre de usuario en lugar de tu correo electrónico para iniciar sesión, haciendo que tu experiencia sea más fluida y segura.</p>
-        <p><b>¡Pero eso no es todo!</b></p>
-        <p>No solo estamos mejorando tu forma de iniciar sesión, sino que estamos preparando tu cuenta para nuevas funciones diseñadas para impulsar tu camino hacia un futuro financiero más próspero.</p>
-        <p>¡Lo mejor está por venir!</p>
-        <p>Mientras tanto, si tienes alguna pregunta o necesitas asistencia, estamos a un clic de distancia.</p>
-        <p>Un saludo cordial,<br>Equipo de Phi Wallet</p>
+        <p>Dear User,</p>
+        <p>Congratulations! Your username has been successfully created.</p>
+        <p>Username: <b>""" + username + """</b></p>
+        <p>You can now use your username instead of your email address to sign in, making your login experience smoother and more secure.</p>
+        <p><b>But that's not all!</b></p>
+        <p>We're not just upgrading how you log in, we're setting the stage for something exciting.
+           Powerful new features are on the way, designed to help boost your journey toward a more prosperous financial future.</p>
+        <p>Stay tuned, the best is yet to come!</p>
+        <p>In the meantime, if you have any questions or need support, we're just a click away.</p>
+        <p>Kind regards,<br>Phi Wallet Team</p>
     </div>
 
     <div style="padding: 12px; background-color: #ecf0f5; font-size: 16px;">
-        <p style="color: #48596b; font-weight: 500;">Fecha del evento:</p>
-        <p><span style="color: #48596b; font-weight: 500;">Fecha:</span><br>""" + computeDateTime(context.getTimeZone()) + """</p>
+        <p style="color: #48596b; font-weight: 500;">When this happened:</p>
+        <p><span style="color: #48596b; font-weight: 500;">Date:</span><br>""" + computeDateTime(context.getTimeZone()) + """</p>
+        <p><span style="color: #48596b; font-weight: 500;">""" + 
+            ((context.getDevice() == null || context.getDevice().isEmpty()) ? "" : ("Device:</span><br>" + context.getDevice())) + """</p>
         <p><span style="color: #48596b; font-weight: 500;">""" +
-            ((context.getDevice() == null || context.getDevice().isEmpty()) ? "" : ("Dispositivo:</span><br>" + context.getDevice())) + """</p>
-        <p><span style="color: #48596b; font-weight: 500;">""" +
-            ((context.getLocation() == null || context.getLocation().isEmpty()) ? "" : ("Ubicación aproximada:</span><br>" + context.getLocation())) + """</p>
-    </div>
-
-    <div style="background-color: #f9f9f9; padding: 20px; font-size: 14px; display: flex; justify-content: flex-start;">
-        <div>
-            <img src="https://phiwallet.com/components/images/logo.png" alt="Phi Logo" style="height: 40px;">
-        </div>
+            ((context.getLocation() == null || context.getLocation().isEmpty()) ? "" : ("Approximate Location:</span><br>" + context.getLocation())) + """</p>
     </div>
 </div>
         """;
-
-        return Map.of(
-            "subject", "Tu nombre de usuario ha sido creado correctamente",
-            "body", html
-        );
     }
 
     private static String computeDateTime(String zone) {
