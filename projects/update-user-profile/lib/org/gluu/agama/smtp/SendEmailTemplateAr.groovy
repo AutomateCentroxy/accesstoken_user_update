@@ -3,44 +3,41 @@ package org.gluu.agama.smtp;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import org.gluu.agama.smtp.jans.model.ContextData;
+import java.util.Map;
 
 class SendEmailTemplateAr {
 
-    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy, hh:mma (O)");
+    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy, hh:mma (O)");
 
     static Map<String, String> get(String username, String givenName, ContextData context) {
 
         String bodyContent = """
-Hello ${givenName != null ? givenName : ""},<br><br>
-ð Great news! Your username has been successfully created.<br><br>
-Username: <b>${username}</b><br><br>
-You can now use your username instead of your email address to sign in, making your login experience smoother and more secure.<br><br>
-<b>But thatâs not all!</b><br><br>
-Weâre not just improving how you log in â weâre preparing your account for exciting new features that are on the way, designed to support your journey toward a more prosperous financial future.<br><br>
-If you have any questions, feel free to reach out to us.<br><br>
-Best regards,<br>
-The Phi Wallet Team
-""";
+<p style="margin: 0; padding: 0;">مرحباً User،</p>
+<p style="margin: 0; padding: 0;"> خبر رائع! تم إنشاء اسم المستخدم الخاص بك بنجاح.</p>
+<p style="margin: 0; padding: 0;">اسم المستخدم: <b>%s</b></p>
+<p style="margin: 0; padding: 0;">
+يمكنك الآن استخدام اسم المستخدم بدلاً من بريدك الإلكتروني لتسجيل الدخول، مما يجعل تجربتك أكثر سلاسة وأمانًا.
+</p>
+<p style="margin: 0; padding: 0;"><b>لكن هذا ليس كل شيء!</b></p>
+<p style="margin: 0; padding: 0;">
+نحن لا نقوم فقط بتحسين طريقة تسجيل الدخول لديك، بل نُعِد حسابك لميزات جديدة في الطريق، مصممة لدعم رحلتك نحو مستقبل مالي أكثر ازدهارًا.
+</p>
+<p style="margin: 0; padding: 0;">إذا كانت لديك أي أسئلة، لا تتردد في التواصل معنا.</p>
+<p style="margin: 0; padding: 0;">مع أطيب التحيات،<br>فريق Phi Wallet</p>
+""".formatted(
+    (givenName != null ? givenName : ""),
+    username
+);
 
         String html = """
-<div dir="ltr" lang="en" style="width: 640px; font-size: 18px; font-family: Arial, 'Segoe UI', Tahoma, sans-serif; font-weight: 300; color: #333; text-align: left;">
+<div dir="rtl" lang="ar" style="width: 640px; font-size: 18px; font-family: Arial, 'Segoe UI', Tahoma, sans-serif; font-weight: 300; color: #333; text-align: right;">
 
-    <!-- Main Content -->
-    <div style="padding: 20px; border-bottom: 1px solid #ccc;">
-        <p><b>Hello,</b><br><br>
-        ${bodyContent}</p>
-
-        <div style="display: flex; justify-content: center; margin: 20px 0;">
-            <div style="background-color: #B29163; color: white; font-size: 30px; font-weight: 500; padding: 10px 20px; border-radius: 8px;" align="center">
-                ${username}
-            </div>
-        </div>
-    </div>
+    %s
 
     <!-- Date Section -->
     <div style="padding: 12px; background-color: #ecf0f5; font-size: 16px;">
-        <p style="color: #48596b; font-weight: 500;">When this happened:</p>
-        <p><span style="color: #48596b; font-weight: 500;">Date:</span><br>${computeDateTime(context.getTimeZone())}</p>
+        <p style="color: #48596b; font-weight: 500;">وقت حدوث ذلك:</p>
+        <p><span style="color: #48596b; font-weight: 500;">التاريخ:</span><br>%s</p>
     </div>
 
     <!-- Contact Us Section -->
@@ -50,10 +47,13 @@ The Phi Wallet Team
         </div>
     </div>
 </div>
-""";
+""".formatted(
+    bodyContent,
+    computeDateTime(context.getTimeZone())
+);
 
         return Map.of(
-            "subject", "Your username has been successfully created",
+            "subject", "تم إنشاء اسم المستخدم الخاص بك بنجاح",
             "body", html
         );
     }
