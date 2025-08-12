@@ -401,3 +401,4 @@ public class JansUsernameUpdate extends UsernameUpdate {
         return configurationService.getConfiguration().getSmtpConfiguration();
     }
 }
+
