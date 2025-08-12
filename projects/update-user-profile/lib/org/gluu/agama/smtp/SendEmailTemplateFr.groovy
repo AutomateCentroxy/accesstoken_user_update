@@ -13,22 +13,22 @@ class SendEmailTemplateFr {
 
         String bodyContent = """
 <p style="margin: 0; padding: 0;">Bonjour,</p>
-<p style="margin: 0; padding: 0;">Cher/ChÃ¨re %s,</p>
-<p style="margin: 0; padding: 0;">FÃ©licitations ! Votre nom dâutilisateur a Ã©tÃ© crÃ©Ã© avec succÃ¨s ð</p>
-<p style="margin: 0; padding: 0;">Nom dâutilisateur : <b>%s</b></p>
+<p style="margin: 0; padding: 0;">Cher/Chère User,</p>
+<p style="margin: 0; padding: 0;">Félicitations ! Votre nom d’utilisateur a été créé avec succès 🔒</p>
+<p style="margin: 0; padding: 0;">Nom d’utilisateur : <b>%s</b></p>
 <p style="margin: 0; padding: 0;">
-    Vous pouvez dÃ©sormais utiliser votre nom dâutilisateur au lieu de votre adresse e-mail pour vous connecter, offrant ainsi une expÃ©rience plus fluide et sÃ©curisÃ©e.
+    Vous pouvez désormais utiliser votre nom d’utilisateur au lieu de votre adresse e-mail pour vous connecter, offrant ainsi une expérience plus fluide et sécurisée.
 </p>
-<p style="margin: 0; padding: 0;"><b>Mais ce nâest pas tout !</b></p>
+<p style="margin: 0; padding: 0;"><b>Mais ce n’est pas tout !</b></p>
 <p style="margin: 0; padding: 0;">
-    Nous ne faisons pas que simplifier votre connexion ; nous prÃ©parons aussi quelque chose dâexcitant.
-    De nouvelles fonctionnalitÃ©s arriveront bientÃ´t, conÃ§ues pour booster votre parcours vers un avenir financier plus prospÃ¨re.
+    Nous ne faisons pas que simplifier votre connexion ; nous préparons aussi quelque chose d’excitant.
+    De nouvelles fonctionnalités arriveront bientôt, conçues pour booster votre parcours vers un avenir financier plus prospère.
 </p>
-<p style="margin: 0; padding: 0;">Restez Ã  lâÃ©coute, le meilleur est Ã  venir !</p>
+<p style="margin: 0; padding: 0;">Restez à l’écoute, le meilleur est à venir !</p>
 <p style="margin: 0; padding: 0;">
-    Entre-temps, si vous avez des questions ou besoin dâassistance, nous sommes Ã  un clic de distance.
+    Entre-temps, si vous avez des questions ou besoin d’assistance, nous sommes à un clic de distance.
 </p>
-<p style="margin: 0; padding: 0;">Cordialement,<br>LâÃ©quipe Phi Wallet</p>
+<p style="margin: 0; padding: 0;">Cordialement,<br>L’équipe Phi Wallet</p>
 """.formatted(
     (givenName != null ? givenName : "utilisateur"),
     username
@@ -49,7 +49,7 @@ class SendEmailTemplateFr {
 
     <!-- Date Section -->
     <div style="padding: 12px; background-color: #ecf0f5; font-size: 16px;">
-        <p style="color: #48596b; font-weight: 500;">Date de lâÃ©vÃ©nement :</p>
+        <p style="color: #48596b; font-weight: 500;">Date de l’événement :</p>
         <p><span style="color: #48596b; font-weight: 500;">Date :</span><br>%s</p>
     </div>
 
@@ -62,12 +62,11 @@ class SendEmailTemplateFr {
 </div>
 """.formatted(
     bodyContent,
-    username,
     computeDateTime(context.getTimeZone())
 );
 
         return Map.of(
-            "subject", "Votre nom dâutilisateur a Ã©tÃ© crÃ©Ã© avec succÃ¨s",
+            "subject", "Votre nom d’utilisateur a été créé avec succès",
             "body", html
         );
     }
