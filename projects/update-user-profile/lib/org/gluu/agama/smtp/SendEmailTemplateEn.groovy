@@ -4,7 +4,7 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import org.gluu.agama.smtp.jans.model.ContextData;
 
-class UsernameCreatedTemplate {
+class SendEmailTemplateEn {
 
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy, hh:mma (O)");
 
