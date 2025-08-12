@@ -12,29 +12,34 @@ class SendEmailTemplateId {
 
         String html = """
 <div dir="ltr" lang="id" style="width: 640px; font-size: 18px; font-family: Arial, 'Segoe UI', Tahoma, sans-serif; font-weight: 300; color: #333; text-align: left;">
+
+    <!-- Logo at top -->
+    <div style="text-align: center; padding: 20px 0;">
+        <img src="https://phiwallet.com/components/images/logo.png" alt="Phi Logo" style="height: 40px;">
+    </div>
+    <hr style="border: none; border-top: 1px solid #ccc; margin: 0 0 20px 0;">
+
     <div style="padding: 20px; border-bottom: 1px solid #ccc;">
         <p>Halo,</p>
-        <p>Kami sedang meningkatkan pengalaman login Anda. Semuanya dimulai dengan membuat nama pengguna Anda.</p>
-        <p>Dengan mengatur nama pengguna, Anda akan mendapatkan akses masuk yang lebih cepat dan lebih aman. Ini juga akan mempersiapkan akun Anda untuk fitur-fitur baru yang akan segera hadir.</p>
-        <p>Anda hanya perlu melakukannya satu kali, dan prosesnya sangat cepat.</p>
-        <p><b>Tips:</b> Lakukan sekarang untuk mengamankan nama pengguna favorit Anda sebelum digunakan oleh orang lain.</p>
-        <p><a href="#" style="color: #ffffff; background-color: #007bff; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">Buka Aplikasi</a></p>
-        <p>Butuh bantuan? Tim dukungan kami siap membantu Anda.</p>
+        <p>Selamat! Nama pengguna Anda telah berhasil dibuat.</p>
+
+        <p>Nama pengguna: <span style="font-weight: bold;">""" + username + """</span></p>
+
+        <p>Sekarang Anda dapat menggunakan nama pengguna Anda sebagai pengganti alamat email untuk masuk, membuat pengalaman login lebih cepat dan aman.</p>
+
+        <p><span style="font-weight: bold;">Tapi itu belum semuanya!</span></p>
+
+        <p>Kami tidak hanya meningkatkan cara Anda masuk, tetapi juga mempersiapkan fitur-fitur menarik yang akan membantu perjalanan Anda menuju masa depan keuangan yang lebih baik.</p>
+        <p>Nantikan, yang terbaik masih akan datang!</p>
+        <p>Sementara itu, jika Anda memiliki pertanyaan atau memerlukan bantuan, kami siap membantu Anda.</p>
         <p>Salam hangat,<br>Tim Phi Wallet</p>
     </div>
 
-    
-
-    <div style="background-color: #f9f9f9; padding: 20px; font-size: 14px; display: flex; justify-content: flex-start;">
-        <div>
-            <img src="https://phiwallet.com/components/images/logo.png" alt="Logo Phi" style="height: 40px;">
-        </div>
-    </div>
 </div>
         """;
 
         return Map.of(
-            "subject", "Fitur baru! Klaim nama pengguna Anda hari ini",
+            "subject", "Nama pengguna Anda telah berhasil dibuat",
             "body", html
         );
     }
