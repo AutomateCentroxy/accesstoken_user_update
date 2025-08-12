@@ -3,14 +3,15 @@ package org.gluu.agama.smtp;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import org.gluu.agama.smtp.jans.model.ContextData;
+import java.util.Map;
 
 class SendEmailTemplateEn {
 
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy, hh:mma (O)");
 
-    static String get(String username, ContextData context) {
+    static Map<String, String> get(String username, ContextData context) {
 
-        return """
+        String html = """
 <div style="width: 640px; font-size: 18px; font-family: Arial, 'Segoe UI', Tahoma, sans-serif; font-weight: 300; color: #333;">
     <div style="padding: 12px; border-bottom: 1px solid #ccc;">
         <p>Dear User,</p>
@@ -28,13 +29,20 @@ class SendEmailTemplateEn {
     <div style="padding: 12px; background-color: #ecf0f5; font-size: 16px;">
         <p style="color: #48596b; font-weight: 500;">When this happened:</p>
         <p><span style="color: #48596b; font-weight: 500;">Date:</span><br>""" + computeDateTime(context.getTimeZone()) + """</p>
-        <p><span style="color: #48596b; font-weight: 500;">""" + 
-            ((context.getDevice() == null || context.getDevice().isEmpty()) ? "" : ("Device:</span><br>" + context.getDevice())) + """</p>
-        <p><span style="color: #48596b; font-weight: 500;">""" +
-            ((context.getLocation() == null || context.getLocation().isEmpty()) ? "" : ("Approximate Location:</span><br>" + context.getLocation())) + """</p>
+    </div>
+
+    <div style="background-color: #f9f9f9; padding: 20px; font-size: 14px; display: flex; justify-content: flex-start;">
+        <div>
+            <img src="https://phiwallet.com/components/images/logo.png" alt="Phi Logo" style="height: 40px;">
+        </div>
     </div>
 </div>
         """;
+
+        return Map.of(
+            "subject", "Your username has been updated successfully",
+            "body", html
+        );
     }
 
     private static String computeDateTime(String zone) {
