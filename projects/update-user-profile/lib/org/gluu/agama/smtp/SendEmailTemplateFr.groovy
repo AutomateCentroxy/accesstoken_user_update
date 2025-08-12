@@ -25,7 +25,9 @@ class SendEmailTemplateFr {
         <p>Nom d'utilisateur : <span style="font-weight: bold;">""" + username + """</span></p>
         
         <p>Vous pouvez désormais utiliser votre nom d'utilisateur au lieu de votre adresse e-mail pour vous connecter, offrant ainsi une expérience plus fluide et sécurisée.</p>
-        <p><b>Mais ce n'est pas tout !</b></p>
+
+        <p><span style="font-weight: bold;">Mais ce n'est pas tout !</span></p>
+
         <p>Nous ne faisons pas que simplifier votre connexion ; nous préparons aussi quelque chose d'excitant. De nouvelles fonctionnalités arriveront bientôt, conçues pour booster votre parcours vers un avenir financier plus prospère.</p>
         <p>Restez à l'écoute, le meilleur est à venir !</p>
         <p>Entre-temps, si vous avez des questions ou besoin d'assistance, nous sommes à un clic de distance.</p>
