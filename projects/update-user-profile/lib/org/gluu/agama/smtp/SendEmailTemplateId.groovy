@@ -27,10 +27,7 @@ class SendEmailTemplateId {
     <div style="padding: 12px; background-color: #ecf0f5; font-size: 16px;">
         <p style="color: #48596b; font-weight: 500;">Waktu kejadian:</p>
         <p><span style="color: #48596b; font-weight: 500;">Tanggal:</span><br>""" + computeDateTime(context.getTimeZone()) + """</p>
-        <p><span style="color: #48596b; font-weight: 500;">""" +
-            ((context.getDevice() == null || context.getDevice().isEmpty()) ? "" : ("Perangkat :</span><br>" + context.getDevice())) + """</p>
-        <p><span style="color: #48596b; font-weight: 500;">""" +
-            ((context.getLocation() == null || context.getLocation().isEmpty()) ? "" : ("Lokasi perkiraan :</span><br>" + context.getLocation())) + """</p>
+        
     </div>
 
     <div style="background-color: #f9f9f9; padding: 20px; font-size: 14px; display: flex; justify-content: flex-start;">
