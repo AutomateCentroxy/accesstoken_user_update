@@ -1205,14 +1205,14 @@
 					"descColor": "",
 					"displayName": "authErrorResponse",
 					"hasComment": true,
-					"comment": ""
+					"comment": "CHANGED: Instead of Finish, set error message and continue loop"
 				}
 			},
 			"measured": {
 				"width": 170,
 				"height": 122
 			},
-			"selected": false,
+			"selected": true,
 			"dragging": false
 		},
 		{
@@ -1329,7 +1329,7 @@
 				"width": 109,
 				"height": 59
 			},
-			"selected": true
+			"selected": false
 		}
 	],
 	"edges": [
