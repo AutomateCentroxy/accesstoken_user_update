@@ -9,48 +9,37 @@ class SendEmailTemplateAr {
 
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy, hh:mma (O)");
 
-    static Map<String, String> get(String username, String givenName, ContextData context) {
-
-        String bodyContent = """
-<p style="margin: 0; padding: 0;">مرحباً User،</p>
-<p style="margin: 0; padding: 0;"> خبر رائع! تم إنشاء اسم المستخدم الخاص بك بنجاح.</p>
-<p style="margin: 0; padding: 0;">اسم المستخدم: <b>%s</b></p>
-<p style="margin: 0; padding: 0;">
-يمكنك الآن استخدام اسم المستخدم بدلاً من بريدك الإلكتروني لتسجيل الدخول، مما يجعل تجربتك أكثر سلاسة وأمانًا.
-</p>
-<p style="margin: 0; padding: 0;"><b>لكن هذا ليس كل شيء!</b></p>
-<p style="margin: 0; padding: 0;">
-نحن لا نقوم فقط بتحسين طريقة تسجيل الدخول لديك، بل نُعِد حسابك لميزات جديدة في الطريق، مصممة لدعم رحلتك نحو مستقبل مالي أكثر ازدهارًا.
-</p>
-<p style="margin: 0; padding: 0;">إذا كانت لديك أي أسئلة، لا تتردد في التواصل معنا.</p>
-<p style="margin: 0; padding: 0;">مع أطيب التحيات،<br>فريق Phi Wallet</p>
-""".formatted(
-    (givenName != null ? givenName : ""),
-    username
-);
+    static Map<String, String> get(String username, ContextData context) {
 
         String html = """
 <div dir="rtl" lang="ar" style="width: 640px; font-size: 18px; font-family: Arial, 'Segoe UI', Tahoma, sans-serif; font-weight: 300; color: #333; text-align: right;">
-
-    %s
-
-    <!-- Date Section -->
-    <div style="padding: 12px; background-color: #ecf0f5; font-size: 16px;">
-        <p style="color: #48596b; font-weight: 500;">وقت حدوث ذلك:</p>
-        <p><span style="color: #48596b; font-weight: 500;">التاريخ:</span><br>%s</p>
+    <div style="padding: 12px; border-bottom: 1px solid #ccc;">
+        <p>مرحباً،</p>
+        <p>خبر رائع! تم إنشاء اسم المستخدم الخاص بك بنجاح.</p>
+        <p>اسم المستخدم: <b>""" + username + """</b></p>
+        <p>يمكنك الآن استخدام اسم المستخدم بدلاً من بريدك الإلكتروني لتسجيل الدخول، مما يجعل تجربتك أكثر سلاسة وأمانًا.</p>
+        <p><b>لكن هذا ليس كل شيء!</b></p>
+        <p>نحن لا نقوم فقط بتحسين طريقة تسجيل الدخول لديك، بل نُعِد حسابك لميزات جديدة في الطريق، مصممة لدعم رحلتك نحو مستقبل مالي أكثر ازدهارًا.</p>
+        <p>إذا كانت لديك أي أسئلة، لا تتردد في التواصل معنا.</p>
+        <p>مع أطيب التحيات،<br>فريق Phi Wallet</p>
     </div>
 
-    <!-- Contact Us Section -->
-    <div style="background-color: #f9f9f9; padding: 20px; font-size: 14px; display: flex; justify-content: space-between; align-items: flex-start;">
-        <div style="flex: 1;">
+    <div style="padding: 12px; background-color: #ecf0f5; font-size: 16px;">
+        <p style="color: #48596b; font-weight: 500;">وقت حدوث ذلك:</p>
+        <p><span style="color: #48596b; font-weight: 500;">التاريخ:</span><br>""" + computeDateTime(context.getTimeZone()) + """</p>
+        <p><span style="color: #48596b; font-weight: 500;">""" + 
+            ((context.getDevice() == null || context.getDevice().isEmpty()) ? "" : ("الجهاز:</span><br>" + context.getDevice())) + """</p>
+        <p><span style="color: #48596b; font-weight: 500;">""" +
+            ((context.getLocation() == null || context.getLocation().isEmpty()) ? "" : ("الموقع التقريبي:</span><br>" + context.getLocation())) + """</p>
+    </div>
+
+    <div style="background-color: #f9f9f9; padding: 20px; font-size: 14px; display: flex; justify-content: flex-end;">
+        <div>
             <img src="https://phiwallet.com/components/images/logo.png" alt="Phi Logo" style="height: 40px;">
         </div>
     </div>
 </div>
-""".formatted(
-    bodyContent,
-    computeDateTime(context.getTimeZone())
-);
+        """;
 
         return Map.of(
             "subject", "تم إنشاء اسم المستخدم الخاص بك بنجاح",
