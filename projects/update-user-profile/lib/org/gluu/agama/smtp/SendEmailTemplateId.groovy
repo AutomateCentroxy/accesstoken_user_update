@@ -26,7 +26,9 @@ class SendEmailTemplateId {
         <p>Nama pengguna: <span style="font-weight: bold;">""" + username + """</span></p>
 
         <p>Sekarang Anda dapat menggunakan nama pengguna Anda sebagai pengganti alamat email untuk masuk, membuat pengalaman login lebih cepat dan aman.</p>
-        <p><strong>Tapi itu belum semuanya!</strong></p>
+
+        <p><span style="font-weight: bold;">Tapi itu belum semuanya!</span></p>
+
         <p>Kami tidak hanya meningkatkan cara Anda masuk, tetapi juga mempersiapkan fitur-fitur menarik yang akan membantu perjalanan Anda menuju masa depan keuangan yang lebih baik.</p>
         <p>Nantikan, yang terbaik masih akan datang!</p>
         <p>Sementara itu, jika Anda memiliki pertanyaan atau memerlukan bantuan, kami siap membantu Anda.</p>
