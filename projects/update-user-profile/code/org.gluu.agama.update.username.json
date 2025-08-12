@@ -805,11 +805,6 @@
 							"variableTypeCheck": true,
 							"assignmentExpression": "updatedUser.lang",
 							"assignedVariableName": "lang"
-						},
-						{
-							"variableTypeCheck": true,
-							"assignmentExpression": "updatedUser.givenName",
-							"assignedVariableName": "givenName"
 						}
 					],
 					"nodeIcon": "material-symbols:equal",
@@ -852,7 +847,6 @@
 					"arguments": [
 						"email",
 						"newUsername",
-						"givenName",
 						"lang"
 					],
 					"nodeIcon": "material-symbols:code",
@@ -887,7 +881,7 @@
 				},
 				"previousNodeId": "callNode-4e073ff4-8490-4f7c-bbd7-c85ea6760ccb",
 				"agamaData": {
-					"logMessage": "\"Email send to to the user\" lang email newUsername givenName",
+					"logMessage": "\"Email send to to the user\" lang email newUsername",
 					"logLevel": "info",
 					"nodeIcon": "octicon:log-16",
 					"nodeColor": "",
@@ -1957,8 +1951,8 @@
 		}
 	],
 	"viewport": {
-		"x": -5243.382847747678,
-		"y": -201.83588079617437,
-		"zoom": 1.2277356839150602
+		"x": -3486.595761530404,
+		"y": -47.70724009059899,
+		"zoom": 0.860949188338904
 	}
 }
