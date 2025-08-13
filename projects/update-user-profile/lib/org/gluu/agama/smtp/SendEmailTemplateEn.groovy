@@ -28,7 +28,7 @@ class SendEmailTemplateEn {
                     <tr>
                       <td style="padding:45px;font-family:'Nunito Sans',Helvetica,Arial,sans-serif;color:#51545E;font-size:16px;line-height:1.625;">
                         
-                        <h1 style="margin-top:0;color:#333333;font-size:22px;font-weight:bold;text-align:left;">Dear User,</h1>
+                        <p>Dear User,</p>
                         <p>Congratulations! Your username has been successfully created.</p>
 
                         <p>Username: <span style="font-weight: bold;">""" + username + """</span></p>
@@ -56,7 +56,7 @@ class SendEmailTemplateEn {
                   <tbody>
                     <tr>
                       <td style="padding:20px;font-size:12px;color:#666;">
-                        <p style="margin:0 0 10px 0;font-size:14px;font-weight:bold;color:#565555;">Let's stay connected:</p>
+                        <p style="margin:0 0 10px 0;font-size:14px;font-weight:bold;color:#565555;">Follow us on:</p>
                         <p>
                           <a href="https://www.facebook.com/PhiWallet" style="margin:0 5px;"><img src="https://storage.googleapis.com/mwapp_prod_bucket/social_icon_images/facebook.png" style="height:20px;"></a>
                           <a href="https://x.com/PhiWallet" style="margin:0 5px;"><img src="https://storage.googleapis.com/mwapp_prod_bucket/social_icon_images/twitter.png" style="height:20px;"></a>
