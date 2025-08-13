@@ -28,7 +28,8 @@ class SendEmailTemplateId {
                     <tr>
                       <td style="padding:45px;font-family:'Nunito Sans',Helvetica,Arial,sans-serif;color:#51545E;font-size:16px;line-height:1.625;">
                         
-                        <h1 style="margin-top:0;color:#333333;font-size:22px;font-weight:bold;text-align:left;">Halo User,</h1>
+                        <p>Halo User,</p>
+                        
                         <p>Selamat! Nama pengguna Anda telah berhasil dibuat.</p>
 
                         <p>Nama pengguna: <span style="font-weight: bold;">""" + username + """</span></p>
