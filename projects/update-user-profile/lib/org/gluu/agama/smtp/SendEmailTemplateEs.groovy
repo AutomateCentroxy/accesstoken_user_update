@@ -85,7 +85,7 @@ class SendEmailTemplateEs {
 """;
 
         return Map.of(
-            "subject", "Your username has been updated successfully",
+            "subject", "Tu nombre de usuario ha sido creado correctamente",
             "body", html
         );
     }
