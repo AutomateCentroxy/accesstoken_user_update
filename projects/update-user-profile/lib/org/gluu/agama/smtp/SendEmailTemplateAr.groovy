@@ -8,8 +8,7 @@ class SendEmailTemplateAr {
 
         String html = """
 <table role="presentation" cellspacing="0" cellpadding="0" width="100%" 
-       style="background-color:#F2F4F6;margin:0;padding:0;width:100%;" 
-       dir="rtl" lang="ar">
+       style="background-color:#F2F4F6;margin:0;padding:0;width:100%;">
   <tbody>
     <tr>
       <td align="center">
@@ -28,7 +27,7 @@ class SendEmailTemplateAr {
                 <table role="presentation" cellspacing="0" cellpadding="0" width="570" align="center" style="background-color:#FFFFFF;margin:0 auto;padding:0;border-radius:4px;">
                   <tbody>
                     <tr>
-                      <td style="padding:45px;font-family:'Nunito Sans',Helvetica,Arial,sans-serif;color:#51545E;font-size:16px;line-height:1.625;">
+                      <td dir="rtl" lang="ar" style="padding:45px;font-family:'Nunito Sans',Helvetica,Arial,sans-serif;color:#51545E;font-size:16px;line-height:1.625;">
           
                         <p>مرحباً،</p>
                         <p>خبر رائع! تم إنشاء اسم المستخدم الخاص بك بنجاح.</p>
