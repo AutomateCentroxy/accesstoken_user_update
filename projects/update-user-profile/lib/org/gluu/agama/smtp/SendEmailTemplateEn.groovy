@@ -1,72 +1,92 @@
 package org.gluu.agama.smtp;
 
-import java.time.*;
-import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
 class SendEmailTemplateEn {
 
-    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy, hh:mma (O)");
-
     static Map<String, String> get(String username) {
 
         String html = """
-<div style="width: 640px; font-size: 18px; font-family: Arial, 'Segoe UI', Tahoma, sans-serif; font-weight: 300; color: #333;">
+<table role="presentation" cellspacing="0" cellpadding="0" width="100%" style="background-color:#F2F4F6;margin:0;padding:0;width:100%;">
+  <tbody>
+    <tr>
+      <td align="center">
+        <table role="presentation" cellspacing="0" cellpadding="0" width="100%" style="margin:0;padding:0;">
+          <tbody>
+            <!-- Logo -->
+            <tr>
+              <td align="center" style="padding:25px 0;text-align:center;">
+                <img src="https://storage.googleapis.com/email_template_staticfiles/Phi_logo320x132_Aug2024.png" width="160" alt="Phi Logo" style="border:none;">
+              </td>
+            </tr>
 
-    <!-- Logo at top -->
-    <div style="text-align:center; padding: 30px 0 10px 0;">
-    <img src="https://storage.googleapis.com/email_template_staticfiles/Phi_logo320x132_Aug2024.png" alt="Phi Logo" style="height:40px;">
-  </div>
+            <!-- Main Email Body -->
+            <tr>
+              <td style="width:100%;margin:0;padding:0;">
+                <table role="presentation" cellspacing="0" cellpadding="0" width="570" align="center" style="background-color:#FFFFFF;margin:0 auto;padding:0;border-radius:4px;">
+                  <tbody>
+                    <tr>
+                      <td style="padding:45px;font-family:'Nunito Sans',Helvetica,Arial,sans-serif;color:#51545E;font-size:16px;line-height:1.625;">
+                        
+                        <h1 style="margin-top:0;color:#333333;font-size:22px;font-weight:bold;text-align:left;">Dear User,</h1>
+                        <p>Congratulations! Your username has been successfully created.</p>
 
-  <!-- Email Content Box -->
-  <div style="max-width:417px; margin:0 auto; background-color:#ffffff; padding:30px; border-radius:4px;">
-    
-    <p style="font-size: 18px; margin-bottom: 15px;">Dear User,</p>
-        <p>Congratulations! Your username has been successfully created.</p>
+                        <p>Username: <span style="font-weight: bold;">""" + username + """</span></p>
 
-        <p>Username: <span style="font-weight: bold;">""" + username + """</span></p>
+                        <p>You can now use your username instead of your email address to sign in, making your login experience smoother and more secure.</p>
 
-        <p>You can now use your username instead of your email address to sign in, making your login experience smoother and more secure.</p>
+                        <p><span style="font-weight: bold;">But that's not all!</span></p>
 
-        <p><span style="font-weight: bold;">But that's not all!</span></p>
+                        <p>We're not just upgrading how you log in, we're setting the stage for something exciting. Powerful new features are on the way, designed to help boost your journey toward a more prosperous financial future.</p>
+                        <p>Stay tuned, the best is yet to come!</p>
+                        <p>In the meantime, if you have any questions or need support, we're just a click away.</p>
+                        <p style="margin-top:30px;">Kind regards,<br>Phi Wallet Team</p>
 
-        <p>We're not just upgrading how you log in, we're setting the stage for something exciting.
-           Powerful new features are on the way, designed to help boost your journey toward a more prosperous financial future.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
 
-        <p>Stay tuned, the best is yet to come!</p>
-        <p>In the meantime, if you have any questions or need support, we're just a click away.</p>
+            <!-- Footer -->
+            <tr>
+              <td>
+                <table role="presentation" cellspacing="0" cellpadding="0" width="570" align="center" style="margin:0 auto;padding:0;text-align:center;">
+                  <tbody>
+                    <tr>
+                      <td style="padding:20px;font-size:12px;color:#666;">
+                        <p style="margin:0 0 10px 0;font-size:14px;font-weight:bold;color:#565555;">Let's stay connected:</p>
+                        <p>
+                          <a href="https://www.facebook.com/PhiWallet" style="margin:0 5px;"><img src="https://storage.googleapis.com/mwapp_prod_bucket/social_icon_images/facebook.png" style="height:20px;"></a>
+                          <a href="https://x.com/PhiWallet" style="margin:0 5px;"><img src="https://storage.googleapis.com/mwapp_prod_bucket/social_icon_images/twitter.png" style="height:20px;"></a>
+                          <a href="https://www.instagram.com/phi.wallet" style="margin:0 5px;"><img src="https://storage.googleapis.com/mwapp_prod_bucket/social_icon_images/instagram.png" style="height:20px;"></a>
+                          <a href="https://www.linkedin.com/company/phiwallet" style="margin:0 5px;"><img src="https://storage.googleapis.com/mwapp_prod_bucket/social_icon_images/linkedin.png" style="height:20px;"></a>
+                        </p>
+                        <p style="margin-top:10px;line-height:20px;color:#A8AAAF;font-size:12px;">
+                          Phi Wallet Unipessoal LDA<br>
+                          Avenida da Liberdade 262 R/C<br>
+                          1250-149 Lisbon<br>
+                          Portugal
+                        </p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
 
-        <p style="margin-top: 30px;">Kind regards,<br>Phi Wallet Team</p>
-
-  </div>
-
-  <!-- Footer -->
-  <div style="text-align:center; margin-top:20px; padding:20px 0; font-size:12px; color:#666;">
-    <p style="margin:0 0 10px 0;">Let's stay connected:</p>
-    <p>
-      <a href="https://www.facebook.com/PhiWallet" style="margin:0 5px;"><img src="https://storage.googleapis.com/mwapp_prod_bucket/social_icon_images/facebook.png" alt="Facebook" style="height:20px;"></a>
-      <a href="https://x.com/PhiWallet" style="margin:0 5px;"><img src="https://storage.googleapis.com/mwapp_prod_bucket/social_icon_images/twitter.png" alt="Twitter" style="height:20px;"></a>
-      <a href="https://www.instagram.com/phi.wallet" style="margin:0 5px;"><img src="https://storage.googleapis.com/mwapp_prod_bucket/social_icon_images/instagram.png" alt="Instagram" style="height:20px;"></a>
-      <a href="https://www.linkedin.com/company/phiwallet" style="margin:0 5px;"><img src="https://storage.googleapis.com/mwapp_prod_bucket/social_icon_images/linkedin.png" alt="LinkedIn" style="height:20px;"></a>
-    </p>
-    <p style="margin-top:10px; line-height:20px;">
-      Phi Wallet Unipessoal LDA
-
-      Avenida da Liberdade 262 R/C
-
-      1250-149 Lisbon
-
-      Portugal
-    </p>
-  </div>
-        """;
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>
+""";
 
         return Map.of(
             "subject", "Your username has been updated successfully",
             "body", html
         );
     }
-
 }
- 
- 
