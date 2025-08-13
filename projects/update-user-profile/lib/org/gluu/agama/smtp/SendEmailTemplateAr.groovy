@@ -57,13 +57,15 @@ class SendEmailTemplateAr {
                   <tbody>
                     <tr>
                       <td style="padding:20px;font-size:12px;color:#666;">
-                        <p style="margin:0 0 10px 0;font-size:14px;font-weight:bold;color:#565555;">Let's stay connected:</p>
-                        <p>
-                          <a href="https://www.facebook.com/PhiWallet" style="margin:0 5px;"><img src="https://storage.googleapis.com/mwapp_prod_bucket/social_icon_images/facebook.png" style="height:20px;"></a>
-                          <a href="https://x.com/PhiWallet" style="margin:0 5px;"><img src="https://storage.googleapis.com/mwapp_prod_bucket/social_icon_images/twitter.png" style="height:20px;"></a>
-                          <a href="https://www.instagram.com/phi.wallet" style="margin:0 5px;"><img src="https://storage.googleapis.com/mwapp_prod_bucket/social_icon_images/instagram.png" style="height:20px;"></a>
-                          <a href="https://www.linkedin.com/company/phiwallet" style="margin:0 5px;"><img src="https://storage.googleapis.com/mwapp_prod_bucket/social_icon_images/linkedin.png" style="height:20px;"></a>
-                        </p>
+                        <div style="direction:ltr; display:inline-block; text-align:left;">
+                          <p style="margin:0 0 10px 0;font-size:14px;font-weight:bold;color:#565555; direction:rtl; text-align:right;">تابعنا على:</p>
+                          <p style="margin:0;">
+                            <a href="https://www.facebook.com/PhiWallet" style="margin:0 5px;"><img src="https://storage.googleapis.com/mwapp_prod_bucket/social_icon_images/facebook.png" style="height:20px;"></a>
+                            <a href="https://x.com/PhiWallet" style="margin:0 5px;"><img src="https://storage.googleapis.com/mwapp_prod_bucket/social_icon_images/twitter.png" style="height:20px;"></a>
+                            <a href="https://www.instagram.com/phi.wallet" style="margin:0 5px;"><img src="https://storage.googleapis.com/mwapp_prod_bucket/social_icon_images/instagram.png" style="height:20px;"></a>
+                            <a href="https://www.linkedin.com/company/phiwallet" style="margin:0 5px;"><img src="https://storage.googleapis.com/mwapp_prod_bucket/social_icon_images/linkedin.png" style="height:20px;"></a>
+                          </p>
+                        </div>
                         <p style="margin-top:10px;line-height:20px;color:#A8AAAF;font-size:12px;">
                           Phi Wallet Unipessoal LDA<br>
                           Avenida da Liberdade 262 R/C<br>
@@ -76,6 +78,7 @@ class SendEmailTemplateAr {
                 </table>
               </td>
             </tr>
+
 
           </tbody>
         </table>
