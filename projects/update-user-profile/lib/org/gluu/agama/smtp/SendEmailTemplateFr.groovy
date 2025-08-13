@@ -85,7 +85,7 @@ class SendEmailTemplateFr {
 """;
 
         return Map.of(
-            "subject", "Your username has been updated successfully",
+            "subject", "Votre nom d'utilisateur a été créé avec succès",
             "body", html
         );
     }
