@@ -28,7 +28,7 @@ class SendEmailTemplatePt {
                     <tr>
                       <td style="padding:45px;font-family:'Nunito Sans',Helvetica,Arial,sans-serif;color:#51545E;font-size:16px;line-height:1.625;">
                         
-                        <h1 style="margin-top:0;color:#333333;font-size:22px;font-weight:bold;text-align:left;">Olá User,</h1>
+                        <p>Olá User,</p>
                        
                         <p>Parabéns! O teu nome de utilizador foi criado com sucesso.</p>
 
