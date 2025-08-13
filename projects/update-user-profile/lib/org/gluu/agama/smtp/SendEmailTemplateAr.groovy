@@ -29,8 +29,8 @@ class SendEmailTemplateAr {
                   <tbody>
                     <tr>
                       <td style="padding:45px;font-family:'Nunito Sans',Helvetica,Arial,sans-serif;color:#51545E;font-size:16px;line-height:1.625;">
-                        
-                        <h1 style="margin-top:0;color:#333333;font-size:22px;font-weight:bold;text-align:right;">مرحباً،</h1>
+          
+                        <p>مرحباً،</p>
                         <p>خبر رائع! تم إنشاء اسم المستخدم الخاص بك بنجاح.</p>
 
                         <p>اسم المستخدم: <span style="font-weight: bold;">""" + username + """</span></p>
