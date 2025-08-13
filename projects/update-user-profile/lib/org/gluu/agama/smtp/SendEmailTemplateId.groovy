@@ -85,7 +85,7 @@ class SendEmailTemplateId {
 """;
 
         return Map.of(
-            "subject", "Your username has been updated successfully",
+            "subject", "Nama pengguna Anda telah berhasil dibuat",
             "body", html
         );
     }
