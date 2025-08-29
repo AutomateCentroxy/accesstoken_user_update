@@ -23,7 +23,7 @@
 					"nodeIcon": "material-symbols:line-start-square",
 					"timeout": "50000",
 					"inputs": "",
-					"configs": "",
+					"configs": "conf",
 					"flowname": "org.gluu.agama.update.username",
 					"displayName": "Username Update Flow",
 					"creationDate": "09/07/2025",
