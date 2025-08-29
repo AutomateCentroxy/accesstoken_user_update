@@ -52,21 +52,25 @@ Repeat 6 times max
                               updatedUser = Call usernameUpdateService getUserEntityByInum inum
                               //  Show user updation log
                               Log "@info User % has been updated" inum
-                              // Extract fields from updated user
-                              email = updatedUser.email
-                              newUsername = updatedUser.uid
-                              lang = updatedUser.lang
-                              // Send confirmation email
-                              emailStatus = Call usernameUpdateService sendUsernameUpdateEmail email newUsername lang
-                              // Email send to to the user
-                              Log "@info Email send to to the user" lang email newUsername
-                              //  Show acknowledgement UI page for successful Update 
-                              acknowledgementInput = RRF "acknowledgementUsername.ftlh" 
-                              //  Finish the flow successfully
-                              Log "@info Finish the flow successfully"
-                              //  Finish the flow successfully
-                              it_gtfgs = {success:true, data:  { userId: updatedUser.uid } }
-                              Finish it_gtfgs
+                              Call __________#__________ 
+                              When 
+                                   Log "@ " __________
+                              Otherwise
+                                   // Extract fields from updated user
+                                   email = updatedUser.email
+                                   newUsername = updatedUser.uid
+                                   lang = updatedUser.lang
+                                   // Send confirmation email
+                                   emailStatus = Call usernameUpdateService sendUsernameUpdateEmail email newUsername lang
+                                   // Email send to to the user
+                                   Log "@info Email send to to the user" lang email newUsername
+                                   //  Show acknowledgement UI page for successful Update 
+                                   acknowledgementInput = RRF "acknowledgementUsername.ftlh" 
+                                   //  Finish the flow successfully
+                                   Log "@info Finish the flow successfully"
+                                   //  Finish the flow successfully
+                                   it_wouvj = {success:true, data:  { userId: updatedUser.uid } }
+                                   Finish it_wouvj
                          Otherwise
                               //  User update failed log
                               Log "@info User update failed. Error : %" E
@@ -74,5 +78,5 @@ Repeat 6 times max
 //  Maximum attempt reached
 Log "@info Maximum attempt reached"
 //  User Registration flow failed
-it_prhnx = {success:false, error: "User update flow reached max attempts try later"}
-Finish it_prhnx
+it_zzclf = {success:false, error: "User update flow reached max attempts try later"}
+Finish it_zzclf
