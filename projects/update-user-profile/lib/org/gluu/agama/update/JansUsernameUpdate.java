@@ -15,6 +15,10 @@ import java.security.SecureRandom;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
+
 import java.util.regex.Pattern;
 import org.gluu.agama.smtp.SendEmailTemplateEn;
 import org.gluu.agama.smtp.SendEmailTemplateAr;
@@ -38,6 +42,7 @@ import io.jans.as.server.service.token.TokenService;
 import io.jans.as.server.model.common.AuthorizationGrant;
 import io.jans.as.server.model.common.AuthorizationGrantList;
 import io.jans.as.server.model.common.AbstractToken;
+private final Map<String, String> flowConfig;
 
 public class JansUsernameUpdate extends UsernameUpdate {
 
@@ -64,6 +69,17 @@ public class JansUsernameUpdate extends UsernameUpdate {
             INSTANCE = new JansUsernameUpdate();
 
         return INSTANCE;
+    }
+
+    public JansEmailUpdate() {
+        this.flowConfig = new HashMap<>();
+        logger.info("Initialized JansUserRegistration using default constructor (no config).");
+    }
+
+    // ✅ Constructor used by getInstance()
+    private JansEmailUpdate(Map config) {
+        this.flowConfig = config;
+        logger.debug("Flow config provided for PhiWallet is: {}", config);
     }
 
     // validate token starts here
@@ -389,5 +405,93 @@ public class JansUsernameUpdate extends UsernameUpdate {
     private SmtpConfiguration getSmtpConfiguration() {
         ConfigurationService configurationService = CdiUtil.bean(ConfigurationService.class);
         return configurationService.getConfiguration().getSmtpConfiguration();
+    }
+
+
+    // Add inside JansEmailUpdate class
+    public String generateSignature(String inum) {
+        try {
+            if (inum == null || inum.isBlank()) {
+                logger.error("inum is null or empty, cannot generate signature");
+                return null;
+            }
+            // Load from Agama config
+            Map<String, String> config = getAgamaConfig();
+            String privateKey = config.get("PRIVATE_KEY");
+
+            if (privateKey == null) {
+                logger.error("PRIVATE_KEY is missing in Agama config");
+                return null;
+            }
+
+            Mac mac = Mac.getInstance("HmacSHA256");
+            SecretKeySpec secretKeySpec = new SecretKeySpec(privateKey.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
+            mac.init(secretKeySpec);
+            byte[] hmacBytes = mac.doFinal(inum.getBytes(StandardCharsets.UTF_8));
+
+            // Convert to lowercase hex
+            StringBuilder sb = new StringBuilder();
+            for (byte b : hmacBytes) {
+                sb.append(String.format("%02x", b));
+            }
+            return sb.toString().toLowerCase();
+
+        } catch (Exception e) {
+            logger.error("Error generating HMAC signature: {}", e.getMessage());
+            return null;
+        }
+    }
+        
+
+    public Map<String, Object> syncUserWithExternal(String inum) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            // Load config
+            Map<String, String> config = getAgamaConfig();
+            String publicKey = config.get("PUBLIC_KEY");
+
+            if (publicKey == null) {
+                result.put("status", "error");
+                result.put("message", "PUBLIC_KEY missing in config");
+                return result;
+            }
+
+            // Generate signature using PRIVATE_KEY from config
+            String signature = generateSignature(inum);
+            if (signature == null) {
+                result.put("status", "error");
+                result.put("message", "Failed to generate signature");
+                return result;
+            }
+
+            // Build webhook URL
+            String url = String.format("https://api.phiwallet.dev/v1/webhooks/users/%s/sync", inum);
+
+            // HTTP request
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .header("X-AUTH-CLIENT", publicKey)
+                    .header("X-HMAC-SIGNATURE", signature)
+                    .POST(HttpRequest.BodyPublishers.noBody())
+                    .build();
+
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            logger.info("Webhook sync response status: {}, body: {}", response.statusCode(), response.body());
+
+            if (response.statusCode() == 200) {
+                result.put("status", "success");
+            } else {
+                result.put("status", "error");
+            }
+
+            return result;
+
+        } catch (Exception e) {
+            logger.error("Error syncing user {}: {}", inum, e.getMessage());
+            result.put("status", "error");
+            result.put("message", e.getMessage());
+            return result;
+        }
     }
 }
