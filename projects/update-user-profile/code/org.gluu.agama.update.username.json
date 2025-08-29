@@ -1323,7 +1323,7 @@
 				"width": 170,
 				"height": 123
 			},
-			"selected": true,
+			"selected": false,
 			"dragging": false
 		},
 		{
@@ -1387,7 +1387,14 @@
 					"variableField": "",
 					"valueField": "",
 					"conditionInputField": "",
-					"conditions": [],
+					"conditions": [
+						{
+							"variable": "UserServiceAPiCall.status",
+							"operator": "is not",
+							"dataValue": "\"success\"",
+							"combinator": "none"
+						}
+					],
 					"nodeIcon": "ph:swap",
 					"nodeColor": "",
 					"titleColor": "",
@@ -1400,7 +1407,8 @@
 			"measured": {
 				"width": 110,
 				"height": 60
-			}
+			},
+			"selected": true
 		},
 		{
 			"id": "logNode-21929b9d-2df9-4bed-8b49-fae35babc4f2",
@@ -2167,7 +2175,7 @@
 		}
 	],
 	"viewport": {
-		"x": -2120.631943819043,
+		"x": -2304.631943819043,
 		"y": -120.1927358349692,
 		"zoom": 0.5946035534070404
 	}
