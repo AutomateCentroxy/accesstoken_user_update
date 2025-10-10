@@ -443,24 +443,46 @@ public class JansUsernameUpdate extends UsernameUpdate {
     }
         
 
-    public Map<String, Object> syncUserWithExternal(String inum) {
+    public static Map<String, Object> syncUserUsernameWithExternal(String inum, Map<String, String> conf) {
         Map<String, Object> result = new HashMap<>();
         try {
-            // Load config
-            Map<String, String> config = getAgamaConfig();
-            String publicKey = config.get("PUBLIC_KEY");
+            // Load config using CdiUtil or static ConfigService
+            Map<String, String> config = new HashMap<>();
+            if (conf == null) {
+            result.put("status", "error");
+            result.put("message", "Configuration is null");
+            return result;
+        }
 
-            if (publicKey == null) {
+            String publicKey = conf.get("PUBLIC_KEY");
+            String privateKey = conf.get("PRIVATE_KEY");
+
+            if (publicKey == null || privateKey == null) {
                 result.put("status", "error");
-                result.put("message", "PUBLIC_KEY missing in config");
+                result.put("message", "PUBLIC_KEY or PRIVATE_KEY missing in config");
                 return result;
             }
 
-            // Generate signature using PRIVATE_KEY from config
-            String signature = generateSignature(inum);
-            if (signature == null) {
+            // Generate HMAC-SHA256 signature (hex lowercase)
+            String signature;
+            try {
+                javax.crypto.Mac mac = javax.crypto.Mac.getInstance("HmacSHA256");
+                javax.crypto.spec.SecretKeySpec secretKey = new javax.crypto.spec.SecretKeySpec(
+                        privateKey.getBytes(java.nio.charset.StandardCharsets.UTF_8),
+                        "HmacSHA256");
+                mac.init(secretKey);
+                byte[] hashBytes = mac.doFinal(inum.getBytes(java.nio.charset.StandardCharsets.UTF_8));
+                StringBuilder hex = new StringBuilder();
+                for (byte b : hashBytes) {
+                    String h = Integer.toHexString(0xff & b);
+                    if (h.length() == 1)
+                        hex.append('0');
+                    hex.append(h);
+                }
+                signature = hex.toString().toLowerCase();
+            } catch (Exception ex) {
                 result.put("status", "error");
-                result.put("message", "Failed to generate signature");
+                result.put("message", "Failed to generate signature: " + ex.getMessage());
                 return result;
             }
 
@@ -477,18 +499,20 @@ public class JansUsernameUpdate extends UsernameUpdate {
                     .build();
 
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            logger.info("Webhook sync response status: {}, body: {}", response.statusCode(), response.body());
+            System.out.println(String.format("Webhook sync response status: %d, body: %s",
+                    response.statusCode(), response.body()));
 
             if (response.statusCode() == 200) {
                 result.put("status", "success");
             } else {
                 result.put("status", "error");
+                result.put("message", response.body());
             }
 
             return result;
 
         } catch (Exception e) {
-            logger.error("Error syncing user {}: {}", inum, e.getMessage());
+            e.printStackTrace();
             result.put("status", "error");
             result.put("message", e.getMessage());
             return result;
