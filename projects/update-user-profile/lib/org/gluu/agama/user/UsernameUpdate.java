@@ -18,7 +18,7 @@ public abstract class UsernameUpdate {
 
     public abstract boolean sendUsernameUpdateEmail(String to, String newUsername, String lang);
 
-    public static UsernameUpdate getInstance(HashMap config){
-        return  JansUsernameUpdate.getInstance(config);
+    public static UsernameUpdate getInstance(){
+        return  JansUsernameUpdate.getInstance();
     }    
 }

@@ -1,5 +1,6 @@
 package org.gluu.agama.update;
 
+import io.jans.agama.engine.service.FlowService;
 import io.jans.as.common.model.common.User;
 import io.jans.as.common.service.common.EncryptionService;
 import io.jans.as.common.service.common.UserService;
@@ -15,17 +16,14 @@ import java.security.SecureRandom;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
 import java.util.regex.Pattern;
-import org.gluu.agama.smtp.SendEmailTemplateEn;
-import org.gluu.agama.smtp.SendEmailTemplateAr;
-import org.gluu.agama.smtp.SendEmailTemplateEs;
-import org.gluu.agama.smtp.SendEmailTemplateFr;
-import org.gluu.agama.smtp.SendEmailTemplateId;
-import org.gluu.agama.smtp.SendEmailTemplatePt;
+import org.gluu.agama.smtp.*;
 
 import io.jans.model.SmtpConfiguration;
 import io.jans.service.MailService;
@@ -42,9 +40,10 @@ import io.jans.as.server.service.token.TokenService;
 import io.jans.as.server.model.common.AuthorizationGrant;
 import io.jans.as.server.model.common.AuthorizationGrantList;
 import io.jans.as.server.model.common.AbstractToken;
-private final Map<String, String> flowConfig;
 
 public class JansUsernameUpdate extends UsernameUpdate {
+
+    private static final Logger logger = LoggerFactory.getLogger(FlowService.class);
 
     private static final String MAIL = "mail";
     private static final String UID = "uid";
@@ -60,26 +59,20 @@ public class JansUsernameUpdate extends UsernameUpdate {
     private static final SecureRandom RAND = new SecureRandom();
 
     private static JansUsernameUpdate INSTANCE = null;
+    private Map<String, String> flowConfig;
 
     public JansUsernameUpdate() {
     }
 
     public static synchronized JansUsernameUpdate getInstance() {
-        if (INSTANCE == null)
+        if (INSTANCE == null) {
             INSTANCE = new JansUsernameUpdate();
-
+        }
         return INSTANCE;
     }
 
-    public JansEmailUpdate() {
-        this.flowConfig = new HashMap<>();
-        logger.info("Initialized JansUserRegistration using default constructor (no config).");
-    }
-
-    // ✅ Constructor used by getInstance()
-    private JansEmailUpdate(Map config) {
-        this.flowConfig = config;
-        logger.debug("Flow config provided for PhiWallet is: {}", config);
+    private UserService getUserService() {
+        return CdiUtil.bean(UserService.class);
     }
 
     // validate token starts here
@@ -331,75 +324,72 @@ public class JansUsernameUpdate extends UsernameUpdate {
     }
 
     public boolean sendUsernameUpdateEmail(String to, String newUsername, String lang) {
-    try {
-        // Fetch SMTP configuration
-        ConfigurationService configService = CdiUtil.bean(ConfigurationService.class);
-        SmtpConfiguration smtpConfig = configService.getConfiguration().getSmtpConfiguration();
+        try {
+            // Fetch SMTP configuration
+            ConfigurationService configService = CdiUtil.bean(ConfigurationService.class);
+            SmtpConfiguration smtpConfig = configService.getConfiguration().getSmtpConfiguration();
 
-        if (smtpConfig == null) {
-            LogUtils.log("SMTP configuration is missing.");
+            if (smtpConfig == null) {
+                LogUtils.log("SMTP configuration is missing.");
+                return false;
+            }
+
+            // Preferred language from user profile or fallback to English
+            String preferredLang = (lang != null && !lang.isEmpty())
+                    ? lang.toLowerCase()
+                    : "en";
+
+            // Select correct template
+            Map<String, String> templateData;
+            switch (preferredLang) {
+                case "ar":
+                    templateData = SendEmailTemplateAr.get(newUsername);
+                    break;
+                case "es":
+                    templateData = SendEmailTemplateEs.get(newUsername);
+                    break;
+                case "fr":
+                    templateData = SendEmailTemplateFr.get(newUsername);
+                    break;
+                case "id":
+                    templateData = SendEmailTemplateId.get(newUsername);
+                    break;
+                case "pt":
+                    templateData = SendEmailTemplatePt.get(newUsername);
+                    break;
+                default:
+                    templateData = SendEmailTemplateEn.get(newUsername);
+                    break;
+            }
+
+            String subject = templateData.get("subject");
+            String htmlBody = templateData.get("body");
+            String textBody = htmlBody.replaceAll("\\<.*?\\>", ""); // crude HTML → text
+
+            // Send signed email
+            MailService mailService = CdiUtil.bean(MailService.class);
+            boolean sent = mailService.sendMailSigned(
+                    smtpConfig.getFromEmailAddress(),
+                    smtpConfig.getFromName(),
+                    to,
+                    null,
+                    subject,
+                    textBody,
+                    htmlBody);
+
+            if (sent) {
+                LogUtils.log("Localized username update email sent successfully to %", to);
+            } else {
+                LogUtils.log("Failed to send localized username update email to %", to);
+            }
+
+            return sent;
+
+        } catch (Exception e) {
+            LogUtils.log("Failed to send username update email: %", e.getMessage());
             return false;
         }
-
-        // Preferred language from user profile or fallback to English
-        String preferredLang = (lang != null && !lang.isEmpty())
-                ? lang.toLowerCase()
-                : "en";
-
-
-        // Select correct template
-        Map<String, String> templateData;
-        switch (preferredLang) {
-            case "ar":
-                templateData = SendEmailTemplateAr.get(newUsername);
-                break;
-            case "es":
-                templateData = SendEmailTemplateEs.get(newUsername);
-                break;
-            case "fr":
-                templateData = SendEmailTemplateFr.get(newUsername);
-                break;
-            case "id":
-                templateData = SendEmailTemplateId.get(newUsername);
-                break;
-            case "pt":
-                templateData = SendEmailTemplatePt.get(newUsername);
-                break;
-            default:
-                templateData = SendEmailTemplateEn.get(newUsername);
-                break;
-        }
-
-        String subject = templateData.get("subject");
-        String htmlBody = templateData.get("body");
-        String textBody = htmlBody.replaceAll("\\<.*?\\>", ""); // crude HTML → text
-
-        // Send signed email
-        MailService mailService = CdiUtil.bean(MailService.class);
-        boolean sent = mailService.sendMailSigned(
-                smtpConfig.getFromEmailAddress(),
-                smtpConfig.getFromName(),
-                to,
-                null,
-                subject,
-                textBody,
-                htmlBody
-        );
-
-        if (sent) {
-            LogUtils.log("Localized username update email sent successfully to %", to);
-        } else {
-            LogUtils.log("Failed to send localized username update email to %", to);
-        }
-
-        return sent;
-
-    } catch (Exception e) {
-        LogUtils.log("Failed to send username update email: %", e.getMessage());
-        return false;
     }
-}
-
 
     // Helper method to fetch SMTP configuration
     private SmtpConfiguration getSmtpConfiguration() {
@@ -407,52 +397,16 @@ public class JansUsernameUpdate extends UsernameUpdate {
         return configurationService.getConfiguration().getSmtpConfiguration();
     }
 
-
-    // Add inside JansEmailUpdate class
-    public String generateSignature(String inum) {
-        try {
-            if (inum == null || inum.isBlank()) {
-                logger.error("inum is null or empty, cannot generate signature");
-                return null;
-            }
-            // Load from Agama config
-            Map<String, String> config = getAgamaConfig();
-            String privateKey = config.get("PRIVATE_KEY");
-
-            if (privateKey == null) {
-                logger.error("PRIVATE_KEY is missing in Agama config");
-                return null;
-            }
-
-            Mac mac = Mac.getInstance("HmacSHA256");
-            SecretKeySpec secretKeySpec = new SecretKeySpec(privateKey.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
-            mac.init(secretKeySpec);
-            byte[] hmacBytes = mac.doFinal(inum.getBytes(StandardCharsets.UTF_8));
-
-            // Convert to lowercase hex
-            StringBuilder sb = new StringBuilder();
-            for (byte b : hmacBytes) {
-                sb.append(String.format("%02x", b));
-            }
-            return sb.toString().toLowerCase();
-
-        } catch (Exception e) {
-            logger.error("Error generating HMAC signature: {}", e.getMessage());
-            return null;
-        }
-    }
-        
-
     public static Map<String, Object> syncUserUsernameWithExternal(String inum, Map<String, String> conf) {
         Map<String, Object> result = new HashMap<>();
         try {
             // Load config using CdiUtil or static ConfigService
             Map<String, String> config = new HashMap<>();
             if (conf == null) {
-            result.put("status", "error");
-            result.put("message", "Configuration is null");
-            return result;
-        }
+                result.put("status", "error");
+                result.put("message", "Configuration is null");
+                return result;
+            }
 
             String publicKey = conf.get("PUBLIC_KEY");
             String privateKey = conf.get("PRIVATE_KEY");
