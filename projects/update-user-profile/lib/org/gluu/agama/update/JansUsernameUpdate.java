@@ -15,6 +15,10 @@ import java.security.SecureRandom;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
+
 import java.util.regex.Pattern;
 import org.gluu.agama.smtp.SendEmailTemplateEn;
 import org.gluu.agama.smtp.SendEmailTemplateAr;
@@ -38,6 +42,7 @@ import io.jans.as.server.service.token.TokenService;
 import io.jans.as.server.model.common.AuthorizationGrant;
 import io.jans.as.server.model.common.AuthorizationGrantList;
 import io.jans.as.server.model.common.AbstractToken;
+private final Map<String, String> flowConfig;
 
 public class JansUsernameUpdate extends UsernameUpdate {
 
@@ -64,6 +69,17 @@ public class JansUsernameUpdate extends UsernameUpdate {
             INSTANCE = new JansUsernameUpdate();
 
         return INSTANCE;
+    }
+
+    public JansEmailUpdate() {
+        this.flowConfig = new HashMap<>();
+        logger.info("Initialized JansUserRegistration using default constructor (no config).");
+    }
+
+    // ✅ Constructor used by getInstance()
+    private JansEmailUpdate(Map config) {
+        this.flowConfig = config;
+        logger.debug("Flow config provided for PhiWallet is: {}", config);
     }
 
     // validate token starts here
@@ -389,5 +405,117 @@ public class JansUsernameUpdate extends UsernameUpdate {
     private SmtpConfiguration getSmtpConfiguration() {
         ConfigurationService configurationService = CdiUtil.bean(ConfigurationService.class);
         return configurationService.getConfiguration().getSmtpConfiguration();
+    }
+
+
+    // Add inside JansEmailUpdate class
+    public String generateSignature(String inum) {
+        try {
+            if (inum == null || inum.isBlank()) {
+                logger.error("inum is null or empty, cannot generate signature");
+                return null;
+            }
+            // Load from Agama config
+            Map<String, String> config = getAgamaConfig();
+            String privateKey = config.get("PRIVATE_KEY");
+
+            if (privateKey == null) {
+                logger.error("PRIVATE_KEY is missing in Agama config");
+                return null;
+            }
+
+            Mac mac = Mac.getInstance("HmacSHA256");
+            SecretKeySpec secretKeySpec = new SecretKeySpec(privateKey.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
+            mac.init(secretKeySpec);
+            byte[] hmacBytes = mac.doFinal(inum.getBytes(StandardCharsets.UTF_8));
+
+            // Convert to lowercase hex
+            StringBuilder sb = new StringBuilder();
+            for (byte b : hmacBytes) {
+                sb.append(String.format("%02x", b));
+            }
+            return sb.toString().toLowerCase();
+
+        } catch (Exception e) {
+            logger.error("Error generating HMAC signature: {}", e.getMessage());
+            return null;
+        }
+    }
+        
+
+    public static Map<String, Object> syncUserUsernameWithExternal(String inum, Map<String, String> conf) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            // Load config using CdiUtil or static ConfigService
+            Map<String, String> config = new HashMap<>();
+            if (conf == null) {
+            result.put("status", "error");
+            result.put("message", "Configuration is null");
+            return result;
+        }
+
+            String publicKey = conf.get("PUBLIC_KEY");
+            String privateKey = conf.get("PRIVATE_KEY");
+
+            if (publicKey == null || privateKey == null) {
+                result.put("status", "error");
+                result.put("message", "PUBLIC_KEY or PRIVATE_KEY missing in config");
+                return result;
+            }
+
+            // Generate HMAC-SHA256 signature (hex lowercase)
+            String signature;
+            try {
+                javax.crypto.Mac mac = javax.crypto.Mac.getInstance("HmacSHA256");
+                javax.crypto.spec.SecretKeySpec secretKey = new javax.crypto.spec.SecretKeySpec(
+                        privateKey.getBytes(java.nio.charset.StandardCharsets.UTF_8),
+                        "HmacSHA256");
+                mac.init(secretKey);
+                byte[] hashBytes = mac.doFinal(inum.getBytes(java.nio.charset.StandardCharsets.UTF_8));
+                StringBuilder hex = new StringBuilder();
+                for (byte b : hashBytes) {
+                    String h = Integer.toHexString(0xff & b);
+                    if (h.length() == 1)
+                        hex.append('0');
+                    hex.append(h);
+                }
+                signature = hex.toString().toLowerCase();
+            } catch (Exception ex) {
+                result.put("status", "error");
+                result.put("message", "Failed to generate signature: " + ex.getMessage());
+                return result;
+            }
+
+            // Build webhook URL
+            String url = String.format("https://api.phiwallet.dev/v1/webhooks/users/%s/sync", inum);
+
+            // HTTP request
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .header("X-AUTH-CLIENT", publicKey)
+                    .header("X-HMAC-SIGNATURE", signature)
+                    .POST(HttpRequest.BodyPublishers.noBody())
+                    .build();
+
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            System.out.println(String.format("Webhook sync response status: %d, body: %s",
+                    response.statusCode(), response.body()));
+
+            if (response.statusCode() == 200) {
+                result.put("status", "success");
+            } else {
+                result.put("status", "error");
+                result.put("message", response.body());
+            }
+
+            return result;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.put("status", "error");
+            result.put("message", e.getMessage());
+            return result;
+        }
     }
 }
