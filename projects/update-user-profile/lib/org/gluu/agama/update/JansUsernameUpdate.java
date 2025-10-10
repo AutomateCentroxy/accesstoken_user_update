@@ -1,5 +1,6 @@
 package org.gluu.agama.update;
 
+import io.jans.agama.engine.service.FlowService;
 import io.jans.as.common.model.common.User;
 import io.jans.as.common.service.common.EncryptionService;
 import io.jans.as.common.service.common.UserService;
@@ -60,16 +61,16 @@ public class JansUsernameUpdate extends UsernameUpdate {
     private static JansUsernameUpdate INSTANCE = null;
     private Map<String, String> flowConfig;
 
-    // ✅ Singleton factory
-    public static synchronized JansUsernameUpdate getInstance(Map<String, String> config) {
+    public JansUsernameUpdate() {
+    }
+
+    public static synchronized JansUsernameUpdate getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new JansUsernameUpdate();
         }
-        INSTANCE.flowConfig = config;
         return INSTANCE;
     }
 
-    // ✅ Utility
     private UserService getUserService() {
         return CdiUtil.bean(UserService.class);
     }
@@ -394,40 +395,6 @@ public class JansUsernameUpdate extends UsernameUpdate {
     private SmtpConfiguration getSmtpConfiguration() {
         ConfigurationService configurationService = CdiUtil.bean(ConfigurationService.class);
         return configurationService.getConfiguration().getSmtpConfiguration();
-    }
-
-    // Add inside JansEmailUpdate class
-    public String generateSignature(String inum) {
-        try {
-            if (inum == null || inum.isBlank()) {
-                logger.error("inum is null or empty, cannot generate signature");
-                return null;
-            }
-            // Load from Agama config
-            Map<String, String> config = getAgamaConfig();
-            String privateKey = config.get("PRIVATE_KEY");
-
-            if (privateKey == null) {
-                logger.error("PRIVATE_KEY is missing in Agama config");
-                return null;
-            }
-
-            Mac mac = Mac.getInstance("HmacSHA256");
-            SecretKeySpec secretKeySpec = new SecretKeySpec(privateKey.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
-            mac.init(secretKeySpec);
-            byte[] hmacBytes = mac.doFinal(inum.getBytes(StandardCharsets.UTF_8));
-
-            // Convert to lowercase hex
-            StringBuilder sb = new StringBuilder();
-            for (byte b : hmacBytes) {
-                sb.append(String.format("%02x", b));
-            }
-            return sb.toString().toLowerCase();
-
-        } catch (Exception e) {
-            logger.error("Error generating HMAC signature: {}", e.getMessage());
-            return null;
-        }
     }
 
     public static Map<String, Object> syncUserUsernameWithExternal(String inum, Map<String, String> conf) {
