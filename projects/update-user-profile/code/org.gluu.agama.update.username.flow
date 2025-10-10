@@ -49,7 +49,7 @@ Repeat 6 times max
                          When inum is not null
                               updatedUser = Call usernameUpdateService getUserEntityByInum inum
                               //  Show user updation log
-                              Log "@info User % has been updated" inum
+                              Log "@info User % has been updated" updatedUser
                               // UserAPiCall method
                               UserServiceAPiCall = Call org.gluu.agama.update.JansUsernameUpdate#syncUserUsernameWithExternal inum conf
                               When UserServiceAPiCall.status is "success"
@@ -66,8 +66,8 @@ Repeat 6 times max
                                    //  Finish the flow successfully
                                    Log "@info Finish the flow successfully"
                                    //  Finish the flow successfully
-                                   it_pvghl = {success:true, data:  { userId: updatedUser.uid } }
-                                   Finish it_pvghl
+                                   it_latej = {success:true, data:  { userId: updatedUser.uid } }
+                                   Finish it_latej
                               Otherwise
                                    // Error Logs
                                    Log "@error External user sync failed: %" UserServiceAPiCall.message
@@ -81,5 +81,5 @@ Repeat 6 times max
 //  Maximum attempt reached
 Log "@info Maximum attempt reached"
 //  User Registration flow failed
-it_rfrgl = {success:false, error: "User update flow reached max attempts try later"}
-Finish it_rfrgl
+it_gvziz = {success:false, error: "User update flow reached max attempts try later"}
+Finish it_gvziz
