@@ -434,52 +434,11 @@
 			"selected": false
 		},
 		{
-			"id": "callNode-638fcd26-6d11-4796-81a2-ac4b1849adab",
-			"type": "callNode",
-			"position": {
-				"x": 3274,
-				"y": 83
-			},
-			"data": {
-				"id": "callNode-638fcd26-6d11-4796-81a2-ac4b1849adab",
-				"type": "callNode",
-				"position": {
-					"x": 2774,
-					"y": 83
-				},
-				"previousNodeId": "whenNode-dc8141ac-0358-490d-a960-429549d1cb3a",
-				"branching": "otherwise",
-				"agamaData": {
-					"javaClassName": "",
-					"javaMethodName": "getUserEntityByInum",
-					"javaVariableName": "usernameUpdateService",
-					"exceptionVariableField": "",
-					"callType": "Call method on instance",
-					"arguments": [
-						"inum"
-					],
-					"nodeIcon": "material-symbols:code",
-					"nodeColor": "",
-					"titleColor": "",
-					"descColor": "",
-					"displayName": "CALL",
-					"hasComment": true,
-					"comment": " Check user already exist or not with username",
-					"asssignedVariableName": "userWithUid"
-				}
-			},
-			"measured": {
-				"width": 170,
-				"height": 123
-			},
-			"selected": false
-		},
-		{
 			"id": "callNode-986994f7-adc1-415c-bc5b-ef57e362ed0f",
 			"type": "callNode",
 			"position": {
-				"x": 3524,
-				"y": 83
+				"x": 3294,
+				"y": 119
 			},
 			"data": {
 				"id": "callNode-986994f7-adc1-415c-bc5b-ef57e362ed0f",
@@ -488,7 +447,7 @@
 					"x": 3024,
 					"y": 83
 				},
-				"previousNodeId": "callNode-638fcd26-6d11-4796-81a2-ac4b1849adab",
+				"previousNodeId": "whenNode-dc8141ac-0358-490d-a960-429549d1cb3a",
 				"agamaData": {
 					"javaClassName": "",
 					"javaMethodName": "updateUser",
@@ -506,7 +465,8 @@
 					"hasComment": true,
 					"comment": " Call user registration service method to update a user",
 					"asssignedVariableName": "inum"
-				}
+				},
+				"branching": "otherwise"
 			},
 			"measured": {
 				"width": 170,
@@ -1325,7 +1285,7 @@
 				"width": 170,
 				"height": 123
 			},
-			"selected": false,
+			"selected": true,
 			"dragging": false
 		},
 		{
@@ -1476,7 +1436,7 @@
 				"width": 170,
 				"height": 123
 			},
-			"selected": true,
+			"selected": false,
 			"dragging": false
 		},
 		{
@@ -1693,44 +1653,6 @@
 			},
 			"labelShowBg": true,
 			"sourceHandle": "source_whenNode-dc8141ac-0358-490d-a960-429549d1cb3a_success"
-		},
-		{
-			"id": "whenNode-dc8141ac-0358-490d-a960-429549d1cb3a-callNode-638fcd26-6d11-4796-81a2-ac4b1849adab",
-			"type": "default",
-			"source": "whenNode-dc8141ac-0358-490d-a960-429549d1cb3a",
-			"target": "callNode-638fcd26-6d11-4796-81a2-ac4b1849adab",
-			"labelBgPadding": [
-				8,
-				4
-			],
-			"labelBgBorderRadius": 4,
-			"label": "otherwise",
-			"labelBgStyle": {
-				"fill": "#009688",
-				"color": "#ffffff",
-				"fillOpacity": 0.7
-			},
-			"labelShowBg": true,
-			"sourceHandle": "source_whenNode-dc8141ac-0358-490d-a960-429549d1cb3a_otherwise"
-		},
-		{
-			"id": "callNode-638fcd26-6d11-4796-81a2-ac4b1849adab-callNode-986994f7-adc1-415c-bc5b-ef57e362ed0f",
-			"type": "default",
-			"source": "callNode-638fcd26-6d11-4796-81a2-ac4b1849adab",
-			"target": "callNode-986994f7-adc1-415c-bc5b-ef57e362ed0f",
-			"labelBgPadding": [
-				8,
-				4
-			],
-			"labelBgBorderRadius": 4,
-			"label": "",
-			"labelBgStyle": {
-				"fill": "#009688",
-				"color": "#ffffff",
-				"fillOpacity": 0.7
-			},
-			"labelShowBg": true,
-			"sourceHandle": "source_callNode-638fcd26-6d11-4796-81a2-ac4b1849adab"
 		},
 		{
 			"id": "callNode-986994f7-adc1-415c-bc5b-ef57e362ed0f-whenNode-9665dec9-f728-414f-b09f-f64328a6dbf1",
@@ -2237,11 +2159,29 @@
 				"fillOpacity": 0.7
 			},
 			"id": "xy-edge__whenNode-191ae07a-5853-4b2a-b15d-cdb95e561559source_whenNode-191ae07a-5853-4b2a-b15d-cdb95e561559_otherwise-logNode-21929b9d-2df9-4bed-8b49-fae35babc4f2target_logNode-21929b9d-2df9-4bed-8b49-fae35babc4f2"
+		},
+		{
+			"source": "whenNode-dc8141ac-0358-490d-a960-429549d1cb3a",
+			"sourceHandle": "source_whenNode-dc8141ac-0358-490d-a960-429549d1cb3a_otherwise",
+			"target": "callNode-986994f7-adc1-415c-bc5b-ef57e362ed0f",
+			"targetHandle": "target_callNode-986994f7-adc1-415c-bc5b-ef57e362ed0f",
+			"label": "otherwise",
+			"labelBgPadding": [
+				8,
+				4
+			],
+			"labelBgBorderRadius": 4,
+			"labelBgStyle": {
+				"fill": "#009688",
+				"color": "#ffffff",
+				"fillOpacity": 0.7
+			},
+			"id": "xy-edge__whenNode-dc8141ac-0358-490d-a960-429549d1cb3asource_whenNode-dc8141ac-0358-490d-a960-429549d1cb3a_otherwise-callNode-986994f7-adc1-415c-bc5b-ef57e362ed0ftarget_callNode-986994f7-adc1-415c-bc5b-ef57e362ed0f"
 		}
 	],
 	"viewport": {
-		"x": -2794.399838095941,
-		"y": 9.3875976724471,
-		"zoom": 0.7071067775348014
+		"x": -3578.8238355783633,
+		"y": 283.31798825073315,
+		"zoom": 1
 	}
 }
