@@ -66,14 +66,13 @@ Repeat 6 times max
                                    //  Finish the flow successfully
                                    Log "@info Finish the flow successfully"
                                    //  Finish the flow successfully
-                                   it_lsrec = {success:true, data:  { userId: updatedUser.uid } }
-                                   Finish it_lsrec
+                                   it_bjfop = {success:true, data:  { userId: updatedUser.uid } }
+                                   Finish it_bjfop
                               Otherwise
                                    // Error Logs
                                    Log "@error External user sync failed: %" UserServiceAPiCall.message
-                                   // API Error Message
-                                   it_apiError = { success: true, error: "SyncUserAPiCallError" }
-                                   Finish it_apiError
+                                   it_tfihf = {success:true, data: SyncUserAPiCallError}
+                                   Finish it_tfihf
                          Otherwise
                               //  User update failed log
                               Log "@info User update failed. Error : %" E
@@ -81,5 +80,5 @@ Repeat 6 times max
 //  Maximum attempt reached
 Log "@info Maximum attempt reached"
 //  User Registration flow failed
-it_xdvwz = {success:false, error: "User update flow reached max attempts try later"}
-Finish it_xdvwz
+it_djoox = {success:false, error: "User update flow reached max attempts try later"}
+Finish it_djoox
