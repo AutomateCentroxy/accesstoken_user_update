@@ -1464,8 +1464,8 @@
 					"assignments": [
 						{
 							"variableTypeCheck": true,
-							"assignmentExpression": "\"Unable to update the user via the API.\"",
-							"assignedVariableName": "uiFeedback.errorMessage"
+							"assignmentExpression": "{ success: true, error: \"SyncUserAPiCallError\" }",
+							"assignedVariableName": "it_apiError"
 						}
 					],
 					"nodeIcon": "material-symbols:equal",
@@ -1475,6 +1475,40 @@
 					"displayName": "",
 					"hasComment": true,
 					"comment": "API Error Message"
+				}
+			},
+			"measured": {
+				"width": 170,
+				"height": 123
+			},
+			"selected": false
+		},
+		{
+			"id": "finishNode-13fa852c-6a49-4415-9f07-ad8fe7ade511",
+			"type": "finishNode",
+			"position": {
+				"x": 5449.160687761013,
+				"y": 711.3962348502082
+			},
+			"data": {
+				"id": "finishNode-13fa852c-6a49-4415-9f07-ad8fe7ade511",
+				"type": "finishNode",
+				"position": {
+					"x": 5449.160687761013,
+					"y": 711.3962348502082
+				},
+				"previousNodeId": "assignmentNode-3e1d8272-6c76-4d92-8009-cb15d3636ac5",
+				"agamaData": {
+					"nodeColor": "",
+					"titleColor": "",
+					"descColor": "",
+					"displayName": "{ success: true, error: \"SyncUserAPiCallError\" }",
+					"hasComment": true,
+					"comment": "",
+					"flowfilename": "",
+					"returnVariable": "it_apiError",
+					"finishMode": "withVariable",
+					"nodeIcon": "material-symbols:line-end-square-rounded"
 				}
 			},
 			"measured": {
@@ -2181,11 +2215,30 @@
 			},
 			"labelShowBg": true,
 			"sourceHandle": "source_logNode-21929b9d-2df9-4bed-8b49-fae35babc4f2"
+		},
+		{
+			"id": "assignmentNode-3e1d8272-6c76-4d92-8009-cb15d3636ac5-finishNode-13fa852c-6a49-4415-9f07-ad8fe7ade511",
+			"type": "default",
+			"source": "assignmentNode-3e1d8272-6c76-4d92-8009-cb15d3636ac5",
+			"target": "finishNode-13fa852c-6a49-4415-9f07-ad8fe7ade511",
+			"labelBgPadding": [
+				8,
+				4
+			],
+			"labelBgBorderRadius": 4,
+			"label": "",
+			"labelBgStyle": {
+				"fill": "#009688",
+				"color": "#ffffff",
+				"fillOpacity": 0.7
+			},
+			"labelShowBg": true,
+			"sourceHandle": "source_assignmentNode-3e1d8272-6c76-4d92-8009-cb15d3636ac5"
 		}
 	],
 	"viewport": {
-		"x": -5078.825912380253,
-		"y": -247.5168548467501,
-		"zoom": 1.189207111931981
+		"x": -3228.9166269316156,
+		"y": -262.4877203215657,
+		"zoom": 0.840896408739691
 	}
 }
