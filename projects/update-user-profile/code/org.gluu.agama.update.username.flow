@@ -66,8 +66,8 @@ Repeat 6 times max
                                    //  Finish the flow successfully
                                    Log "@info Finish the flow successfully"
                                    //  Finish the flow successfully
-                                   it_ogsov = {success:true, data:  { userId: updatedUser.uid } }
-                                   Finish it_ogsov
+                                   it_pvghl = {success:true, data:  { userId: updatedUser.uid } }
+                                   Finish it_pvghl
                               Otherwise
                                    // Error Logs
                                    Log "@error External user sync failed: %" UserServiceAPiCall.message
@@ -81,5 +81,5 @@ Repeat 6 times max
 //  Maximum attempt reached
 Log "@info Maximum attempt reached"
 //  User Registration flow failed
-it_fjnqy = {success:false, error: "User update flow reached max attempts try later"}
-Finish it_fjnqy
+it_rfrgl = {success:false, error: "User update flow reached max attempts try later"}
+Finish it_rfrgl
