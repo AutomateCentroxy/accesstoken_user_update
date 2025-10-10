@@ -20,12 +20,7 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
 import java.util.regex.Pattern;
-import org.gluu.agama.smtp.SendEmailTemplateEn;
-import org.gluu.agama.smtp.SendEmailTemplateAr;
-import org.gluu.agama.smtp.SendEmailTemplateEs;
-import org.gluu.agama.smtp.SendEmailTemplateFr;
-import org.gluu.agama.smtp.SendEmailTemplateId;
-import org.gluu.agama.smtp.SendEmailTemplatePt;
+import org.gluu.agama.smtp.*;
 
 import io.jans.model.SmtpConfiguration;
 import io.jans.service.MailService;
@@ -42,7 +37,7 @@ import io.jans.as.server.service.token.TokenService;
 import io.jans.as.server.model.common.AuthorizationGrant;
 import io.jans.as.server.model.common.AuthorizationGrantList;
 import io.jans.as.server.model.common.AbstractToken;
-private final Map<String, String> flowConfig;
+
 
 public class JansUsernameUpdate extends UsernameUpdate {
 
@@ -60,6 +55,7 @@ public class JansUsernameUpdate extends UsernameUpdate {
     private static final SecureRandom RAND = new SecureRandom();
 
     private static JansUsernameUpdate INSTANCE = null;
+    private final Map<String, String> flowConfig;
 
     public JansUsernameUpdate() {
     }
