@@ -1301,13 +1301,14 @@
 				},
 				"previousNodeId": "logNode-08970cfe-fa05-42f4-8752-85ec81bb464c",
 				"agamaData": {
-					"javaClassName": "",
-					"javaMethodName": "syncUserWithExternal",
+					"javaClassName": "org.gluu.agama.update.JansUsernameUpdate",
+					"javaMethodName": "syncUserUsernameWithExternal",
 					"javaVariableName": "usernameUpdateService",
 					"exceptionVariableField": "",
-					"callType": "Call method on instance",
+					"callType": "Call static method",
 					"arguments": [
-						"inum"
+						"inum",
+						"conf"
 					],
 					"nodeIcon": "material-symbols:code",
 					"nodeColor": "",
@@ -1323,7 +1324,7 @@
 				"width": 170,
 				"height": 123
 			},
-			"selected": false,
+			"selected": true,
 			"dragging": false
 		},
 		{
@@ -1439,8 +1440,8 @@
 				}
 			},
 			"measured": {
-				"width": 168,
-				"height": 120
+				"width": 170,
+				"height": 123
 			},
 			"selected": false
 		},
@@ -1480,7 +1481,7 @@
 				"width": 170,
 				"height": 123
 			},
-			"selected": true
+			"selected": false
 		}
 	],
 	"edges": [
@@ -2183,8 +2184,8 @@
 		}
 	],
 	"viewport": {
-		"x": -2457.631943819043,
-		"y": -185.19273583496914,
-		"zoom": 0.5946035534070404
+		"x": -4693.825912380253,
+		"y": -184.5168548467501,
+		"zoom": 1.189207111931981
 	}
 }
