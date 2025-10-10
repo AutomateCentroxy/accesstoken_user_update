@@ -58,7 +58,7 @@ Repeat 6 times max
                                    // Error Logs
                                    Log "@error External user sync failed: %" UserServiceAPiCall.message
                                    // API Error Message
-                                   uiFeedback.errorMessage = UserServiceAPiCall.message
+                                   uiFeedback.errorMessage = "Unable to update the user via the API."
                               Otherwise
                                    // Extract fields from updated user
                                    email = updatedUser.email
@@ -73,8 +73,8 @@ Repeat 6 times max
                                    //  Finish the flow successfully
                                    Log "@info Finish the flow successfully"
                                    //  Finish the flow successfully
-                                   it_ymmks = {success:true, data:  { userId: updatedUser.uid } }
-                                   Finish it_ymmks
+                                   it_pdwxg = {success:true, data:  { userId: updatedUser.uid } }
+                                   Finish it_pdwxg
                          Otherwise
                               //  User update failed log
                               Log "@info User update failed. Error : %" E
@@ -82,5 +82,5 @@ Repeat 6 times max
 //  Maximum attempt reached
 Log "@info Maximum attempt reached"
 //  User Registration flow failed
-it_wxxsd = {success:false, error: "User update flow reached max attempts try later"}
-Finish it_wxxsd
+it_fffqo = {success:false, error: "User update flow reached max attempts try later"}
+Finish it_fffqo
