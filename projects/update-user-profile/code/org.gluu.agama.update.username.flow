@@ -68,10 +68,9 @@ Repeat 6 times max
                                    //  Finish the flow successfully
                                    Log "@info Finish the flow successfully"
                                    //  Finish the flow successfully
-                                   it_mikdm = {success:true, data:  { userId: updatedUser.uid } }
-                                   Finish it_mikdm
+                                   it_epstj = {success:true, data:  { userId: updatedUser.uid } }
+                                   Finish it_epstj
                               Otherwise
-                                   Log "@ " __________
                                    // Error Logs
                                    Log "@error External user sync failed: %" UserServiceAPiCall.message
                                    // API Error Message
@@ -84,5 +83,5 @@ Repeat 6 times max
 //  Maximum attempt reached
 Log "@info Maximum attempt reached"
 //  User Registration flow failed
-it_cxocr = {success:false, error: "User update flow reached max attempts try later"}
-Finish it_cxocr
+it_mvjbr = {success:false, error: "User update flow reached max attempts try later"}
+Finish it_mvjbr
