@@ -606,7 +606,7 @@
 				},
 				"previousNodeId": "callNode-7d7d28c9-46a9-4488-9305-58712b7ec7fb",
 				"agamaData": {
-					"logMessage": "\"User % has been updated\" inum",
+					"logMessage": "\"User % has been updated\" updatedUser",
 					"logLevel": "info",
 					"nodeIcon": "octicon:log-16",
 					"nodeColor": "",
@@ -1285,7 +1285,7 @@
 				"width": 170,
 				"height": 123
 			},
-			"selected": false,
+			"selected": true,
 			"dragging": false
 		},
 		{
@@ -2180,8 +2180,8 @@
 		}
 	],
 	"viewport": {
-		"x": -1238.2561237939185,
-		"y": 186.6833387591475,
-		"zoom": 0.5
+		"x": -3854.184618326606,
+		"y": 65.86520399821507,
+		"zoom": 0.9999999896713024
 	}
 }
