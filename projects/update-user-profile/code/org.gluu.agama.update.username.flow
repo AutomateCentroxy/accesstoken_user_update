@@ -54,13 +54,7 @@ Repeat 6 times max
                               Log "@info User % has been updated" inum
                               // UserAPiCall method
                               UserServiceAPiCall = Call org.gluu.agama.update.JansUsernameUpdate#syncUserUsernameWithExternal inum conf
-                              When UserServiceAPiCall.status is not "success"
-                                   // Error Logs
-                                   Log "@error External user sync failed: %" UserServiceAPiCall.message
-                                   // API Error Message
-                                   it_apiError = { success: true, error: "SyncUserAPiCallError" }
-                                   Finish it_apiError
-                              Otherwise
+                              When UserServiceAPiCall.status is "success"
                                    // Extract fields from updated user
                                    email = updatedUser.email
                                    newUsername = updatedUser.uid
@@ -74,8 +68,15 @@ Repeat 6 times max
                                    //  Finish the flow successfully
                                    Log "@info Finish the flow successfully"
                                    //  Finish the flow successfully
-                                   it_jsrjd = {success:true, data:  { userId: updatedUser.uid } }
-                                   Finish it_jsrjd
+                                   it_mikdm = {success:true, data:  { userId: updatedUser.uid } }
+                                   Finish it_mikdm
+                              Otherwise
+                                   Log "@ " __________
+                                   // Error Logs
+                                   Log "@error External user sync failed: %" UserServiceAPiCall.message
+                                   // API Error Message
+                                   it_apiError = { success: true, error: "SyncUserAPiCallError" }
+                                   Finish it_apiError
                          Otherwise
                               //  User update failed log
                               Log "@info User update failed. Error : %" E
@@ -83,5 +84,5 @@ Repeat 6 times max
 //  Maximum attempt reached
 Log "@info Maximum attempt reached"
 //  User Registration flow failed
-it_viwbm = {success:false, error: "User update flow reached max attempts try later"}
-Finish it_viwbm
+it_cxocr = {success:false, error: "User update flow reached max attempts try later"}
+Finish it_cxocr
