@@ -52,22 +52,23 @@ Repeat 6 times max
                               Log "@info User % has been updated" updatedUser
                               // UserAPiCall method
                               UserServiceAPiCall = Call org.gluu.agama.update.JansUsernameUpdate#syncUserUsernameWithExternal inum conf
-                              When UserServiceAPiCall.status is "success"
-                                   // Extract fields from updated user
-                                   email = updatedUser.email
-                                   newUsername = updatedUser.uid
-                                   lang = updatedUser.lang
-                                   // Send confirmation email
-                                   emailStatus = Call usernameUpdateService sendUsernameUpdateEmail email newUsername lang
-                                   // Email send to to the user
-                                   Log "@info Email send to to the user" lang email newUsername
-                                   //  Show acknowledgement UI page for successful Update 
-                                   acknowledgementInput = RRF "acknowledgementUsername.ftlh" 
-                                   //  Finish the flow successfully
-                                   Log "@info Finish the flow successfully"
-                                   //  Finish the flow successfully
-                                   it_qayxk = {success:true, data:  { userId: updatedUser.uid } }
-                                   Finish it_qayxk
+                              // Info Logs
+                              Log "@info External user sync response: %" UserServiceAPiCall.message
+                              // Extract fields from updated user
+                              email = updatedUser.email
+                              newUsername = updatedUser.uid
+                              lang = updatedUser.lang
+                              // Send confirmation email
+                              emailStatus = Call usernameUpdateService sendUsernameUpdateEmail email newUsername lang
+                              // Email send to to the user
+                              Log "@info Email send to to the user" lang email newUsername
+                              //  Show acknowledgement UI page for successful Update 
+                              acknowledgementInput = RRF "acknowledgementUsername.ftlh" 
+                              //  Finish the flow successfully
+                              Log "@info Finish the flow successfully"
+                              //  Finish the flow successfully
+                              it_ztjrj = {success:true, data:  { userId: updatedUser.uid } }
+                              Finish it_ztjrj
                          Otherwise
                               //  User update failed log
                               Log "@info User update failed. Error : %" E
@@ -75,5 +76,5 @@ Repeat 6 times max
 //  Maximum attempt reached
 Log "@info Maximum attempt reached"
 //  User Registration flow failed
-it_mwajw = {success:false, error: "User update flow reached max attempts try later"}
-Finish it_mwajw
+it_cssjr = {success:false, error: "User update flow reached max attempts try later"}
+Finish it_cssjr
